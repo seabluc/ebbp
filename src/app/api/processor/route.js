@@ -1,23 +1,21 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-//import { query } from "@/lib/db";
+// confirm with GPT, but is this technically writing the response on the serverend? 
+// so an API endpoint is just writing the response you expect from the server instead of.. no wait
+// theres an HTTP method which is the end user's request. responses should only have the json body and a status code.
+// so why is there a status code in the catch statement..? 
+import connection from '@/lib/db';
 
-export default function handler(req, res) {
-  res.status(200).json({ text: "hello" });
-}
-
-/*
-// req comes from another page ...
-export default async function handler(req, res) {
-  // If its GET, then run a query in SQL
-  if (req.method === "GET") {
-     
-    // In SQL, select data from database
-    const products = await query({
-      query:"SELECT * FROM processor",
-      values:[]
+export async function GET(request) {
+  try {
+    const [rows] = await connection.query(
+      'SELECT processor_id, manufacturer, lineup, model, suffix, base_clock, boost_clock FROM processor'
+    );
+    return new Response(JSON.stringify(rows), {
+      headers: { 'Content-Type': 'application/json' },
     });
-
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 500,
+    });
   }
-  res.status(200).json({ name: "John Doe" });
 }
-*/
