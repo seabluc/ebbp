@@ -1,7 +1,5 @@
-// confirm with GPT, but is this technically writing the response on the serverend? 
-// so an API endpoint is just writing the response you expect from the server instead of.. no wait
-// theres an HTTP method which is the end user's request. responses should only have the json body and a status code.
-// so why is there a status code in the catch statement..? 
+// this is an API endpoint that sends a request to the location specified by
+// the URL (/api/processor) and what to specifically request via HTTP method
 import connection from '@/lib/db';
 
 export async function GET(request) {

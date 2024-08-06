@@ -1,3 +1,5 @@
+// this is an API endpoint of sending a request to the location specified by
+// the URL (app's file structure) and what to specifically request via HTTP method
 import connection from '@/lib/db';
 
 export async function GET(request) {
