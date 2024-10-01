@@ -1,13 +1,13 @@
-// this is an API endpoint of sending a request to the location specified by
-// the URL (app's file structure) and what to specifically request via HTTP method
+// this is an API endpoint that sends a request to the location specified by
+// the URL (/api/video_card) and what to specifically request via HTTP method
 import connection from '@/lib/db';
 
 export async function GET(request) {
   try {
-    const [rows] = await connection.query('SELECT * FROM cpu');
+    const [rows] = await connection.query('SELECT * FROM video_card');
     return new Response(JSON.stringify(rows), {
       headers: { 'Content-Type': 'application/json' },
-    });
+    }); 
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { 'Content-Type': 'application/json' },
@@ -15,4 +15,3 @@ export async function GET(request) {
     });
   }
 }
-
