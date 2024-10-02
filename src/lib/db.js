@@ -16,3 +16,25 @@ const connectionConfig = {
 const connection = mysql.createPool(connectionConfig);
 
 export default connection;
+
+/* Async Await doesn't work -> "error" : "Cannot read properties of undefined (reading 'query')"
+export async function query({ query, values = [] }) {
+  const dbconnection = await mysql.createConnection({
+    host: process.env.MYSQL_HOST,
+    database: process.env.MYSQL_DATABASE,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+  });
+
+  try {
+    const [results] = await dbconnection.execute(query, values);
+    dbconnection.end();
+    return results;
+  } catch (error) {
+    throw Error(error.message);
+    return { error };
+  }
+}
+*/
+
+
