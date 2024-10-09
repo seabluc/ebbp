@@ -47,7 +47,7 @@ export const Navbar = () => {
             </div>
           </div>
           <Link
-            href="/account"
+            href="/account/login"
             className="focus-within:bg-slate-200 hover:bg-slate-50 border-2 rounded-xl p-4"
           >Account
           </Link>
