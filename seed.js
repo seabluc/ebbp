@@ -1,4 +1,11 @@
-/*
+/* good practices:
+ * step 1: create models. models reflect tables on server accordingly 
+ * instead of inserting directly on phpmyadmin, i should be populating the 
+ * database solely through code, more specifically seed scripts.
+ * seed scripts r super important devs always use them.
+ * populating through code actually allows it to go through validation tests
+ * ...
+ * create modals through code so users dont mess up data on the server itself
 import connection from '@/lib/db.js';
 
 const seedData = async () => {
