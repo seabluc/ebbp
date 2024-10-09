@@ -29,6 +29,11 @@ export const Navbar = () => {
                 >Guides
                 </Link>
                 <Link
+                  href="/glossary"
+                  className="focus-within:bg-slate-200 hover:bg-slate-50 border-2 rounded-xl p-4"
+                >Glossary
+                </Link>
+                <Link
                   href="/generate"
                   className="focus-within:bg-slate-200 hover:bg-slate-50 border-2 rounded-xl p-4"
                 >Generate PC
