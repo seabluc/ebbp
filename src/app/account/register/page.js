@@ -1,22 +1,25 @@
 'use client'
 import { useState } from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '@/app/firebase/config'
+import { useRouter } from 'next/navigation'
 
-const Register = () => {
+const Login = () => {
   // State for form fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     try {
-      const res = await createUserWithEmailAndPassword(email, password);
+      const res = await signInWithEmailAndPassword(email, password);
       console.log({ res });
       setEmail('');
       setPassword('');
+      router.push('/')
     } catch (e) {
       console.error(e);
     }
@@ -25,8 +28,8 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-80">
-        <h2 className="text-center text-2xl font-semibold mb-4">Register</h2>
-        <form onSubmit={handleSubmit}> {/* Keep onSubmit here */}
+        <h2 className="text-center text-2xl font-semibold mb-4">Login</h2>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="email">
               Email
@@ -54,10 +57,10 @@ const Register = () => {
             />
           </div>
           <button
-            type="submit" // Keep button type as submit
+            type="submit"
             className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
-            Register
+            Login
           </button>
         </form>
       </div>
@@ -65,4 +68,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
