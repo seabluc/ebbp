@@ -1,26 +1,23 @@
 'use client'
 import { useState } from 'react';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '@/app/firebase/config'
-import { useRouter } from 'next/navigation'
 import Link from "next/link";
 
-const Login = () => {
+const Register = () => {
   // State for form fields
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
-  const router = useRouter()
+  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent default form submission
     try {
-      const res = await signInWithEmailAndPassword(email, password);
+      const res = await createUserWithEmailAndPassword(email, password);
       console.log({ res });
       setEmail('');
       setPassword('');
-      router.push('/')
     } catch (e) {
       console.error(e);
     }
@@ -29,8 +26,8 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md w-80">
-        <h2 className="text-center text-2xl font-semibold mb-4">Login</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="text-center text-2xl font-semibold mb-4">Register</h2>
+        <form onSubmit={handleSubmit}> {/* Keep onSubmit here */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700" htmlFor="email">
               Email
@@ -58,15 +55,15 @@ const Login = () => {
             />
           </div>
           <button
-            type="submit"
+            type="submit" // Keep button type as submit
             className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
-            Login
+            Register
           </button>
         </form>
         <div className="flex justify-center pt-3">
-          <Link href="/account/register" className="">
-            New user? <u className="text-blue-500 text-center">Sign up</u>
+          <Link href="/account/login" className="">
+            Have an account? <u className="text-blue-500">Log in</u>
           </Link>
         </div>
       </div>
@@ -74,4 +71,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
