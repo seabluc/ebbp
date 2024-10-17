@@ -28,3 +28,27 @@ const seedData = async () => {
   }
 };
 */
+
+/* WHY USE SEEDERS? I HAVE A GUI (PHPMYADMIN) TO VALIDATE DATA. 
+ * It's true that a GUI like phpMyAdmin is helpful for checking & manipulating
+ * data; however using seeders with Sequelize offers distinct advantages that 
+ * complement the development workflow, such as automated data population, 
+ * version contrl, consistency, ease of testing, and less manual work.
+ * 
+ * Seeders allow you to automate the process of populating your database with 
+ * initial/test data. Seeders are a good practice for the initiial setup of the
+ * database during the development & testing stages. You only run a seed script
+ * once and that data stays on your database. The only instance where you will
+ * have to rerun your seeders are when you want to update your initial data,
+ * clearing existing data and repopulate it with fresh data (after implementing
+ * a method to delete the existing data that is), and if the schema changes. `
+ * tldr seeders allow consistency across different environments or team members
+ * 
+ * Version Control - since seeders are written in code, this means you can keep
+ * track of changes over time. This provides a history of how the initial data
+ * has evolved, making it easier to manage updates and migrations.
+ * In a team environment, seeders can be versioned with your code in a Git
+ * repo, ensuring all team members have access to the smae initial data set and
+ * can easily apply changes.
+ * 
+*/

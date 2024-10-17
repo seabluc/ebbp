@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Part', {
-      id: { // rename this?
+      partId: { // rename this?
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -19,6 +19,11 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      manufacturer: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
@@ -28,7 +33,6 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
-      // include foreign key here
     });
   },
 

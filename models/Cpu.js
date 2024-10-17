@@ -4,46 +4,64 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Cpu extends Model {
     static associate(models) {
-      Cpu.hasOne(models.Part, {
-        foreignKey: 'partId', // foreign key in the Cpu table
-        onDelete: 'CASCADE', // Ensures that if a Part is deleted, its Cpu will also be deleted
+      // one-to-one with Computer table
+      Cpu.hasOne(models.Computer, {
+        foreignKey: 'cpuId', // Computer's FK, Cpu's PK
+        onDelete: 'CASCADE',
+      });
+
+      // one-to-one with Part table
+      Cpu.belongsTo(models.Part, {
+        foreignKey: 'partId', // Cpu's partId FK, and Cpu belongs to Part
+        onDelete: 'CASCADE',
       });
     }
   }
   Cpu.init(
     {
+      cpuId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      partId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true, // Never have multiple instances of a Cpu in a Part
+      },
       series: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
-      architecture: {
+      microarchitecture: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       coreFamily: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       socket: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       coreCount: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       threadCount: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       performanceCoreClock: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       performanceCoreBoostClock: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      efficiencyCoreClock: { // Intel exclusive (Haven't seen AMD with these)
+      efficiencyCoreClock: { // Intel exclusive, hence nullable
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -51,48 +69,43 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      l2Cache: {
+      lTwoCache: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      l3Cache: {
+      lThreeCache: {
         type: DataTypes.STRING,
         allowNull: true,
       },
       tdp: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      maxTurboPower: {
+      maxTurboPower: { // Intel exclusive
         type: DataTypes.STRING,
         allowNull: true,
       },
       integrated: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       memoryMax: {
         type: DataTypes.STRING,
-        allowNull: true,
-      },
-      eccSupport: {
-        type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       lithography: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       multithreading: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       }
     },
     {
-      sequelize, // keyword, Sequelize instance that provides methods for defining models, making queries, and managing the connection.
-      modelName: 'Cpu', // name used internally within Sequelize
-      tableName: 'Cpu', // actual name of the table in the database
-      // timestamps: true, // not needed i using .NOW
+      sequelize,
+      modelName: 'Cpu',
+      tableName: 'Cpu',
     }
   );
   return Cpu;

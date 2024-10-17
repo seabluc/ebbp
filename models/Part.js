@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
     // Associate function defines relationships between models, 
     // such as setting up foreign keys and defining cardinalities.
     static associate(models) {
-      // Each component is unique due to specs such as part number. Therefore, 
-      // Part will have a one-to-one relationship with every component.
+      // Each component is unique due to specs such as part number. Therefore,
+      // Part will have a one-to-one relationship with every component/table.
       Part.hasOne(models.Cpu,  {
         foreignKey: 'partId', // FK in Cpu table
-        onDelete: 'CASCADE', // Ensures that if a Part is deleted, its Cpu will also be deleted
+        onDelete: 'CASCADE', // if a Part is deleted, its Cpu will be deleted
       });
       Part.hasOne(models.CpuCooler, {
-        foreignKey: 'partId', // CpuCooler FK
+        foreignKey: 'partId', 
         onDelete: 'CASCADE', 
       });
       Part.hasOne(models.Motherboard, {
@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       image: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       manufacturer: {
         type: DataTypes.STRING,
@@ -57,6 +58,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       partNum: {
         type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
       },
     },
     {
