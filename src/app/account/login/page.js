@@ -26,12 +26,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-md w-80">
-        <h2 className="text-center text-2xl font-semibold mb-4">Login</h2>
+    <div className="flex items-center justify-center h-screen bg-[#4D585B]"> {/* Background: Charcoal */}
+      <div className="bg-[#488A99] p-6 rounded-lg shadow-md w-80"> {/* Background: Dark Aqua */}
+        <h2 className="text-center text-2xl font-semibold text-[#DBAE58] mb-4"> {/* Title: Gold */}
+          Login
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+            <label className="block text-sm font-medium text-[#DBAE58]" htmlFor="email"> {/* Label: Gold */}
               Email
             </label>
             <input
@@ -40,11 +42,11 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full p-2 border border-[#DBAE58] rounded-md focus:outline-none focus:ring-2 focus:ring-[#DBAE58]" // Gold border
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700" htmlFor="password">
+            <label className="block text-sm font-medium text-[#DBAE58]" htmlFor="password"> {/* Label: Gold */}
               Password
             </label>
             <input
@@ -53,12 +55,12 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full p-2 border border-[#DBAE58] rounded-md focus:outline-none focus:ring-2 focus:ring-[#DBAE58]" // Gold border
             />
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="w-full py-2 px-4 bg-[#DBAE58] text-white font-semibold rounded-md hover:bg-[#488A99] focus:outline-none focus:ring-2 focus:ring-[#DBAE58]" // Button: Gold
           >
             Login
           </button>

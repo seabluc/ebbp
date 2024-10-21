@@ -1,47 +1,143 @@
-import { Button } from "@nextui-org/button";
+import { Card, CardHeader, CardBody, Divider, Link, Image } from "@nextui-org/react";
 
-export default function Home() {
+export default function App() {
   return (
-    <>
-      <div className="grid grid-cols-3 grid-rows-3"> {/* 3x3 Grid container that handles 9 grid items */}
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#4D585B]"> {/* Background: Charcoal */}
+      <h1 className="text-4xl font-bold mb-8 text-[#DBAE58]">Home Page</h1> {/* Title: Gold */}
 
-        <div className="col-span-1"> {/* Grid child element, css equivalent to grid-column: span 1; */}
-          <div className="row-span-1"> {/* Grid child element, css equivalent to grid-row: span 1; */}
-            <div className=" grid">
-              <h1 className="text-center text-lg pt-4">Home Page</h1>
-              <div className="pt-2 pl-8">
-                <Button>NextUI lib Button component </Button>
-              </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1650px]">
+        {/* First Card */}
+        <Card className="w-[550px] h-[350px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex gap-3">
+            <Image
+              alt="nextui logo"
+              height={50}
+              radius="sm"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+              width={50}
+            />
+            <div className="flex flex-col">
+              <Link isExternal showAnchorIcon href="/workshop" className="text-[#DBAE58]">
+                PC Workshop
+              </Link>
             </div>
-          </div>
-        </div>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="text-[#E0E0E0]"> {/* Text: Light Gray */}
+            <p>PC Workshop text</p>
+          </CardBody>
+        </Card>
+
+        {/* Second Card */}
+        <Card className="w-[550px] h-[350px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex gap-3">
+            <Image
+              alt="React logo"
+              height={50}
+              radius="sm"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+              width={50}
+            />
+            <div className="flex flex-col">
+              <Link isExternal showAnchorIcon href="/products" className="text-[#DBAE58]">
+                Products
+              </Link>
+            </div>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="text-[#E0E0E0]">
+            <p>Products text</p>
+          </CardBody>
+        </Card>
+
+        {/* Third Card */}
+        <Card className="w-[550px] h-[350px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex gap-3">
+            <Image
+              alt="Vue logo"
+              height={50}
+              radius="sm"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+              width={50}
+            />
+            <div className="flex flex-col">
+              <Link isExternal showAnchorIcon href="/guides" className="text-[#DBAE58]">
+                Guides
+              </Link>
+            </div>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="text-[#E0E0E0]">
+            <p>Guides text</p>
+          </CardBody>
+        </Card>
+
+        {/* Fourth Card */}
+        <Card className="w-[550px] h-[350px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex gap-3">
+            <Image
+              alt="Svelte logo"
+              height={50}
+              radius="sm"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+              width={50}
+            />
+            <div className="flex flex-col">
+              <Link isExternal showAnchorIcon href="/glossary" className="text-[#DBAE58]">
+                Glossary
+              </Link>
+            </div>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="text-[#E0E0E0]">
+            <p>Glossary text</p>
+          </CardBody>
+        </Card>
+
+        {/* Fifth Card */}
+        <Card className="w-[550px] h-[350px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex gap-3">
+            <Image
+              alt="Svelte logo"
+              height={50}
+              radius="sm"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+              width={50}
+            />
+            <div className="flex flex-col">
+              <Link isExternal showAnchorIcon href="/generate" className="text-[#DBAE58]">
+                Generate PC
+              </Link>
+            </div>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="text-[#E0E0E0]">
+            <p>Generate PC text</p>
+          </CardBody>
+        </Card>
+
+        {/* Sixth Card */}
+        <Card className="w-[550px] h-[350px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex gap-3">
+            <Image
+              alt="Svelte logo"
+              height={50}
+              radius="sm"
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+              width={50}
+            />
+            <div className="flex flex-col">
+              <Link isExternal showAnchorIcon href="/account/login" className="text-[#DBAE58]">
+                Account
+              </Link>
+            </div>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="text-[#E0E0E0]">
+            <p>Account text</p>
+          </CardBody>
+        </Card>
       </div>
-    </>
+    </div>
   );
 }
-
-// fr - fraction unit. grid-template-columns: 2fr 1fr; would create 2 columns in your grid, with the 1st col taking up 66%
-// of its parents width, and the 2nd column's width being the remaining third.
-
-// when defining your grid columns, you can use a repeat. let's say you wanted 4 columns and each being 100px wide.
-// instead of writing grid-template-columns: 100px 100px 100px 100px; you can do grid-template-columns: repeat(4, 100px);
-
-// if you don't know how large your grid is going to be, so you don't know how many columns or rows you need, you can use:
-// grid-auto-rows: 100px; and grid-auto-cols: 100px;
-// this will determine the size of all rows and cols that get added after our template rows and template cols
-
-// use minmax() to establish the minimum size and maximum size of a grid item.
-// grid-auto-rows: minmax(150px, auto); will set all rows to a minimum size of 150px and
-// the max size will automatically scale with the content inside the row item
-
-//      <div className="grid"> {/* Grid container, css equivalent to display: grid */}
-//      <div className="grid-cols-1"> {/*css equivalent to grid-template-columns: repeat(1, minmax(0, 1fr)); */}
-//      <div className="grid-rows-1"> {/*css equivalent to grid-template-rows: repeat(1, minmax(0, 1fr)); */}
-//        <div className="col-span-1"> {/* Grid child element, css equivalent to grid-column: span 1; */}
-//          <div className="row-span-1"> {/* Grid child element, css equivalent to grid-row: span 1; */}
-//            <h1 className="text-center text-lg pt-4">Home Page</h1>
-//          </div>
-//        </div>
-//      </div>
-//    </div>
-//  </div>
