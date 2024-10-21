@@ -9,12 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nextui-org/accordion": "^2.0.40",
+    "@nextui-org/react": "^2.4.8",
+    "@nextui-org/system": "^2.2.6",
+    "@nextui-org/table": "^2.0.40",
+    "@nextui-org/theme": "^2.2.11",
     "firebase": "^10.14.0",
+    "framer-motion": "^11.11.9",
     "mysql2": "^3.11.3",
     "next": "^14.2.14",
     "react": "^18",
     "react-dom": "^18",
-    "react-firebase-hooks": "^5.1.1"
+    "react-firebase-hooks": "^5.1.1",
+    "react-router-dom": "^6.27.0"
   },
   "devDependencies": {
     "eslint": "^8.57.1",
