@@ -25,7 +25,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchData("/api/cpu", setCpuData);
+    fetchData("/api/processor", setCpuData);
+    //fetchData("/api/cpu", setCpuData);
     fetchData("/api/motherboard", setMoboData);
     fetchData("/api/cpu_cooler", setCoolerData);
     fetchData("/api/memory", setMemoryData);

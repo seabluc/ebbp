@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'motherboardId',
         onDelete: 'CASCADE',
       });
-      Computer.hasMany(models.Memory, { // A computer can have many memory modules
+      Computer.hasMany(models.Memory, { // A computer can have many RAM modules
         foreignKey: 'memoryId',
         onDelete: 'CASCADE',
       });
-      Computer.hasMany(models.Storage, { // A computer can have many storage devices
+      Computer.hasMany(models.Storage, { // A computer can have many storages
         foreignKey: 'storageId',
         onDelete: 'CASCADE',
       });
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'psuId',
         onDelete: 'CASCADE', 
       });
-      // Although a computer may have many video cards, SLI/CF has not been supported in years.
+      // One-to-one because SLI/CF hasn't been supported since 2017 
       Computer.hasOne(models.VideoCard, {
         foreignKey: 'videoCardId',
         onDelete: 'CASCADE',
@@ -44,11 +44,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       isCompatible: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       isEfficient: {
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
     },

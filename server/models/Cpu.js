@@ -4,12 +4,6 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Cpu extends Model {
     static associate(models) {
-      // one-to-one with Computer table
-      Cpu.hasOne(models.Computer, {
-        foreignKey: 'cpuId', // Computer's FK, Cpu's PK
-        onDelete: 'CASCADE',
-      });
-
       // one-to-one with Part table
       Cpu.belongsTo(models.Part, {
         foreignKey: 'partId', // Cpu's partId FK, and Cpu belongs to Part
@@ -97,10 +91,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      multithreading: {
-        type: DataTypes.STRING,
+      multithreading: { // Hyper-Threading if Intel
+        type: DataTypes.BOOLEAN,
         allowNull: false,
-      }
+      },
     },
     {
       sequelize,
