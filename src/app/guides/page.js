@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#4D585B] p-8"> {/* Background: Charcoal */}
       <h1 className="text-center text-5xl font-bold text-[#DBAE58] mb-6"> {/* Title: Gold */}
-        Guides
+        Guides (accordian)
       </h1>
 
       <div className="flex flex-col items-start space-y-6"> {/* Align items to start, with spacing */}
