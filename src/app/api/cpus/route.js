@@ -4,7 +4,7 @@ import connection from '@/lib/db';
 
 export async function GET(request) {
   try {
-    const [rows] = await connection.query('SELECT * FROM cpu');
+    const [rows] = await connection.query('SELECT * FROM Cpu');
     return new Response(JSON.stringify(rows), {
       headers: { 'Content-Type': 'application/json' },
     }); 

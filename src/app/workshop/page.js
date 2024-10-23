@@ -25,14 +25,13 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetchData("/api/processor", setCpuData);
-    //fetchData("/api/cpu", setCpuData);
-    fetchData("/api/motherboard", setMoboData);
-    fetchData("/api/cpu_cooler", setCoolerData);
-    fetchData("/api/memory", setMemoryData);
-    fetchData("/api/storage", setStorageData);
-    fetchData("/api/video_card", setVideoCardData);
-    fetchData("/api/power_supply", setPowerSupplyData);
+    fetchData("/api/cpus", setCpuData);
+    fetchData("/api/motherboards", setMoboData);
+    fetchData("/api/cpuCoolers", setCoolerData);
+    fetchData("/api/memorys", setMemoryData);
+    fetchData("/api/storages", setStorageData);
+    fetchData("/api/videoCards", setVideoCardData);
+    fetchData("/api/powerSupplys", setPowerSupplyData);
   }, []);
 
   return (
@@ -44,13 +43,13 @@ export default function Home() {
       <div className="flex flex-col items-start space-y-6"> {/* Align items to start, with spacing */}
         {/* Component Cards */}
         {[ 
-          { name: "Motherboards", data: moboData, api: "/api/motherboard" },
-          { name: "CPUs", data: cpuData, api: "/api/cpu" },
-          { name: "CPU Coolers", data: cpuCoolerData, api: "/api/cpu_cooler" },
-          { name: "RAM", data: memoryData, api: "/api/memory" },
-          { name: "Storage", data: storageData, api: "/api/storage" },
-          { name: "Video Cards", data: videoCardData, api: "/api/video_card" },
-          { name: "PSUs", data: powerSupplyData, api: "/api/power_supply" },
+          { name: "Motherboards", data: moboData, api: "/api/motherboards" },
+          { name: "CPUs", data: cpuData, api: "/api/cpus" },
+          { name: "CPU Coolers", data: cpuCoolerData, api: "/api/cpuCoolers" },
+          { name: "RAM", data: memoryData, api: "/api/memorys" },
+          { name: "Storage", data: storageData, api: "/api/storages" },
+          { name: "Video Cards", data: videoCardData, api: "/api/videoCards" },
+          { name: "PSUs", data: powerSupplyData, api: "/api/powerSupplys" },
         ].map(({ name, data, api }, index) => (
           <div
             key={index}
@@ -74,10 +73,11 @@ export default function Home() {
               ) : (
                 data.map((item) => (
                   <option key={item.id}>
-                    Product code: {item.part_number}
+                    Product code: {item.formFactor}
                   </option>
                 ))
               )}
+              
             </select>
           </div>
         ))}
