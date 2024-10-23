@@ -21,6 +21,12 @@ module.exports = {
   await queryInterface.sequelize.query(`
     ALTER TABLE Part MODIFY COLUMN partNum VARCHAR(255) NOT NULL AFTER manufacturer;
     `);
+
+    await queryInterface.changeColumn('Part', 'price', {
+      type: Sequelize.FLOAT,
+      allowNull: true,
+    });
+
   },
 
   async down (queryInterface, Sequelize) {
