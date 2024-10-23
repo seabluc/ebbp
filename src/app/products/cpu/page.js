@@ -15,7 +15,6 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 
-
 export default function App() {
   const [cpuData, setCpuData] = useState([]);
   const [error, setError] = useState(null);

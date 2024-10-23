@@ -70,7 +70,7 @@ export const Navbar = () => {
                 <span className="mr-4 text-gray-800">Welcome, {user.displayName || user.email}</span> {/* Display name or email */}
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded-xl focus-within:bg-slate-200 hover:bg-slate-50"
+                  className="bg-red-500 text-white px-4 py-2 rounded-xl focus-within:bg-slate-200 hover:bg-red-300"
                 >
                   Logout
                 </button>
