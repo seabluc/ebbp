@@ -24,11 +24,6 @@ export const Navbar = () => {
                 >Products
                 </Link>
                 <Link
-                  href="/CpuPage"
-                  className="focus-within:bg-slate-200 hover:bg-slate-50 border-2 rounded-xl p-4"
-                >Products TEMP
-                </Link>
-                <Link
                   href="/guides"
                   className="focus-within:bg-slate-200 hover:bg-slate-50 border-2 rounded-xl p-4"
                 >Guides

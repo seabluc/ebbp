@@ -43,13 +43,13 @@ export default function Home() {
       <div className="flex flex-col items-start space-y-6"> {/* Align items to start, with spacing */}
         {/* Component Cards */}
         {[ 
-          { name: "Motherboards", data: moboData, api: "/api/motherboards" },
-          { name: "CPUs", data: cpuData, api: "/api/cpus" },
-          { name: "CPU Coolers", data: cpuCoolerData, api: "/api/cpuCoolers" },
-          { name: "RAM", data: memoryData, api: "/api/memorys" },
+          { name: "Motherboard", data: moboData, api: "/api/motherboards" },
+          { name: "CPU", data: cpuData, api: "/api/cpus" },
+          { name: "CPU Cooler", data: cpuCoolerData, api: "/api/cpuCoolers" },
+          { name: "Memory", data: memoryData, api: "/api/memorys" },
           { name: "Storage", data: storageData, api: "/api/storages" },
-          { name: "Video Cards", data: videoCardData, api: "/api/videoCards" },
-          { name: "PSUs", data: powerSupplyData, api: "/api/powerSupplys" },
+          { name: "Video Card", data: videoCardData, api: "/api/videoCards" },
+          { name: "Power Supply", data: powerSupplyData, api: "/api/powerSupplys" },
         ].map(({ name, data, api }, index) => (
           <div
             key={index}
@@ -77,7 +77,6 @@ export default function Home() {
                   </option>
                 ))
               )}
-              
             </select>
           </div>
         ))}
