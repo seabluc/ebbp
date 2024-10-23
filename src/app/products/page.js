@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardBody, Divider, Link, Image, Button } from "@nextui-org/react";
 
 export default function ProductsPage() {
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#4D585B]"> {/* Background: Charcoal */}
       <h1 className="text-4xl font-bold mb-8 text-[#DBAE58]">PC Component Products</h1> {/* Title: Gold */}
@@ -15,14 +16,14 @@ export default function ProductsPage() {
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <Link isExternal showAnchorIcon href="/products/cpu" className="text-[#DBAE58] ml-4">
+            <Link isExternal showAnchorIcon href="/products/cpuPage" className="text-[#DBAE58] ml-4">
               CPU
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
           <CardBody className="flex flex-col justify-between items-center text-[#E0E0E0]"> {/* Adjusted for flexbox */}
             <p>Browse the latest CPUs for your PC build.</p>
-            <Link href="/products/cpu">
+            <Link href="/products/cpuPage">
               <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 h-12 w-40 mt-2"> {/* Adjusted height and width */}
                 Shop CPUs
               </Button>
