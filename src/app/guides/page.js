@@ -1,110 +1,95 @@
-'use client';
-import { useEffect, useState } from "react";
+'use client'; // Indicates this is a client component
+import React from "react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
-export default function Home() {
-  const [cpuData, setCpuData] = useState([]);
-  const [moboData, setMoboData] = useState([]);
-  const [cpuCoolerData, setCoolerData] = useState([]);
-  const [memoryData, setMemoryData] = useState([]);
-  const [storageData, setStorageData] = useState([]);
-  const [videoCardData, setVideoCardData] = useState([]);
-  const [powerSupplyData, setPowerSupplyData] = useState([]);
-  const [error, setError] = useState(null);
-
-  const fetchData = async (url, setData) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  useEffect(() => {
-    fetchData("/api/cpu", setCpuData);
-    fetchData("/api/motherboard", setMoboData);
-    fetchData("/api/cpu_cooler", setCoolerData);
-    fetchData("/api/memory", setMemoryData);
-    fetchData("/api/storage", setStorageData);
-    fetchData("/api/video_card", setVideoCardData);
-    fetchData("/api/power_supply", setPowerSupplyData);
-  }, []);
-
+export default function App() {
   return (
-    <div className="min-h-screen bg-[#4D585B] p-8"> {/* Background: Charcoal */}
-      <h1 className="text-center text-5xl font-bold text-[#DBAE58] mb-6"> {/* Title: Gold */}
-        Guides (accordian)
-      </h1>
+    <div className="min-h-screen bg-[#4D585B] flex flex-col p-8"> {/* Charcoal background */}
+      {/* Centered title for Guides */}
+      <h1 className="text-center text-4xl mt-8 mb-4 font-bold text-[#DBAE58]">Guides</h1>
 
-      <div className="flex flex-col items-start space-y-6"> {/* Align items to start, with spacing */}
-        {/* Glossary Card */}
-        <div className="w-[300px] bg-[#488A99] rounded-lg border-2 border-[#DBAE58] p-4 shadow-md">
-          <span className="block text-center text-[#DBAE58] font-semibold text-xl mb-2">
-            Glossary
-          </span>
-          <select className="w-full mt-2 p-2 rounded bg-[#4D585B] text-white">
-            <option selected>-</option>
-            <option>Learn PC building terminology</option>
-          </select>
-        </div>
+      <div className="flex w-full"> {/* Allow tabs to take full width */}
+        {/* Tabs with vertical orientation and charcoal background aligned to the left */}
+        <Tabs
+          aria-label="Options"
+          isVertical={true}
+          css={{
+            backgroundColor: '#4D585B', // Charcoal background for tabs
+            flex: '0 0 200px', // Fixed width for tabs (adjust as needed)
+            border: '2px solid transparent', // No border around the tabs
+          }}
+        >
+          <Tab key="glossary" title="Glossary">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                Squirrels are members of the family Sciuridae (/sɪˈjuːrɪdeɪ, -diː/), a family that includes small or medium-sized rodents. The squirrel family includes tree squirrels, ground squirrels (including chipmunks and prairie dogs, among others), and flying squirrels. Squirrels are indigenous to the Americas, Eurasia, and Africa, and were introduced by humans to Australia.[1] The earliest known fossilized squirrels date from the Eocene epoch, and among other living rodent families, the squirrels are most closely related to the mountain beaver and dormice.[2]
 
-        {/* PC Building Process Card */}
-        <div className="w-[300px] bg-[#488A99] rounded-lg border-2 border-[#DBAE58] p-4 shadow-md">
-          <span className="block text-center text-[#DBAE58] font-semibold text-xl mb-2">
-            PC Building Process
-          </span>
-          <select className="w-full mt-2 p-2 rounded bg-[#4D585B] text-white">
-            <option selected>-</option>
-            <option>Step-by-step building guide</option>
-          </select>
-        </div>
+                Etymology
+                The word squirrel, first attested in 1327, comes from the Anglo-Norman esquirel which is from the Old French escurel, the reflex of a Latin word sciurus, which was taken from the Ancient Greek word σκίουρος (skiouros; from σκία-ουρος) 'shadow-tailed', referring to the long bushy tail which many of its members have.[3][4] Sciurus is also the name of one of its genuses.[4]
 
-        {/* Component Cards */}
-        {[
-          { name: "Motherboards", data: moboData, api: "/api/motherboard" },
-          { name: "CPUs", data: cpuData, api: "/api/cpu" },
-          { name: "CPU Coolers", data: cpuCoolerData, api: "/api/cpu_cooler" },
-          { name: "RAM", data: memoryData, api: "/api/memory" },
-          { name: "Storage", data: storageData, api: "/api/storage" },
-          { name: "Video Cards", data: videoCardData, api: "/api/video_card" },
-          { name: "PSUs", data: powerSupplyData, api: "/api/power_supply" },
-        ].map(({ name, data, api }, index) => (
-          <div
-            key={index}
-            className="w-[300px] bg-[#488A99] rounded-lg border-2 border-[#DBAE58] p-4 shadow-md"
-          >
-            <span className="block text-center text-[#DBAE58] font-semibold text-xl mb-2">
-              {name}
-            </span>
-            <select className="w-full mt-2 p-2 rounded bg-[#4D585B] text-white">
-              <option selected>-</option>
-              {error ? (
-                <option className="text-red-500">Error: {error}</option>
-              ) : (
-                data.map((item) => (
-                  <option key={item.id}>
-                    Product code: {item.part_number}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
-        ))}
+                The native Old English word for the squirrel, ācweorna, only survived into Middle English (as aquerne) before being replaced.[5] The Old English word is of Common Germanic origin, cognates of which are still used in other Germanic languages, including the German Eichhörnchen (diminutive of Eichhorn, which is not as frequently used); the Norwegian ikorn/ekorn; the Dutch eekhoorn; the Swedish ekorre and the Danish egern.
 
-        {/* Placeholder for Cases */}
-        <div className="w-[300px] bg-[#488A99] rounded-lg border-2 border-[#DBAE58] p-4 shadow-md">
-          <span className="block text-center text-[#DBAE58] font-semibold text-xl mb-2">
-            Cases
-          </span>
-          <select className="w-full mt-2 p-2 rounded bg-[#4D585B] text-white">
-            <option selected>-</option>
-            <option>Peripherals like Monitors coming soon</option>
-          </select>
-        </div>
+                A group of squirrels is called a "dray"[6] or a "scurry".[7]
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="pc-building" title="PC Building Process">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                2
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="cpu" title="CPU">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                3
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="cpu-cooler" title="CPU Cooler">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                4
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="motherboard" title="Motherboard">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                5
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="memory" title="Memory">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                6
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="storage" title="Storage">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                7
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="video-card" title="Video Card">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                8
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="psu" title="PSU">
+            <Card css={{ backgroundColor: '#4D585B', flex: 1 }}> {/* Charcoal card background and flexible width */}
+              <CardBody className="text-black"> {/* Black text */}
+                9
+              </CardBody>
+            </Card>
+          </Tab>
+        </Tabs>
       </div>
     </div>
   );

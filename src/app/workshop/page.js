@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 export default function Home() {
   const [cpuData, setCpuData] = useState([]);
@@ -34,71 +35,145 @@ export default function Home() {
     fetchData("/api/powerSupplys", setPowerSupplyData);
   }, []);
 
+  const [selectedBuild, setSelectedBuild] = useState("build1");
+
   return (
     <div className="min-h-screen bg-[#4D585B] p-8"> {/* Background: Charcoal */}
-      <h1 className="text-center text-5xl font-bold text-[#DBAE58] mb-6"> {/* Title: Gold */}
-        PC Workshop (add tabs for builds)
+      <h1 className="text-4xl font-bold mt-8 mb-4 text-[#DBAE58] text-center"> {/* Title: Gold */}
+        PC Workshop
       </h1>
 
-      <div className="flex flex-col items-start space-y-6"> {/* Align items to start, with spacing */}
-        {/* Component Cards */}
-        {[ 
-          { name: "Motherboard", data: moboData, api: "/api/motherboards" },
-          { name: "CPU", data: cpuData, api: "/api/cpus" },
-          { name: "CPU Cooler", data: cpuCoolerData, api: "/api/cpuCoolers" },
-          { name: "Memory", data: memoryData, api: "/api/memorys" },
-          { name: "Storage", data: storageData, api: "/api/storages" },
-          { name: "Video Card", data: videoCardData, api: "/api/videoCards" },
-          { name: "Power Supply", data: powerSupplyData, api: "/api/powerSupplys" },
-        ].map(({ name, data, api }, index) => (
-          <div
-            key={index}
-            className="w-[300px] bg-[#488A99] rounded-lg border-2 border-[#DBAE58] p-4 shadow-md"
-          >
-            <span className="block text-center text-[#DBAE58] font-semibold text-xl mb-2">
-              {name}
-            </span>
-            <a
-              href={api}
-              target="_blank"
-              rel="noreferrer"
-              className="text-[#E0E0E0] hover:text-white hover:underline p-1 block text-center"
-            >
-              View {name} API Data
-            </a>
-            <select className="w-full mt-2 p-2 rounded bg-[#4D585B] text-white">
-              <option selected>-</option>
-              {error ? (
-                <p className="text-red-500">Error: {error}</p>
-              ) : (
-                data.map((item) => (
-                  <option key={item.id}>
-                    Product code: {item.formFactor}
-                  </option>
-                ))
-              )}
-            </select>
-          </div>
-        ))}
+      {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
+      <div className="flex justify-center mb-6">
+        <Tabs
+          aria-label="Build Options"
+          selectedKey={selectedBuild}
+          onSelectionChange={setSelectedBuild}
+          isVertical={false} // Ensures the tabs remain horizontal
+          css={{ borderRadius: "8px" }} // Ensures the tabs have rounded corners
+        >
+          <Tab key="build1" title="Build 1" />
+          <Tab key="build2" title="Build 2" />
+          <Tab key="build3" title="Build 3" />
+          <Tab key="build4" title="Build 4" />
+          <Tab key="build5" title="Build 5" />
+          <Tab key="build6" title="Build 6" />
+          <Tab key="build7" title="Build 7" />
+          <Tab key="build8" title="Build 8" />
+          <Tab key="build9" title="Build 9" />
+          <Tab key="build10" title="Build 10" />
+        </Tabs>
+      </div>
 
-        {/* Placeholder for Cases */}
-        <div className="w-[300px] bg-[#488A99] rounded-lg border-2 border-[#DBAE58] p-4 shadow-md">
-          <span className="block text-center text-[#DBAE58] font-semibold text-xl mb-2">
-            Cases
-          </span>
-          <a
-            href="/api"
-            target="_blank"
-            rel="noreferrer"
-            className="text-[#E0E0E0] hover:text-white hover:underline p-1 block text-center"
-          >
-            <s>Cases API</s> (coming soon)
-          </a>
-          <select className="w-full mt-2 p-2 rounded bg-[#4D585B] text-white">
-            <option selected>-</option>
-            <option>Peripherals like Monitors coming soon</option>
-          </select>
-        </div>
+      {/* Vertical Tabs for Components */}
+      <div className="flex w-full flex-col">
+        <Tabs aria-label="PC Components" isVertical>
+          <Tab key="motherboard" title="Motherboard">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  moboData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="cpu" title="CPU">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  cpuData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="cpuCooler" title="CPU Cooler">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  cpuCoolerData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="memory" title="Memory">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  memoryData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="storage" title="Storage">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  storageData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="videoCard" title="Video Card">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  videoCardData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+          <Tab key="powerSupply" title="Power Supply">
+            <Card>
+              <CardBody>
+                {error ? (
+                  <p className="text-red-500">Error: {error}</p>
+                ) : (
+                  powerSupplyData.map((item) => (
+                    <div key={item.id} className="p-2 border-b border-[#DBAE58]">
+                      Product code: {item.formFactor}
+                    </div>
+                  ))
+                )}
+              </CardBody>
+            </Card>
+          </Tab>
+        </Tabs>
       </div>
     </div>
   );
