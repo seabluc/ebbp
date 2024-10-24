@@ -33,7 +33,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchData("../api/cpus", setComponent);
+    fetchData("../api/videoCards", setComponent);
   }, []);
 
   return (
@@ -168,40 +168,42 @@ export default function App() {
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
         <Table
-          aria-label="CPU Information Table"
+          aria-label="Video Card Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
-            <TableColumn>Core Count</TableColumn>
-            <TableColumn>Performance Core Clock</TableColumn>
-            <TableColumn>Performance Core Boost Clock</TableColumn>
-            <TableColumn>Socket</TableColumn>
-            <TableColumn>Microarchitecture</TableColumn>
+            <TableColumn>Chipset</TableColumn>
+            <TableColumn>Memory Type</TableColumn>
+            <TableColumn>Memory</TableColumn>
+            <TableColumn>Core Clock</TableColumn>
+            <TableColumn>Boost Clock</TableColumn>
+            <TableColumn>Length</TableColumn>
             <TableColumn>TDP</TableColumn>
-            <TableColumn>Integrated Graphics</TableColumn>
+            <TableColumn>Color</TableColumn>
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {component.map((cpu) => (
-              <TableRow key={cpu.cpuId}>
+            {component.map((videoCard) => (
+              <TableRow key={videoCard.videoCardId}>
                 <TableCell>
-                  {cpu.name}
-                  <Image src={cpu.image}
+                  {videoCard.name}
+                  <Image src={videoCard.image}
                     width="70"
                     height="70"
-                    alt="cpu" />
+                    alt="videoCard" />
                 </TableCell>
-                <TableCell>{cpu.coreCount}</TableCell>
-                <TableCell>{cpu.performanceCoreClock}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock}</TableCell>
-                <TableCell>{cpu.socket}</TableCell>
-                <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.tdp}</TableCell>
-                <TableCell>{cpu.integrated}</TableCell>
-                <TableCell>{`$` + cpu.price}</TableCell>
+                <TableCell>{videoCard.chipset}</TableCell>
+                <TableCell>{videoCard.memoryType}</TableCell>
+                <TableCell>{videoCard.memory}</TableCell>
+                <TableCell>{videoCard.coreClock}</TableCell>
+                <TableCell>{videoCard.boostClock || "--"}</TableCell>
+                <TableCell>{videoCard.length}</TableCell>
+                <TableCell>{videoCard.tdp}</TableCell>
+                <TableCell>{videoCard.color}</TableCell>
+                <TableCell>{`$` + videoCard.price}</TableCell>
                 <TableCell>
                   <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">
                     Add to Build

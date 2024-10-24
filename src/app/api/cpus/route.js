@@ -38,3 +38,12 @@ export async function GET(request) {
     });
   }
 }
+
+/*
+    const query = `
+      SELECT Cpu.coreCount, Cpu.performanceCoreClock, Cpu.performanceCoreBoostClock,
+      Cpu.socket, Cpu.microarchitecture, Cpu.tdp, Cpu.integrated, Part.name, Part.price
+      FROM Cpu
+      JOIN Part ON Cpu.partId = Part.partId
+    `;
+*/

@@ -33,7 +33,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchData("../api/cpus", setComponent);
+    fetchData("../api/storages", setComponent);
   }, []);
 
   return (
@@ -44,8 +44,11 @@ export default function App() {
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Select Manufacturer</h2>
           <CheckboxGroup label="Select brands" defaultValue={[]}>
-            <Checkbox value="intel">Intel</Checkbox>
-            <Checkbox value="amd">AMD</Checkbox>
+            <Checkbox value="intel">CoolerMaster</Checkbox>
+            <Checkbox value="amd">Kraken</Checkbox>
+            <Checkbox value="intel">Be Quiet!</Checkbox>
+            <Checkbox value="amd">Corsair</Checkbox>
+            <Checkbox value="amd">Thermalright</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -168,40 +171,36 @@ export default function App() {
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
         <Table
-          aria-label="CPU Information Table"
+          aria-label="Storage Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
-            <TableColumn>Core Count</TableColumn>
-            <TableColumn>Performance Core Clock</TableColumn>
-            <TableColumn>Performance Core Boost Clock</TableColumn>
-            <TableColumn>Socket</TableColumn>
-            <TableColumn>Microarchitecture</TableColumn>
-            <TableColumn>TDP</TableColumn>
-            <TableColumn>Integrated Graphics</TableColumn>
+            <TableColumn>Capacity</TableColumn>
+            <TableColumn>Type</TableColumn>
+            <TableColumn>Form Factor</TableColumn>
+            <TableColumn>Interface</TableColumn>
+            <TableColumn>Price per GB</TableColumn>
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {component.map((cpu) => (
-              <TableRow key={cpu.cpuId}>
+            {component.map((storage) => (
+              <TableRow key={storage.storageId}>
                 <TableCell>
-                  {cpu.name}
-                  <Image src={cpu.image}
+                  {storage.name}
+                  <Image src={storage.image}
                     width="70"
                     height="70"
-                    alt="cpu" />
+                    alt="storage" />
                 </TableCell>
-                <TableCell>{cpu.coreCount}</TableCell>
-                <TableCell>{cpu.performanceCoreClock}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock}</TableCell>
-                <TableCell>{cpu.socket}</TableCell>
-                <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.tdp}</TableCell>
-                <TableCell>{cpu.integrated}</TableCell>
-                <TableCell>{`$` + cpu.price}</TableCell>
+                <TableCell>{storage.capacity}</TableCell>
+                <TableCell>{storage.storageType}</TableCell>
+                <TableCell>{storage.formFactor}</TableCell>
+                <TableCell>{storage.interface}</TableCell>
+                <TableCell>{storage.pricePerGig}</TableCell>
+                <TableCell>{`$` + storage.price}</TableCell>
                 <TableCell>
                   <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">
                     Add to Build

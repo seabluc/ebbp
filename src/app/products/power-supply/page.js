@@ -33,7 +33,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchData("../api/cpus", setComponent);
+    fetchData("../api/powerSupplys", setComponent);
   }, []);
 
   return (
@@ -168,42 +168,40 @@ export default function App() {
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
         <Table
-          aria-label="CPU Information Table"
+          aria-label="Power Supply Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
-            <TableColumn>Core Count</TableColumn>
-            <TableColumn>Performance Core Clock</TableColumn>
-            <TableColumn>Performance Core Boost Clock</TableColumn>
-            <TableColumn>Socket</TableColumn>
-            <TableColumn>Microarchitecture</TableColumn>
-            <TableColumn>TDP</TableColumn>
-            <TableColumn>Integrated Graphics</TableColumn>
+            <TableColumn>Form Factor</TableColumn>
+            <TableColumn>Efficiency Rating</TableColumn>
+            <TableColumn>Wattage</TableColumn>
+            <TableColumn>Modularity</TableColumn>
+            <TableColumn>Length</TableColumn>
+            <TableColumn>Color</TableColumn>
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {component.map((cpu) => (
-              <TableRow key={cpu.cpuId}>
+            {component.map((powerSupply) => (
+              <TableRow key={powerSupply.powerSupplyId}>
                 <TableCell>
-                  {cpu.name}
-                  <Image src={cpu.image}
+                  {powerSupply.name}
+                  <Image src={powerSupply.image}
                     width="70"
                     height="70"
-                    alt="cpu" />
+                    alt="powerSupply" />
                 </TableCell>
-                <TableCell>{cpu.coreCount}</TableCell>
-                <TableCell>{cpu.performanceCoreClock}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock}</TableCell>
-                <TableCell>{cpu.socket}</TableCell>
-                <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.tdp}</TableCell>
-                <TableCell>{cpu.integrated}</TableCell>
-                <TableCell>{`$` + cpu.price}</TableCell>
+                <TableCell>{powerSupply.formFactor}</TableCell>
+                <TableCell>{powerSupply.efficiency}</TableCell>
+                <TableCell>{powerSupply.wattage}</TableCell>
+                <TableCell>{powerSupply.modularity}</TableCell>
+                <TableCell>{powerSupply.length}</TableCell>
+                <TableCell>{powerSupply.color || "--"}</TableCell>
+                <TableCell>{`$` + powerSupply.price}</TableCell>
                 <TableCell>
-                  <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">
+                  <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
                     Add to Build
                   </Button>
                 </TableCell>

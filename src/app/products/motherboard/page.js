@@ -33,7 +33,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchData("../api/cpus", setComponent);
+    fetchData("../api/motherboards", setComponent);
   }, []);
 
   return (
@@ -44,8 +44,11 @@ export default function App() {
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Select Manufacturer</h2>
           <CheckboxGroup label="Select brands" defaultValue={[]}>
-            <Checkbox value="intel">Intel</Checkbox>
-            <Checkbox value="amd">AMD</Checkbox>
+            <Checkbox value="intel">CoolerMaster</Checkbox>
+            <Checkbox value="amd">Kraken</Checkbox>
+            <Checkbox value="intel">Be Quiet!</Checkbox>
+            <Checkbox value="amd">Corsair</Checkbox>
+            <Checkbox value="amd">Thermalright</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -168,40 +171,38 @@ export default function App() {
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
         <Table
-          aria-label="CPU Information Table"
+          aria-label="Motherboard Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
-            <TableColumn>Core Count</TableColumn>
-            <TableColumn>Performance Core Clock</TableColumn>
-            <TableColumn>Performance Core Boost Clock</TableColumn>
+            <TableColumn>Form Factor</TableColumn>
             <TableColumn>Socket</TableColumn>
-            <TableColumn>Microarchitecture</TableColumn>
-            <TableColumn>TDP</TableColumn>
-            <TableColumn>Integrated Graphics</TableColumn>
+            <TableColumn>Memory Type</TableColumn>
+            <TableColumn>Max Memory Capacity</TableColumn>
+            <TableColumn>Memory Slots</TableColumn>
+            <TableColumn>Color</TableColumn>
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {component.map((cpu) => (
-              <TableRow key={cpu.cpuId}>
+            {component.map((motherboard) => (
+              <TableRow key={motherboard.motherboardId}>
                 <TableCell>
-                  {cpu.name}
-                  <Image src={cpu.image}
+                  {motherboard.name}
+                  <Image src={motherboard.image}
                     width="70"
                     height="70"
-                    alt="cpu" />
+                    alt="motherboard" />
                 </TableCell>
-                <TableCell>{cpu.coreCount}</TableCell>
-                <TableCell>{cpu.performanceCoreClock}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock}</TableCell>
-                <TableCell>{cpu.socket}</TableCell>
-                <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.tdp}</TableCell>
-                <TableCell>{cpu.integrated}</TableCell>
-                <TableCell>{`$` + cpu.price}</TableCell>
+                <TableCell>{motherboard.formFactor}</TableCell>
+                <TableCell>{motherboard.socket}</TableCell>
+                <TableCell>{motherboard.memoryType}</TableCell>
+                <TableCell>{motherboard.memoryMax}</TableCell>
+                <TableCell>{motherboard.memorySlot}</TableCell>
+                <TableCell>{motherboard.color}</TableCell>
+                <TableCell>{`$` + motherboard.price}</TableCell>
                 <TableCell>
                   <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">
                     Add to Build
