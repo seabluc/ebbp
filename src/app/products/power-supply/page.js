@@ -14,11 +14,10 @@ import {
   Button,
 } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
-
+import Image from 'next/image';
 
 export default function App() {
-  const [cpuData, setCpuData] = useState([]);
-  const [error, setError] = useState(null);
+  const [component, setComponent] = useState([]);
 
   const fetchData = async (url, setData) => {
     try {
@@ -34,7 +33,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchData("../../api/cpus", setCpuData);
+    fetchData("../api/powerSupplys", setComponent);
   }, []);
 
   return (
@@ -79,7 +78,7 @@ export default function App() {
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Select Performance</h2>
           <CheckboxGroup label="Select performance" defaultValue={[]}>
-            <Checkbox value="low">Low</Checkbox>
+            <Checkbox value="low">Low-end</Checkbox>
             <Checkbox value="medium">Mid-range</Checkbox>
             <Checkbox value="high">High-end</Checkbox>
           </CheckboxGroup>
@@ -169,34 +168,38 @@ export default function App() {
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
         <Table
-          aria-label="CPU Information Table"
+          aria-label="Power Supply Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
-            <TableColumn>Processors</TableColumn>
-            <TableColumn>Core Count</TableColumn>
-            <TableColumn>Performance Core Clock</TableColumn>
-            <TableColumn>Performance Core Boost Clock</TableColumn>
-            <TableColumn>Socket</TableColumn>
-            <TableColumn>Microarchitecture</TableColumn>
-            <TableColumn>TDP</TableColumn>
-            <TableColumn>Integrated Graphics</TableColumn>
+            <TableColumn>Name</TableColumn>
+            <TableColumn>Form Factor</TableColumn>
+            <TableColumn>Efficiency Rating</TableColumn>
+            <TableColumn>Wattage</TableColumn>
+            <TableColumn>Modularity</TableColumn>
+            <TableColumn>Length</TableColumn>
+            <TableColumn>Color</TableColumn>
             <TableColumn>Price</TableColumn>
-            <TableColumn>Actions</TableColumn>
+            <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {cpuData.map((cpu) => (
-              <TableRow key={cpu.cpuId}>
-                <TableCell>{cpu.name}</TableCell>
-                <TableCell>{cpu.coreCount}</TableCell>
-                <TableCell>{cpu.performanceCoreClock}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock}</TableCell>
-                <TableCell>{cpu.socket}</TableCell>
-                <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.tdp}</TableCell>
-                <TableCell>{cpu.integrated}</TableCell>
-                <TableCell>{`$` + cpu.price}</TableCell>
+            {component.map((powerSupply) => (
+              <TableRow key={powerSupply.powerSupplyId}>
+                <TableCell>
+                  {powerSupply.name}
+                  <Image src={powerSupply.image}
+                    width="70"
+                    height="70"
+                    alt="powerSupply" />
+                </TableCell>
+                <TableCell>{powerSupply.formFactor}</TableCell>
+                <TableCell>{powerSupply.efficiency}</TableCell>
+                <TableCell>{powerSupply.wattage}</TableCell>
+                <TableCell>{powerSupply.modularity}</TableCell>
+                <TableCell>{powerSupply.length}</TableCell>
+                <TableCell>{powerSupply.color || "--"}</TableCell>
+                <TableCell>{`$` + powerSupply.price}</TableCell>
                 <TableCell>
                   <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
                     Add to Build
