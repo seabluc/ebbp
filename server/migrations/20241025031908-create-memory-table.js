@@ -7,7 +7,6 @@ module.exports = {
       memoryId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -20,21 +19,39 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      speed: { // DDR#-#### MHz ... can I validate this given there are only a set amount of memory speeds? find out what they all are?
+      memoryType: {
         type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [
+              ['DDR4', 'DDR5',],
+            ],
+            msg: "EBBP only supports components compatible with DDR4 or DDR5."
+          },
+        },
+      },
+      speed: { // DDR#-#### MHz ... can I validate this given there are only a set amount of memory speeds? find out what they all are?
+        type: Sequelize.INTEGER, // in MHz
         allowNull: false,
       },
       casLatency: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      trueLatency: { // ## ns
-        type: Sequelize.STRING,
+      trueLatency: { // in ns
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
+      /* omitted for now
       timing: {
         type: Sequelize.STRING,
         allowNull: true,
+      },
+      */
+      capacity: { // in GB
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       modules: {
         // i dont think ill include any memory products that are < 8gb
@@ -53,7 +70,7 @@ module.exports = {
           */
       },
       pricePerGig: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       formFactor: {
@@ -74,15 +91,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      voltage: {
-        type: Sequelize.STRING,
+      voltage: { // in V
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       heatSpreader: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      /* generate update-memory-table
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
@@ -91,7 +107,6 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
       },
-      */
     });
   },
 

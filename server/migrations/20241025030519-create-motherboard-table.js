@@ -3,11 +3,10 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("PowerSupply", {
-      psuId: {
+    await queryInterface.createTable('Motherboard', {
+      motherboardId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -20,103 +19,115 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      formFactor: { // omit Flex ATX, Mini ITX, and TFX.
+      socket: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      formFactor: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      chipset: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      memoryMax: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      memoryType: {
         type: Sequelize.STRING,
         allowNull: false,
         validate: {
           isIn: {
-            args: [
-              ['ATX', 'SFX',],
-            ],
+            args: [['DDR4', 'DDR5']],
           },
-        },
+        }
       },
-      efficiency: {
-        type: Sequelize.STRING,
+      memorySlot: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        validate: {
-          isIn: {
-            args: [
-              ['80+', '80+ Bronze', '80+ Silver', '80+ Gold', '80+ Platinum', '80+ Titanium',],
-            ],
-          },
-        },
       },
-      modularity: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          isIn: {
-            args: [
-              ['Fully modular', 'Semi-modular', 'Non-modular',],
-            ],
-          },
-        },
-      },
-      wattage: {
+      color: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      length: { // in mm
+      pcieSixteenSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      pcieEightSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      pcieFourSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      pcieOneSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      pcieSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      sataSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      onboardEthernet: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      color: { // nullable, rather useless spec...
+      onboardVideo: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
       },
-      atxFourConn: {
+      usbTwoHeader: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      epsEightConn: {
+      usbTwoHeaderSinglePort: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      pcieTwelvePlusFourConn: {
+      usbThreeTwoGenOneHeader: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      pcieTwelveConn: {
+      usbThreeTwoGenTwoHeader: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      pcieEightConn: {
+      usbThreeTwoGenTwoByTwoHeader: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      pcieSixPlusTwoConn: {
-        type: Sequelize.INTEGER,
+      wirelessNetworking: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      pcieSixConn: {
-        type: Sequelize.INTEGER,
+      raidSupport: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      sataConn: {
-        type: Sequelize.INTEGER,
+      backConnectors: {
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
-      molexFourConn: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      /* generate update-powersupply-table
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
-        allowNull: false,
       },
       updatedAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
-        allowNull: false,
       },
-      */
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("PowerSupply");
+    await queryInterface.dropTable('Motherboard');
   }
 };

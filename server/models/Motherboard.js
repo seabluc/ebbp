@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       motherboardId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       partId: {
         type: DataTypes.INTEGER,
@@ -37,14 +37,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       formFactor: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       chipset: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      memoryMax: {
-        type: DataTypes.STRING,
+      memoryMax: { // in GB
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       memoryType: {

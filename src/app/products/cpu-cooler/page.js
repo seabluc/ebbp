@@ -179,8 +179,8 @@ export default function App() {
             <TableColumn>Name</TableColumn>
             <TableColumn>Fan RPM</TableColumn>
             <TableColumn>Noise Level</TableColumn>
-            <TableColumn>Height</TableColumn>
-            <TableColumn>Liquid Cooling</TableColumn>
+            <TableColumn>Height (mm)</TableColumn>
+            <TableColumn>Raditor Size (mm)</TableColumn>
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
@@ -194,10 +194,10 @@ export default function App() {
                     height="70"
                     alt="cpuCooler" />
                 </TableCell>
-                <TableCell>{cpuCooler.fanRPM}</TableCell>
-                <TableCell>{cpuCooler.noiseLevel}</TableCell>
+                <TableCell>{cpuCooler.fanRPM + ` RPM`}</TableCell>
+                <TableCell>{cpuCooler.noiseLevel + ` dB`}</TableCell>
                 <TableCell>{cpuCooler.height || "--"}</TableCell>
-                <TableCell>{cpuCooler.waterCooler || "--"}</TableCell>
+                <TableCell>{cpuCooler.radiatorSize || "--"}</TableCell>
                 <TableCell>{`$` + cpuCooler.price}</TableCell>
                 <TableCell>
                   <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">

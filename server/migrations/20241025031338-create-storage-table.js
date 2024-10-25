@@ -4,10 +4,9 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Storage", {
-      memoryId: {
+      storageId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -20,8 +19,8 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      capacity: { // in GB or TB
-        type: Sequelize.STRING,
+      capacity: { // in GB or TB 
+        type: Sequelize.INTEGER, // if length > 1 GB else TB
         allowNull: false,
       },
       formFactor: { // in inches or M.2 dimensions in mm..? verify with PcPP
@@ -32,18 +31,21 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      pricePerGig: { // $#.## / gb
-        type: Sequelize.STRING,
+      pricePerGig: { // $#.## / GB
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
       interface: { // validate as SSD, Sata, or NVMe
         type: Sequelize.STRING,
         allowNull: false,
-        validate: {
-          isIn: [
-            ['SSD', 'SATA', 'NVMe',]
-          ],
-        },
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     });
   },

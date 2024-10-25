@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       mTwoSlotId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        //autoIncrement: true,
       },
       motherboardId: {
         type: DataTypes.INTEGER,

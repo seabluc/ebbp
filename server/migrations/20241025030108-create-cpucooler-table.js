@@ -7,7 +7,6 @@ module.exports = {
       cpuCoolerId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -20,12 +19,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      fanRPM: { 
-        type: Sequelize.STRING,
+      fanRPM: { // in RPM (max RPM)
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       noiseLevel: { // in decibels (dB)
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       color: {
@@ -33,11 +32,11 @@ module.exports = {
         allowNull: false,
       },
       height: { // in mm, but only for air coolers, hence nullable
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
-      waterCooler: { // in mm, create validation for acceptable sizes (refer to PyPartPicker CpuCooler script for which dimensions we'll be favoring)
-        type: Sequelize.STRING, // given the different variations, might either validate or create a new table like CpuWaterCooler. leaning towards validate instead
+      radiatorSize: { // in mm, create validation for acceptable sizes (refer to PyPartPicker CpuCooler script for which dimensions we'll be favoring)
+        type: Sequelize.INTEGER, // given the different variations, might either validate or create a new table like CpuWaterCooler. leaning towards validate instead
         allowNull: true,
       },
       createdAt: {

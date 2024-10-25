@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       cpuId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       partId: {
         type: DataTypes.INTEGER,
@@ -48,47 +48,47 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       performanceCoreClock: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       performanceCoreBoostClock: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       efficiencyCoreClock: { // Intel exclusive, hence nullable
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       efficiencyCoreBoostClock: { // Intel exclusive
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
-      lTwoCache: {
-        type: DataTypes.STRING,
+      lTwoCache: { // in MB
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      lThreeCache: {
-        type: DataTypes.STRING,
+      lThreeCache: { // in MB
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
-      tdp: {
-        type: DataTypes.STRING,
+      tdp: { // in W
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       maxTurboPower: { // Intel exclusive
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
       integrated: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      memoryMax: {
-        type: DataTypes.STRING,
+      memoryMax: { // in GB
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
-      lithography: {
-        type: DataTypes.STRING,
+      lithography: { // in nm
+        type: DataTypes.INTEGER, 
         allowNull: false,
       },
       multithreading: { // Hyper-Threading if Intel

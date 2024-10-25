@@ -178,7 +178,7 @@ export default function App() {
             <TableColumn>Memory Type</TableColumn>
             <TableColumn>Memory</TableColumn>
             <TableColumn>Core Clock</TableColumn>
-            <TableColumn>Boost Clock</TableColumn>
+            <TableColumn>Boost Clock (MHz)</TableColumn>
             <TableColumn>Length</TableColumn>
             <TableColumn>TDP</TableColumn>
             <TableColumn>Color</TableColumn>
@@ -197,11 +197,11 @@ export default function App() {
                 </TableCell>
                 <TableCell>{videoCard.chipset}</TableCell>
                 <TableCell>{videoCard.memoryType}</TableCell>
-                <TableCell>{videoCard.memory}</TableCell>
-                <TableCell>{videoCard.coreClock}</TableCell>
+                <TableCell>{videoCard.memory + ` GB`}</TableCell>
+                <TableCell>{videoCard.coreClock + ` MHz`}</TableCell>
                 <TableCell>{videoCard.boostClock || "--"}</TableCell>
-                <TableCell>{videoCard.length}</TableCell>
-                <TableCell>{videoCard.tdp}</TableCell>
+                <TableCell>{videoCard.length + ` mm`}</TableCell>
+                <TableCell>{videoCard.tdp + ` W`}</TableCell>
                 <TableCell>{videoCard.color}</TableCell>
                 <TableCell>{`$` + videoCard.price}</TableCell>
                 <TableCell>

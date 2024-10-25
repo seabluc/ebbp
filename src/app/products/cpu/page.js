@@ -195,11 +195,11 @@ export default function App() {
                     alt="cpu" />
                 </TableCell>
                 <TableCell>{cpu.coreCount}</TableCell>
-                <TableCell>{cpu.performanceCoreClock}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock}</TableCell>
+                <TableCell>{cpu.performanceCoreClock + ` GHz`}</TableCell>
+                <TableCell>{cpu.performanceCoreBoostClock + ` GHz`}</TableCell>
                 <TableCell>{cpu.socket}</TableCell>
                 <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.tdp}</TableCell>
+                <TableCell>{cpu.tdp + ` W`}</TableCell>
                 <TableCell>{cpu.integrated}</TableCell>
                 <TableCell>{`$` + cpu.price}</TableCell>
                 <TableCell>

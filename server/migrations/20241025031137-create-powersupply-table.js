@@ -3,11 +3,10 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("VideoCard", {
-      videoCardId: {
+    await queryInterface.createTable("PowerSupply", {
+      psuId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -20,82 +19,101 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      chipset: {
+      formFactor: { // omit Flex ATX, Mini ITX, and TFX.
         type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          isIn: {
+            args: [
+              ['ATX', 'SFX',],
+            ],
+          },
+        },
       },
-      memory: {
+      efficiency: {
         type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          isIn: {
+            args: [
+              ['80+', '80+ Bronze', '80+ Silver', '80+ Gold', '80+ Platinum', '80+ Titanium',],
+            ],
+          },
+        },
       },
-      memoryType: {
+      modularity: {
         type: Sequelize.STRING,
         allowNull: false,
+        validate: {
+          isIn: {
+            args: [
+              ['Fully modular', 'Semi-modular', 'Non-modular',],
+            ],
+          },
+        },
       },
-      coreClock: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      boostClock: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      effectiveMemoryClock: { // seems to only exist in models post 20 family
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      color: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      frameSync: {
-        type: Sequelize.STRING,
+      wattage: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       length: { // in mm
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      color: { // nullable, rather useless spec...
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
-      tdp: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      caseSlotWidth: {
+      atxFourConn: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      totalSlotWidth: {
+      epsEightConn: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      coolingFan: {
+      pcieTwelvePlusFourConn: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      externalPower: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      dpOutput: {
+      pcieTwelveConn: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      hdmiOutput: {
+      pcieEightConn: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      pcieSixPlusTwoConn: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      pcieSixConn: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      sataConn: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      molexFourConn: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
+        allowNull: false,
       },
       updatedAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW,
+        allowNull: false,
       },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('VideoCard');
+    await queryInterface.dropTable("PowerSupply");
   }
 };

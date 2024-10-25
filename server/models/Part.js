@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       partId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       name: {
         type: DataTypes.STRING,

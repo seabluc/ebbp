@@ -41,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       computerId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       isCompatible: {
         type: DataTypes.BOOLEAN,

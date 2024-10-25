@@ -7,7 +7,6 @@ module.exports = {
       cpuId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -44,48 +43,48 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      performanceCoreClock: {
-        type: Sequelize.STRING,
+      performanceCoreClock: { // in MHz
+        type: Sequelize.FLOAT,
         allowNull: false,
       },
-      performanceCoreBoostClock: {
-        type: Sequelize.STRING,
+      performanceCoreBoostClock: { // in MHz
+        type: Sequelize.FLOAT, 
         allowNull: false,
       },
-      efficiencyCoreClock: { // Intel exclusive, hence nullable
-        type: Sequelize.STRING,
+      efficiencyCoreClock: { // Intel exclusive, hence nullable (AMD don't use e-cores)
+        type: Sequelize.FLOAT, // in MHz
         allowNull: true,
       },
       efficiencyCoreBoostClock: { // Intel exclusive
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT, // in MHz
         allowNull: true,
       },
-      lTwoCache: {
-        type: Sequelize.STRING,
+      lTwoCache: { // in MB
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      lThreeCache: {
-        type: Sequelize.STRING,
+      lThreeCache: { // in MB
+        type: Sequelize.INTEGER, 
         allowNull: true,
       },
-      tdp: {
-        type: Sequelize.STRING,
+      tdp: { // in W
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      maxTurboPower: { // Intel exclusive
-        type: Sequelize.STRING,
+      maxTurboPower: { // Intel exclusive, in W
+        type: Sequelize.INTEGER,
         allowNull: true,
       },
       integrated: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      memoryMax: {
-        type: Sequelize.STRING,
+      memoryMax: { // in GB
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      lithography: {
-        type: Sequelize.STRING,
+      lithography: { // in nm
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       multithreading: { // Hyper-Threading if Intel

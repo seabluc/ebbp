@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Memory.belongsTo(models.Part, {
         foreignKey: 'partId', // Memory's partId (FK), and Memory is a Part
-        onDelete: 'CASCADE', 
+        onDelete: 'CASCADE',
       });
     }
   }
@@ -15,28 +15,47 @@ module.exports = (sequelize, DataTypes) => {
       memoryId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       partId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
-      }, 
-      speed: { // DDR#-#### MHz ... can I validate this given there are only a set amount of memory speeds? find out what they all are?
+      },
+      memoryType: {
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [
+              ['DDR4', 'DDR5',],
+            ],
+            msg: "EBBP only supports components compatible with DDR4 or DDR5."
+          },
+        },
+      },
+      // speed used to be a string: DDR#-#### MHz ... can I validate this given there are only a set amount of memory speeds? find out what they all are?
+      speed: { // in MHz 
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       casLatency: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      trueLatency: { // ## ns
-        type: DataTypes.STRING,
+      trueLatency: { // in ns
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
-      timing: {
+      /*
+      timing: { // omit for now
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      */
+      capacity: { // in GB
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       modules: { // # x #GB 
         // Z790-E mobo only allowed 288-pin DIMM (DDR5) [formFactor] w/ 2380 compatible products.
@@ -55,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
         // 2 x 48GB -> 62 products
         // 4 x 24GB -> 6 products
         // 4 x 32GB -> 6 products
-        
+
 
         // i dont think ill include any memory products that are < 8gb
         // ill also likely omit products where there are > 4 modules and omit
@@ -73,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
           */
       },
       pricePerGig: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       formFactor: {
@@ -83,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
           isIn: {
             args: [
               [
-                '288-pin DIMM (DDR4)', '260-pin SODIMM (DDR4)', 
+                '288-pin DIMM (DDR4)', '260-pin SODIMM (DDR4)',
                 '288-pin DIMM (DDR5)', '288-pin SODIMM (DDR5)',
               ],
             ],
@@ -94,8 +113,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      voltage: {
-        type: DataTypes.STRING,
+      voltage: { // in V
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       heatSpreader: {
@@ -105,7 +124,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'Memory', 
+      modelName: 'Memory',
       tableName: 'Memory',
     }
   );

@@ -7,7 +7,6 @@ module.exports = {
       computerId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       cpuId: {
         type: Sequelize.INTEGER,
