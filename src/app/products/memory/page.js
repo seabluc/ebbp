@@ -176,8 +176,9 @@ export default function App() {
           isStriped
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
-            <TableColumn>Name</TableColumn>
             <TableColumn>Speed</TableColumn>
+            <TableColumn>Name</TableColumn>
+            <TableColumn>Memory Type</TableColumn>
             <TableColumn>Modules</TableColumn>
             <TableColumn>CAS Latency</TableColumn>
             <TableColumn>True Latency</TableColumn>
@@ -190,17 +191,18 @@ export default function App() {
             {component.map((memory) => (
               <TableRow key={memory.memoryId}>
                 <TableCell>
-                {memory.name}
+                  {memory.name}
                   <Image src={memory.image}
                     width="70"
                     height="70"
                     alt="memory" />
                 </TableCell>
-                <TableCell>{memory.speed}</TableCell>
+                <TableCell>{memory.memoryType}</TableCell>
+                <TableCell>{memory.speed + ` MHz`}</TableCell>
                 <TableCell>{memory.modules}</TableCell>
                 <TableCell>{memory.casLatency}</TableCell>
-                <TableCell>{memory.trueLatency}</TableCell>
-                <TableCell>{memory.pricePerGig}</TableCell>
+                <TableCell>{memory.trueLatency + ` ns`}</TableCell>
+                <TableCell>{`$` + memory.pricePerGig}</TableCell>
                 <TableCell>{memory.color}</TableCell>
                 <TableCell>{`$` + memory.price}</TableCell>
                 <TableCell>

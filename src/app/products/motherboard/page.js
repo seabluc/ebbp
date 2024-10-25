@@ -199,7 +199,7 @@ export default function App() {
                 <TableCell>{motherboard.formFactor}</TableCell>
                 <TableCell>{motherboard.socket}</TableCell>
                 <TableCell>{motherboard.memoryType}</TableCell>
-                <TableCell>{motherboard.memoryMax}</TableCell>
+                <TableCell>{motherboard.memoryMax + ` GB`}</TableCell>
                 <TableCell>{motherboard.memorySlot}</TableCell>
                 <TableCell>{motherboard.color}</TableCell>
                 <TableCell>{`$` + motherboard.price}</TableCell>

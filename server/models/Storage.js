@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       storageId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       partId: {
         type: DataTypes.INTEGER,
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       capacity: { // in GB or TB
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       formFactor: { // in inches or M.2 dimensions in mm..? verify with PcPP
@@ -36,17 +36,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       pricePerGig: { // $#.## / gb
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       interface: { // validate as SSD, Sata, or NVMe
         type: DataTypes.STRING,
         allowNull: false,
+        /*
         validate: {
           isIn: [
             ['SSD', 'SATA', 'NVMe',]
           ],
         },
+        */
       },
     },
     {

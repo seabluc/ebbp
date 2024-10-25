@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       psuId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       partId: {
         type: DataTypes.INTEGER,
@@ -55,12 +55,12 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      wattage: {
-        type: DataTypes.STRING,
+      wattage: { // in W
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       length: { // in mm
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       color: { // nullable, rather useless spec...

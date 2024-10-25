@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       memorySpeedId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       motherboardId: {
         type: DataTypes.INTEGER,

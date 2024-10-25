@@ -2,8 +2,8 @@ import { Card, CardHeader, CardBody, Divider, Link, Image, Button } from "@nextu
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#4D585B]"> {/* Background: Charcoal */}
-      <h1 className="text-4xl font-bold mt-8 mb-4 text-[#DBAE58] text-center">PC Component Products</h1> {/* Title: Gold */}
+    <div className="min-h-screen flex flex-col items-center bg-[#4D585B]"> {/* Background: Charcoal */}
+      <h1 className="text-4xl font-bold mt-16 mb-4 text-[#DBAE58] text-center">PC Component Products</h1> {/* Title: Gold */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1650px]">
         {/* CPU Card */}

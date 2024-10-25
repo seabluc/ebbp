@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       coolerSocketId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        // autoIncrement: true,
       },
       cpuCoolerId: {
         type: DataTypes.INTEGER,

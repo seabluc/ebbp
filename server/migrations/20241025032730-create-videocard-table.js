@@ -2,12 +2,11 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Motherboard', {
-      motherboardId: {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("VideoCard", {
+      videoCardId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       partId: {
         type: Sequelize.INTEGER,
@@ -20,20 +19,12 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      socket: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      formFactor: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
       chipset: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      memoryMax: {
-        type: Sequelize.STRING,
+      memory: { // in GB
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       memoryType: {
@@ -41,80 +32,69 @@ module.exports = {
         allowNull: false,
         validate: {
           isIn: {
-            args: [['DDR4', 'DDR5']],
+            args: [
+              ['GDDR6X', 'GDDR6', 'GDDR5X', 'GDDR5',],
+            ]
           },
-        }
+        },
       },
-      memorySlot: {
+      coreClock: { // in MHz
         type: Sequelize.INTEGER,
         allowNull: false,
+      },
+      boostClock: { // in MHz
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      effectiveMemoryClock: { // seems to only exist post 20 family
+        type: Sequelize.INTEGER, // in MHz
+        allowNull: true,
       },
       color: {
+        type: Sequelize.STRING, 
+        allowNull: false,
+      },
+      frameSync: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          isIn: {
+            args: [
+              ['G-Sync', 'FreeSync',],
+            ],
+          },
+        },
+      },
+      length: { // in mm
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      tdp: { // in W
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      caseSlotWidth: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      totalSlotWidth: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      coolingFan: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      externalPower: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      pcieSixteenSlot: {
+      dpOutput: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      pcieEightSlot: {
+      hdmiOutput: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      pcieFourSlot: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      pcieOneSlot: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      pcieSlot: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      sataSlot: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      onboardEthernet: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      onboardVideo: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      usbTwoHeader: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      usbTwoHeaderSinglePort: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      usbThreeTwoGenOneHeader: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      usbThreeTwoGenTwoHeader: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      usbThreeTwoGenTwoByTwoHeader: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      wirelessNetworking: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      raidSupport: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-      },
-      backConnectors: {
-        type: Sequelize.BOOLEAN,
         allowNull: false,
       },
       createdAt: {
@@ -128,7 +108,7 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('Motherboard');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('VideoCard');
   }
 };

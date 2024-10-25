@@ -4,10 +4,9 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Part', {
-      id: { 
+      partId: { 
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       name: {
         type: Sequelize.STRING,
@@ -19,9 +18,17 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
+      },
+      price: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
       },
       manufacturer: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      partNum: {
         type: Sequelize.STRING,
         allowNull: false,
       },

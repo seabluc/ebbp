@@ -195,9 +195,9 @@ export default function App() {
                 </TableCell>
                 <TableCell>{powerSupply.formFactor}</TableCell>
                 <TableCell>{powerSupply.efficiency}</TableCell>
-                <TableCell>{powerSupply.wattage}</TableCell>
+                <TableCell>{powerSupply.wattage + ` W`}</TableCell>
                 <TableCell>{powerSupply.modularity}</TableCell>
-                <TableCell>{powerSupply.length}</TableCell>
+                <TableCell>{powerSupply.length + ` mm`}</TableCell>
                 <TableCell>{powerSupply.color || "--"}</TableCell>
                 <TableCell>{`$` + powerSupply.price}</TableCell>
                 <TableCell>

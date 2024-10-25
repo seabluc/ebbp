@@ -195,11 +195,11 @@ export default function App() {
                     height="70"
                     alt="storage" />
                 </TableCell>
-                <TableCell>{storage.capacity}</TableCell>
+                <TableCell>{storage.capacity + ` TB`}</TableCell>
                 <TableCell>{storage.storageType}</TableCell>
                 <TableCell>{storage.formFactor}</TableCell>
                 <TableCell>{storage.interface}</TableCell>
-                <TableCell>{storage.pricePerGig}</TableCell>
+                <TableCell>{`$` + storage.pricePerGig}</TableCell>
                 <TableCell>{`$` + storage.price}</TableCell>
                 <TableCell>
                   <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">
