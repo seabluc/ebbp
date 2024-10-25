@@ -3,31 +3,28 @@ import { Card, CardHeader, CardBody, Divider, Link, Image } from "@nextui-org/re
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#4D585B]"> {/* Background: Charcoal */}
-      <h1 className="text-4xl font-bold mb-8 text-[#DBAE58]">Home Page</h1> {/* Title: Gold */}
+    <div className="min-h-screen flex flex-col items-center bg-[#4D585B]"> {/* Background: Charcoal */}
+      <h1 className="text-4xl font-bold mt-16 mb-4 text-[#DBAE58] text-center">Home Page</h1> {/* Title: Gold */}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1650px]">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1650px] mx-auto"> {/* Centering the card grid */}
         {/* First Card */}
-        <Card className="w-[450px] h-[300px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex gap-3">
+        <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
+          <CardHeader className="flex items-center">
             <Image
-              alt="nextui logo"
+              alt="PC Workshop"
               height={50}
-              radius="sm"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
               width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <div className="flex flex-col">
-              <Link isExternal showAnchorIcon href="/workshop" className="text-[#DBAE58]">
-                PC Workshop
-              </Link>
-            </div>
+            <Link isExternal showAnchorIcon href="/workshop" className="text-[#DBAE58] ml-4">
+              PC Workshop
+            </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="text-[#E0E0E0] flex flex-col items-center"> {/* Centered content */}
-            <p className="mb-4 text-center">Dive into our PC Workshop, where you can create, customize, and perfect your own PC builds. Whether you're just starting or are an experienced builder, we provide detailed guidance and expert tips to help you design your dream setup with confidence and creativity.</p>
-            <Link href="/workshop"> {/* Wrap the button with Link */}
-              <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 w-[120px]" size="sm" auto>
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
+            <p className="mb-4 text-center">Explore our PC Workshop to create, customize, and refine your own PC builds. Whether you're new to PC building or a seasoned pro, design your ideal setup with step-by-step guidance and expert tips.</p>
+            <Link href="/workshop">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
                 Start Building
               </Button>
             </Link>
@@ -35,26 +32,23 @@ export default function App() {
         </Card>
 
         {/* Second Card */}
-        <Card className="w-[450px] h-[300px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex gap-3">
+        <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex items-center">
             <Image
-              alt="React logo"
+              alt="Products"
               height={50}
-              radius="sm"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
               width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <div className="flex flex-col">
-              <Link isExternal showAnchorIcon href="/products" className="text-[#DBAE58]">
-                Products
-              </Link>
-            </div>
+            <Link isExternal showAnchorIcon href="/products" className="text-[#DBAE58] ml-4">
+              Products
+            </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="text-[#E0E0E0] flex flex-col items-center">
-            <p className="mb-4 text-center">Explore our Products section to discover a wide range of high-quality PC components. From powerful GPUs to efficient cooling systems, find everything you need to enhance your build. Browse our curated selections and make informed choices with detailed specifications and user reviews.</p>
-            <Link href="/products"> {/* Wrap the button with Link */}
-              <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 w-[120px]" size="sm" auto>
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
+            <p className="mb-4 text-center">Discover a wide range of high-quality PC components, from powerful GPUs to efficient cooling systems. Browse our selections and make informed choices with detailed specs and user reviews.</p>
+            <Link href="/products">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
                 Explore
               </Button>
             </Link>
@@ -62,108 +56,96 @@ export default function App() {
         </Card>
 
         {/* Third Card */}
-        <Card className="w-[450px] h-[300px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex gap-3">
+        <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex items-center">
             <Image
-              alt="Vue logo"
+              alt="Guides"
               height={50}
-              radius="sm"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
               width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <div className="flex flex-col">
-              <Link isExternal showAnchorIcon href="/guides" className="text-[#DBAE58]">
-                Guides
-              </Link>
-            </div>
+            <Link isExternal showAnchorIcon href="/guides" className="text-[#DBAE58] ml-4">
+              Guides
+            </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="text-[#E0E0E0] flex flex-col items-center">
-            <p className="mb-4 text-center">Dive into our Guides section, where you'll find comprehensive tutorials and articles designed to help you navigate the world of PC building. Whether you’re a beginner or looking to optimize your setup, our expert advice and detailed walkthroughs will empower you to achieve your goals.</p>
-            <Link href="/guides"> {/* Wrap the button with Link */}
-              <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 w-[120px]" size="sm" auto>
-                Read More
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
+            <p className="mb-4 text-center">Access a collection of guides designed to assist you in your PC building journey. Our resources cover everything from basic components to advanced setups, ensuring you have all the knowledge you need to succeed.</p>
+            <Link href="/guides">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+                View Guides
               </Button>
             </Link>
           </CardBody>
         </Card>
 
         {/* Fourth Card */}
-        <Card className="w-[450px] h-[300px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex gap-3">
+        <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex items-center">
             <Image
-              alt="Svelte logo"
+              alt="Generate PC"
               height={50}
-              radius="sm"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
               width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <div className="flex flex-col">
-              <Link isExternal showAnchorIcon href="/glossary" className="text-[#DBAE58]">
-                Glossary
-              </Link>
-            </div>
-          </CardHeader>
-          <Divider className="border-[#DBAE58]" />
-          <CardBody className="text-[#E0E0E0] flex flex-col items-center">
-            <p className="mb-4 text-center">Visit our Glossary for a handy reference to common PC building terms and jargon. Whether you're looking to understand specific components or industry terminology, our easy-to-navigate glossary will help you familiarize yourself with the language of PC building.</p>
-            <Link href="/glossary"> {/* Wrap the button with Link */}
-              <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 w-[120px]" size="sm" auto>
-                Learn More
-              </Button>
+            <Link isExternal showAnchorIcon href="/generate-pc" className="text-[#DBAE58] ml-4">
+              Generate PC
             </Link>
-          </CardBody>
-        </Card>
-
-        {/* Fifth Card */}
-        <Card className="w-[450px] h-[300px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex gap-3">
-            <Image
-              alt="Svelte logo"
-              height={50}
-              radius="sm"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-              width={50}
-            />
-            <div className="flex flex-col">
-              <Link isExternal showAnchorIcon href="/generate" className="text-[#DBAE58]">
-                Generate PC
-              </Link>
-            </div>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="text-[#E0E0E0] flex flex-col items-center">
-            <p className="mb-4 text-center">Use our Generate PC feature to automate your PC building process. Input your preferences and budget, and let our tool recommend the best components for your ideal setup. Save time and ensure compatibility with our intelligent generation system that takes the guesswork out of building.</p>
-            <Link href="/generate"> {/* Wrap the button with Link */}
-              <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 w-[120px]" size="sm" auto>
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
+            <p className="mb-4 text-center">Use our PC Generator tool to create your custom PC build based on your preferences and budget. Select components tailored to your needs, and let our generator do the hard work of suggesting the best combinations for performance and compatibility.</p>
+            <Link href="/generate-pc">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
                 Generate Now
               </Button>
             </Link>
           </CardBody>
         </Card>
 
-        {/* Sixth Card */}
-        <Card className="w-[450px] h-[300px] bg-[#488A99] border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex gap-3">
+        {/* Fifth Card */}
+        <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex items-center">
             <Image
-              alt="Svelte logo"
+              alt="Account"
               height={50}
-              radius="sm"
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
               width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <div className="flex flex-col">
-              <Link isExternal showAnchorIcon href="/account/login" className="text-[#DBAE58]">
-                Account
-              </Link>
-            </div>
+            <Link isExternal showAnchorIcon href="/account" className="text-[#DBAE58] ml-4">
+              Account
+            </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="text-[#E0E0E0] flex flex-col items-center">
-            <p className="mb-4 text-center">Access your Account to manage your personal information and track your PC builds. Keep a record of your projects, saved components, and custom builds. Stay connected and receive personalized recommendations based on your interests and past activity.</p>
-            <Link href="/account/login"> {/* Wrap the button with Link */}
-              <Button className="bg-[#DBAE58] text-[#488A99] hover:bg-[#DBAE58]/80 w-[120px]" size="sm" auto>
-                Sign In
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
+            <p className="mb-4 text-center">Manage your account settings and preferences here. Access your profile, view your saved builds, and customize your experience on our platform to make your PC building journey smoother and more enjoyable.</p>
+            <Link href="/account">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+                Manage Account
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
+
+        {/* Sixth Card: Credits */}
+        <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
+          <CardHeader className="flex items-center">
+            <Image
+              alt="Credits"
+              height={50}
+              width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+            />
+            <Link isExternal showAnchorIcon href="/credits" className="text-[#DBAE58] ml-4">
+              Credits
+            </Link>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
+            <p className="mb-4 text-center">Acknowledgments for those who contributed to the development of this project. Special thanks to all collaborators, mentors, and the community for their support and feedback.</p>
+            <Link href="/credits">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+                View Credits
               </Button>
             </Link>
           </CardBody>

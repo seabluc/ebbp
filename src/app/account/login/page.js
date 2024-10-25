@@ -16,8 +16,8 @@ const Auth = () => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-teal-300 to-indigo-300 p-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
+    <div className="flex items-center justify-center min-h-screen bg-[#4D585B] p-4"> {/* Background: Charcoal */}
+      <div className="bg-[#DBAE58] rounded-lg shadow-lg p-8 max-w-md w-full text-center border-2 border-[#DBAE58]"> {/* Gold Background with Gold Border */}
         <h1 className="text-2xl font-bold mb-6 text-gray-800">Login to Your Account</h1>
         <div id="firebaseui-auth-container" className="mb-6"></div> {/* FirebaseUI widget will render here */}
         <p className="text-sm text-gray-600">
