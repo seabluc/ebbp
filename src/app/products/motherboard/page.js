@@ -204,7 +204,7 @@ export default function App() {
                 <TableCell>{motherboard.color}</TableCell>
                 <TableCell>{`$` + motherboard.price}</TableCell>
                 <TableCell>
-                  <Button className="bg-[#DBAE58] text-black ml-5 px-4 py-2 rounded transition-transform transform active:scale-95">
+                  <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
                     Add to Build
                   </Button>
                 </TableCell>

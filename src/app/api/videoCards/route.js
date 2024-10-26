@@ -3,7 +3,7 @@ import connection from '@/lib/db';
 export async function GET(request) {
   try {
     const query = `
-      SELECT VideoCard.*, Part.*
+      SELECT VideoCard.*, Part.*, CAST(Part.price AS DECIMAL(10,2)) AS price
       FROM VideoCard
       JOIN Part ON VideoCard.partId = Part.partId
     `;

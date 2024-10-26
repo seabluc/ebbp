@@ -76,7 +76,8 @@ export default function Home() {
                 ) : (
                   moboData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -91,7 +92,8 @@ export default function Home() {
                 ) : (
                   cpuData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -106,7 +108,8 @@ export default function Home() {
                 ) : (
                   cpuCoolerData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -121,7 +124,8 @@ export default function Home() {
                 ) : (
                   memoryData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -136,7 +140,8 @@ export default function Home() {
                 ) : (
                   storageData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -151,7 +156,8 @@ export default function Home() {
                 ) : (
                   videoCardData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -166,7 +172,8 @@ export default function Home() {
                 ) : (
                   powerSupplyData.map((item) => (
                     <div key={item.id} className="p-2 border-b border-[#DBAE58]">
-                      Product code: {item.formFactor}
+                      Model name: {item.name} <br />
+                      Product code: {item.partNum}
                     </div>
                   ))
                 )}
@@ -174,6 +181,9 @@ export default function Home() {
             </Card>
           </Tab>
         </Tabs>
+      </div>
+      <div className="flex">
+        hello hello
       </div>
     </div>
   );
