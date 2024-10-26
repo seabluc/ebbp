@@ -23,7 +23,7 @@ import connection from '@/lib/db';
 export async function GET(request) {
   try {
     const query = `
-      SELECT Cpu.*, Part.*
+      SELECT Cpu.*, Part.*, CAST(Part.price AS DECIMAL(10,2)) AS price
       FROM Cpu
       JOIN Part ON Cpu.partId = Part.partId
     `;

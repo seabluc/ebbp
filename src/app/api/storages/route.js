@@ -3,7 +3,7 @@ import connection from '@/lib/db';
 export async function GET(request) {
   try {
     const query = `
-      SELECT Storage.*, Part.*, Storage.type AS storageType
+      SELECT Storage.*, Part.*, Storage.type AS storageType, CAST(Part.price AS DECIMAL(10,2)) AS price
       FROM Storage
       JOIN Part ON Storage.partId = Part.partId
     `;
