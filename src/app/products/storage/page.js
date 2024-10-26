@@ -15,6 +15,7 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function App() {
   const [component, setComponent] = useState([]);
@@ -202,9 +203,11 @@ export default function App() {
                 <TableCell>{`$` + storage.pricePerGig}</TableCell>
                 <TableCell>{`$` + storage.price}</TableCell>
                 <TableCell>
-                  <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
-                    Add to Build
-                  </Button>
+                  <Link href="/workshop">
+                    <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
+                      Add to Build
+                    </Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
