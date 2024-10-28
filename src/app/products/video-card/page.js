@@ -16,9 +16,11 @@ import {
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSharedData } from "../../../context/SharedDataContext";
 
 export default function App() {
   const [component, setComponent] = useState([]);
+  const { updateSelectedVideoCard } = useSharedData();
 
   const fetchData = async (url, setData) => {
     try {
@@ -31,6 +33,10 @@ export default function App() {
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleSelectedComponent = (component) => {
+    updateSelectedVideoCard(component);
   };
 
   useEffect(() => {
@@ -207,9 +213,13 @@ export default function App() {
                 <TableCell>{`$` + videoCard.price}</TableCell>
                 <TableCell>
                   <Link href="/workshop">
-                    <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
+                    <button
+                      className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
+                      onClick={() => {
+                        handleSelectedComponent(videoCard);
+                      }}>
                       Add to Build
-                    </Button>
+                    </button>
                   </Link>
                 </TableCell>
               </TableRow>

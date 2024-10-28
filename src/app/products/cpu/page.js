@@ -16,25 +16,31 @@ import {
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSharedData } from "../../../context/SharedDataContext";
 
 export default function App() {
   const [component, setComponent] = useState([]);
+  const { updateSelectedCPU } = useSharedData();
 
-  const fetchData = async (url, setData) => {
+  const fetchComponents = async (url) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setData(data);
+      setComponent(data);
     } catch (error) {
       setError(error.message);
     }
   };
 
+  const handleSelectedComponent = (component) => {
+    updateSelectedCPU(component);
+  };
+
   useEffect(() => {
-    fetchData("../api/cpus", setComponent);
+    fetchComponents("../api/cpus");
   }, []);
 
   return (
@@ -205,9 +211,22 @@ export default function App() {
                 <TableCell>{`$` + cpu.price}</TableCell>
                 <TableCell>
                   <Link href="/workshop">
-                    <Button className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
+                    <button // RE-DO NAVIGATION, SEE IF IT CAN JUST TAKE US BACK TO PREVIOUS ACTION
+                      className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
+                      onClick={() => {
+                        handleSelectedComponent(cpu);
+                      }}>
+                      Add to Build
+                    </button>
+                    {/*
+                    <Button
+                      onPress={() => {
+                        handleSelectedComponent(cpu);
+                      }}
+                      className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
                       Add to Build
                     </Button>
+                    */}
                   </Link>
                 </TableCell>
               </TableRow>
