@@ -40,7 +40,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchComponents("../api/cpus");
+    fetchComponents("../api/cpus"), setComponent;
   }, []);
 
   return (

@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/Navbar";
 import { Providers } from "@/app/providers";
 import 'firebaseui/dist/firebaseui.css';
 import { SharedDataProvider } from '../context/SharedDataContext';

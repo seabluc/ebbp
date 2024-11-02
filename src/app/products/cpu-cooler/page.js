@@ -219,6 +219,22 @@ export default function App() {
                 </TableCell>
               </TableRow>
             ))}
+            {/*} Testing the cpu cooler's supported sockets
+            {component.map((cpuCooler) => (
+              <TableRow key={cpuCooler.cpuCoolerId}>
+                <TableCell>
+                  {cpuCooler.supportedSockets.map((socket) => (
+                    <li key={socket}>{socket}</li>
+                  ))}</TableCell>
+                <TableCell>sample cell</TableCell>
+                <TableCell>sample cell</TableCell>
+                <TableCell>sample cell</TableCell>
+                <TableCell>sample cell</TableCell>
+                <TableCell>sample cell</TableCell>
+                <TableCell>sample cell</TableCell>
+              </TableRow>
+            ))}
+              */}
           </TableBody>
         </Table>
       </div>
