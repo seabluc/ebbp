@@ -11,7 +11,15 @@ export function SharedDataProvider({ children }) {
   const [selectedVideoCard, setSelectedVideoCard] = useState(null);
   const [selectedCPUCooler, setSelectedCPUCooler] = useState(null);
   const [selectedPowerSupply, setSelectedPowerSupply] = useState(null);
+  const [totalWattage, setTotalWattage] = useState(0);
+  const [compatibilityStatus, setCompatibilityStatus] = useState("None");
+  const [socketStatus, setSocketStatus] = useState(null);
+  const [coolerStatus, setCoolerStatus] = useState(null);
+  const [memoryStatus, setMemoryStatus] = useState(null);
+  const [videoStatus, setVideoStatus] = useState(null);
+  const [powerStatus, setPowerStatus] = useState(null);
 
+  // localStorage handling
   useEffect(() => {
     const savedCPU = localStorage.getItem('selectedCPU');
     const savedMobo = localStorage.getItem('selectedMotherboard');
@@ -19,7 +27,7 @@ export function SharedDataProvider({ children }) {
     const savedStorage = localStorage.getItem('selectedStorage');
     const savedVideoCard = localStorage.getItem('selectedVideoCard');
     const savedCooler = localStorage.getItem('selectedCPUCooler');
-    const savedPowerSupply = localStorage.getItem('selectedPowerSupply');
+    const savedPowerSupply = localStorage.getItem('selectedPowerSupply');;
     if (savedCPU) {
       setSelectedCPU(JSON.parse(savedCPU));
     }
@@ -42,7 +50,8 @@ export function SharedDataProvider({ children }) {
       setSelectedPowerSupply(JSON.parse(savedPowerSupply));
     }
   }, []);
-
+  
+  {/* Selecting components (/products) and removing components (/workshop) */ }
   const updateSelectedCPU = (cpu) => {
     setSelectedCPU(cpu);
     localStorage.setItem('selectedCPU', JSON.stringify(cpu));
@@ -50,6 +59,8 @@ export function SharedDataProvider({ children }) {
 
   const clearSelectedCPU = () => {
     setSelectedCPU(null);
+    setVideoStatus(null);
+    setSocketStatus(null);
     localStorage.removeItem('selectedCPU');
   };
 
@@ -60,6 +71,8 @@ export function SharedDataProvider({ children }) {
 
   const clearSelectedMotherboard = () => {
     setSelectedMotherboard(null);
+    setSocketStatus(null);
+    setMemoryStatus(null);
     localStorage.removeItem('selectedMotherboard');
   }
 
@@ -70,6 +83,7 @@ export function SharedDataProvider({ children }) {
 
   const clearSelectedMemory = () => {
     setSelectedMemory(null);
+    setMemoryStatus(null);
     localStorage.removeItem('selectedMemory');
   }
 
@@ -90,6 +104,7 @@ export function SharedDataProvider({ children }) {
 
   const clearSelectedVideoCard = () => {
     setSelectedVideoCard(null);
+    setVideoStatus(null);
     localStorage.removeItem('selectedVideoCard');
   }
 
@@ -100,6 +115,7 @@ export function SharedDataProvider({ children }) {
 
   const clearSelectedCPUCooler = () => {
     setSelectedCPUCooler(null);
+    setCoolerStatus(null);
     localStorage.removeItem('selectedCPUCooler');
   }
 
@@ -110,6 +126,7 @@ export function SharedDataProvider({ children }) {
 
   const clearSelectedPowerSupply = () => {
     setSelectedPowerSupply(null);
+    setPowerStatus(null);
     localStorage.removeItem('selectedPowerSupply');
   }
 
@@ -123,12 +140,14 @@ export function SharedDataProvider({ children }) {
         selectedVideoCard, updateSelectedVideoCard, clearSelectedVideoCard,
         selectedCPUCooler, updateSelectedCPUCooler, clearSelectedCPUCooler,
         selectedPowerSupply, updateSelectedPowerSupply, clearSelectedPowerSupply,
+        totalWattage, setTotalWattage, compatibilityStatus, setCompatibilityStatus,
+        socketStatus, setSocketStatus, coolerStatus, setCoolerStatus, memoryStatus,
+        setMemoryStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus,
       }}>
       {children}
     </SharedDataContext.Provider>
   );
 }
-
 export function useSharedData() {
   return useContext(SharedDataContext);
 }

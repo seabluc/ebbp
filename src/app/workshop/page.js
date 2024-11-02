@@ -1,10 +1,12 @@
 'use client';
-import { createContext, useContext, useState } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { Tabs, Tab, Card, CardBody, /*Image*/ } from "@nextui-org/react";
 import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from '../../context/SharedDataContext';
+import Compatibility from '@/components/Compatibility';
+import Wattage from '@/components/Wattage';
 
 export default function Home() {
   const [selectedBuild, setSelectedBuild] = useState("build1"); // For Tab Builds #1-10
@@ -15,26 +17,32 @@ export default function Home() {
   const { selectedVideoCard, clearSelectedVideoCard } = useSharedData();
   const { selectedPowerSupply, clearSelectedPowerSupply } = useSharedData();
   const { selectedCPUCooler, clearSelectedCPUCooler } = useSharedData();
+  const { compatibilityStatus } = useSharedData();
+  let backgroundColor;
+
+  if (compatibilityStatus === 'Bad') {
+    backgroundColor = 'bg-red-600';
+  } else if (compatibilityStatus === 'Good' || compatibilityStatus === 'Issue') {
+    backgroundColor = 'bg-green-500';
+  } else if (compatibilityStatus === 'None') {
+    backgroundColor = 'bg-default-400';
+  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#4D585B] py-4 px-8"> {/* Background: Charcoal */}
-
-      {/* Flex-col for Title/header & Build Tabs */}
-      <div className="flex flex-col items-center">
-        {/* Title: Gold */}
-        <div className="flex">
-          <h1 className="flex text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
-            PC Workshop
-          </h1>
-        </div>
-        {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
-        <div className="flex mb-8">
+    <div className="flex flex-col min-h-screen bg-[#4D585B] py-4 px-8 items-center text-workshopTextColor"> {/* Background: Charcoal */}
+      <div className="flex flex-col">
+        {/* Flex-col for Title/header & Build Tabs */}
+        <h1 className="flex justify-center text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
+          PC Workshop
+        </h1>
+        <div className="flex-col bg-slate-100 rounded-lg">
+          {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
           <Tabs
             aria-label="Build Options"
             selectedKey={selectedBuild}
             onSelectionChange={setSelectedBuild}
             isVertical={false} // Ensures the tabs remain horizontal
-            css={{ borderRadius: "8px" }} // Ensures the tabs have rounded corners
+            className="rounded-lg bg-rgb(229, 231, 235)"
           >
             <Tab key="build1" title="Build 1" />
             <Tab key="build2" title="Build 2" />
@@ -47,12 +55,16 @@ export default function Home() {
             <Tab key="build9" title="Build 9" />
             <Tab key="build10" title="Build 10" />
           </Tabs>
+          {<div className={`flex rounded-b-lg ${backgroundColor}`}>
+            <Compatibility /><Wattage />
+          </div>}
         </div>
       </div>
+      {/* Flex-row for Compatibility bar, component Tabs and Mobo diagram */}
+      <div className="flex flex-col justify-center">
 
-      <div className="flex justify-center border-2 border-dashed">
-        {/* Flex-row for component Tabs and Mobo diagram */}
         <div className="flex flex-row items-stretch justify-center py-4 gap-4">
+
           {/* Vertical Tabs for Components */}
           <div className="flex flex-col p-4">
             <Tabs aria-label="PC Components" isVertical>
@@ -129,83 +141,126 @@ export default function Home() {
               {selectedCPU ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>CPU:</u></b> <button className="text-red-600" onClick={clearSelectedCPU}>[X]</button></span>
-                  <span>{selectedCPU.name} {selectedCPU.socket} {selectedCPU.maxTurboPower + ' W' ||
-                    selectedCPU.tdp + ` `}
+                  <Image
+                    width={60}
+                    height={60}
+                    src={selectedCPU.image}
+                    alt="CPU">
+                  </Image>
+                  <span>{selectedCPU.name} {selectedCPU.socket} {selectedCPU.cpuMemoryMax + ' GB'}
                   </span>
                 </div>
               ) : (
                 <p>no CPU selected</p>
               )}
+              <hr className=" flex bg-black h-0.5"/>
             </div>
             {/* Selected Motherboard */}
             <div className="">
               {selectedMotherboard ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>Mobo:</u></b> <button className="text-red-600" onClick={clearSelectedMotherboard}>[X]</button></span>
-                  <span>{selectedMotherboard.name} {selectedMotherboard.socket} {selectedMotherboard.memoryType} {selectedMotherboard.memoryMax + ' GB'}
+                  <Image
+                    width={75}
+                    height={75}
+                    src={selectedMotherboard.image}
+                    alt="Motherboard">
+                  </Image>
+                  <span>{selectedMotherboard.name} {selectedMotherboard.socket} {selectedMotherboard.motherboardMemoryType} {selectedMotherboard.motherboardMemoryMax + ' GB'}
                   </span>
                 </div>
               ) : (
                 <p>no Motherboard selected</p>
               )}
+              <hr className=" flex bg-black h-0.5"/>
             </div>
-
             {/* Selected Memory */}
             <div className="">
               {selectedMemory ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>Memory:</u></b> <button className="text-red-600" onClick={clearSelectedMemory}>[X]</button></span>
-                  <span>{selectedMemory.name} {selectedMemory.memoryType}-{selectedMemory.speed + ' GHz'}{selectedMemory.modules}</span>
+                  <Image
+                    width={60}
+                    height={60}
+                    src={selectedMemory.image}
+                    alt="Memory">
+                  </Image>
+                  <span>{selectedMemory.name} {selectedMemory.memoryType}-{selectedMemory.speed + ' MHz '}
+                    {selectedMemory.capacity + ' GB'} ({selectedMemory.modules})</span>
                 </div>
               ) : (
                 <p>no Memory selected</p>
               )}
+              <hr className=" flex bg-black h-0.5"/>
             </div>
-
             {/* Selected Storage */}
             <div className="">
               {selectedStorage ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>Storage:</u></b> <button className="text-red-600" onClick={clearSelectedStorage}>[X]</button></span>
+                  <Image
+                    width={70}
+                    height={70}
+                    src={selectedStorage.image}
+                    alt="Storage">
+                  </Image>
                   <span>{selectedStorage.name} {selectedStorage.capacity + ' TB'} {selectedStorage.interface}</span>
                 </div>
               ) : (
                 <p>no Storage selected</p>
               )}
+              <hr className=" flex bg-black h-0.5"/>
             </div>
-
             {/* Selected Video Card */}
             <div className="">
               {selectedVideoCard ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>GPU:</u></b> <button className="text-red-600" onClick={clearSelectedVideoCard}>[X]</button></span>
-                  <span>{selectedVideoCard.name} {selectedVideoCard.memoryType} {selectedVideoCard.memory + ' GB'}
-                    {selectedVideoCard.coreClock + ' MHz'} {/*selectedVideoCard.tdp + ' W'*/} {/*selectedVideoCard.length + ' mm'*/}
+                  <Image
+                    width={80}
+                    height={80}
+                    src={selectedVideoCard.image}
+                    alt="Video Card">
+                  </Image>
+                  <span>{selectedVideoCard.name} {selectedVideoCard.videoCardMemoryType} {selectedVideoCard.memory + ' GB '}
+                    {selectedVideoCard.coreClock + ' MHz '}{/*selectedVideoCard.tdp + ' W'*/}{/*selectedVideoCard.length + ' mm'*/}
                   </span>
                 </div>
               ) : (
                 <p>no Video Card selected</p>
               )}
+              <hr className=" flex bg-black h-0.5"/>
             </div>
-
             {/* Selected CPU Cooler */}
             <div className="">
               {selectedCPUCooler ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>CPU Cooler:</u></b> <button className="text-red-600" onClick={clearSelectedCPUCooler}>[X]</button></span>
+                  <Image
+                    width={70}
+                    height={70}
+                    src={selectedCPUCooler.image}
+                    alt="CPU Cooler">
+                  </Image>
                   <span>{selectedCPUCooler.name} {selectedCPUCooler.fanRPM + ' RPM'} {selectedCPUCooler.noiseLevel + ' dB'} {selectedCPUCooler.height || selectedCPUCooler.radiatorSize + " mm"}
                   </span>
                 </div>
               ) : (
                 <p>no CPU Cooler selected</p>
               )}
+              <hr className=" flex bg-black h-0.5"/>
             </div>
-
             {/* Selected Power Supply */}
             <div className="">
               {selectedPowerSupply ? (
                 <div className="flex flex-col items-center">
                   <span><b><u>PSU:</u></b> <button className="text-red-600" onClick={clearSelectedPowerSupply}>[X]</button></span>
+                  <Image
+                    width={70}
+                    height={70}
+                    src={selectedPowerSupply.image}
+                    alt="Power Supply">
+                  </Image>
                   <span>{selectedPowerSupply.name} {selectedPowerSupply.formFactor} {selectedPowerSupply.efficiency} {selectedPowerSupply.wattage + " W"} {selectedPowerSupply.modularity}
                     {/*selectedPowerSupply.length + " mm"*/}
                   </span>
@@ -216,16 +271,14 @@ export default function Home() {
             </div>
 
           </div>
-
           {/* Mobo diagram */}
-          <div className="flex">
+          <div className="flex flex-col items-center">
             <Image
               width={400}
               height={500}
               src={MoboDiagram}
               alt="mobo goes here" />
           </div>
-
         </div>
       </div>
     </div>
