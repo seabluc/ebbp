@@ -123,7 +123,7 @@ export function SharedDataProvider({ children }) {
     } else {
       setMoboSATASlots((prevSlots) => prevSlots + 1);
     }
-    setStorageCwount((prevStorage) => Math.wmax(prevStorage - 1, 0)); // No negative storages
+    setStorageCount((prevStorage) => Math.max(prevStorage - 1, 0)); // No negative storages
     localStorage.removeItem('selectedStorage');
   }
 
