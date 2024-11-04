@@ -8,7 +8,7 @@ import WattageOff from "../../public/zap-off.svg";
 export const Wattage = () => {
   const { selectedCPU, selectedMotherboard, selectedMemory,
     selectedStorage, selectedVideoCard, selectedCPUCooler,
-  totalWattage, setTotalWattage } = useSharedData();
+  totalWattage, setTotalWattage, storageCount, memoryCount, } = useSharedData();
   const [wattageIcon, setWattageIcon] = useState(WattageOff);
 
   const handleWattageIcon = () => {
@@ -52,7 +52,8 @@ export const Wattage = () => {
 
     // 15 W, regardless of Storage type and capacity
     const calculateStorageWattage = () => {
-      return selectedStorage ? 15 : 0;
+      // return selectedStorage ? 15 : 0;
+      return selectedStorage ? storageCount * 15 : 0;
       // For adding more than 1 storage, check the amount of storageID's in 
       // selectedStorage, then return that amount * 15.
     }
