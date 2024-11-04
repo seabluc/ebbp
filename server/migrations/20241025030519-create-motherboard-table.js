@@ -76,6 +76,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      mTwoSlot: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       onboardEthernet: {
         type: Sequelize.STRING,
         allowNull: false,

@@ -18,6 +18,11 @@ export function SharedDataProvider({ children }) {
   const [memoryStatus, setMemoryStatus] = useState(null);
   const [videoStatus, setVideoStatus] = useState(null);
   const [powerStatus, setPowerStatus] = useState(null);
+  const [moboSATASlots, setMoboSATASlots] = useState(0);
+  const [moboMTwoSlots, setMoboMTwoSlots] = useState(0);
+  const [storageCount, setStorageCount] = useState(0);
+  const [memoryCount, setMemoryCount] = useState(0);
+  // const [totalMemory, setTotalMemory] = useState(0);
 
   // localStorage handling
   useEffect(() => {
@@ -50,7 +55,15 @@ export function SharedDataProvider({ children }) {
       setSelectedPowerSupply(JSON.parse(savedPowerSupply));
     }
   }, []);
-  
+
+  // handling for multiple Memory & Storage 
+  useEffect(() => {
+    if (selectedMotherboard) {
+      setMoboMTwoSlots(selectedMotherboard.mTwoSlot);
+      setMoboSATASlots(selectedMotherboard.sataSlot);
+    }
+
+  }, [selectedMotherboard, moboMTwoSlots, moboSATASlots, storageCount])
   {/* Selecting components (/products) and removing components (/workshop) */ }
   const updateSelectedCPU = (cpu) => {
     setSelectedCPU(cpu);
@@ -64,8 +77,11 @@ export function SharedDataProvider({ children }) {
     localStorage.removeItem('selectedCPU');
   };
 
+  // when user selects a motherboard on /products/motherboard
   const updateSelectedMotherboard = (mobo) => {
     setSelectedMotherboard(mobo);
+    setMoboSATASlots(mobo.sataSlot);
+    setMoboMTwoSlots(mobo.mTwoSlot);
     localStorage.setItem('selectedMotherboard', JSON.stringify(mobo));
   };
 
@@ -87,13 +103,27 @@ export function SharedDataProvider({ children }) {
     localStorage.removeItem('selectedMemory');
   }
 
+  // when user selects a storage on /products/storage
   const updateSelectedStorage = (storage) => {
     setSelectedStorage(storage);
+    if (selectedStorage?.nvme || 0) {
+      setMoboMTwoSlots((prevSlots) => Math.max(prevSlots -1, 0)); // No negative slots
+    } else {
+      setMoboSATASlots((prevSlots) => Math.max(prevSlots - 1, 0)); // No negative slots
+    }
+    setStorageCount((prevStorage) => prevStorage + 1);
     localStorage.setItem('selectedStorage', JSON.stringify(storage));
   }
 
+  // when user deselects their build's storage on /workshop
   const clearSelectedStorage = () => {
     setSelectedStorage(null);
+    if (selectedStorage.nvme) {
+      setMoboMTwoSlots((prevSlots) => prevSlots + 1);
+    } else {
+      setMoboSATASlots((prevSlots) => prevSlots + 1);
+    }
+    setStorageCwount((prevStorage) => Math.wmax(prevStorage - 1, 0)); // No negative storages
     localStorage.removeItem('selectedStorage');
   }
 
@@ -135,8 +165,11 @@ export function SharedDataProvider({ children }) {
       value={{
         selectedCPU, updateSelectedCPU, clearSelectedCPU,
         selectedMotherboard, updateSelectedMotherboard, clearSelectedMotherboard,
+        moboSATASlots, moboMTwoSlots,
         selectedMemory, updateSelectedMemory, clearSelectedMemory,
+        memoryCount, setMemoryCount,
         selectedStorage, updateSelectedStorage, clearSelectedStorage,
+        storageCount, setStorageCount,
         selectedVideoCard, updateSelectedVideoCard, clearSelectedVideoCard,
         selectedCPUCooler, updateSelectedCPUCooler, clearSelectedCPUCooler,
         selectedPowerSupply, updateSelectedPowerSupply, clearSelectedPowerSupply,

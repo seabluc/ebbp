@@ -57,40 +57,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      modules: { // # x #GB 
-        // Z790-E mobo only allowed 288-pin DIMM (DDR5) [formFactor] w/ 2380 compatible products.
-        // The 288-pin DIMM (DDR5) Modules available/compatible for this mobo are:
-        // 1 x 2GB -> 1 product OMIT OMIT OMIT OMIT OMIT
-        // 1 x 8GB -> 75 products
-        // 1 x 16GB -> 354 products
-        // 2 x 8GB -> 94 products
-        // 1 x 24GB -> 15 products
-        // 1 x 32GB -> 168 products
-        // 2 x 16GB -> 1035 products (still 1035 evn w/ no CPU)
-        // 1 x 48GB -> 10 products 
-        // 2 x 24GB -> 139 products
-        // 2 x 32GB -> 390 products
-        // 4 x 16GB -> 25 products
-        // 2 x 48GB -> 62 products
-        // 4 x 24GB -> 6 products
-        // 4 x 32GB -> 6 products
-
-
-        // i dont think ill include any memory products that are < 8gb
-        // ill also likely omit products where there are > 4 modules and omit
-        // products that exceed 192GB, which are 4x64GB, 8x32GB, 8x48GB, 8x64GB
-        type: DataTypes.STRING,
+      modules: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        /*
         validate: {
           isIn: {
             args: [
-              []
-            ]
-          }
-        }
-          */
+              [1, 2,] /*
+              (DDR4) - 1 x 8 GB, 1 x 16 GB, 1 x 32 GB, 2 x 8 GB, 2 x 16 GB, 2 x 32 GB  
+              (DDR5) - 1 x 8 GB, 1 x 16 GB, 1 x 32 GB, 2 x 8 GB, 2 x 16 GB, 2 x 32 GB, 2 x 48 GB
+            */
+            ],
+          },
+        },
       },
+
       pricePerGig: {
         type: DataTypes.FLOAT,
         allowNull: false,

@@ -88,9 +88,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       lithography: { // in nm
-        type: DataTypes.INTEGER, 
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
+      /* 11/7/24 - not MVP, but nice addition as stock coolers aren't that bad.
+      includedCooler: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      },*/
       multithreading: { // Hyper-Threading if Intel
         type: DataTypes.BOOLEAN,
         allowNull: false,

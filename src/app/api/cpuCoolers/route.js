@@ -11,7 +11,6 @@ export async function GET(request) {
       LEFT JOIN CpuCoolerSocket ON CpuCooler.cpuCoolerId = CpuCoolerSocket.cpuCoolerId
       GROUP BY CpuCooler.cpuCoolerId
     `;
-
     const [rows] = await connection.query(query);
 
     // Map rows to transform `supportedSockets` to an array

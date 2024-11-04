@@ -39,16 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
-      interface: { // validate as SSD, Sata, or NVMe
+      interface: { // SATA 6.0 GB/s or PCIe 5.0/4.0 X4/X2
         type: DataTypes.STRING,
         allowNull: false,
-        /*
-        validate: {
-          isIn: [
-            ['SSD', 'SATA', 'NVMe',]
-          ],
-        },
-        */
+      },
+      nvme: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {
