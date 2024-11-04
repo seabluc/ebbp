@@ -54,20 +54,8 @@ module.exports = {
         allowNull: false,
       },
       modules: {
-        // i dont think ill include any memory products that are < 8gb
-        // ill also likely omit products where there are > 4 modules and omit
-        // products that exceed 192GB, which are 4x64GB, 8x32GB, 8x48GB, 8x64GB
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
-        /*
-        validate: {
-          isIn: {
-            args: [
-              []
-            ]
-          }
-        }
-          */
       },
       pricePerGig: {
         type: Sequelize.FLOAT,

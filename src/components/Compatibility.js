@@ -10,6 +10,7 @@ import { Navbar, NavbarContent, NavbarItem, Button, DropdownItem, DropdownTrigge
 export const Compatibility = () => {
   const { selectedCPU, clearSelectedCPU,
     selectedMotherboard, clearSelectedMotherboard,
+    moboSATASlots, moboMTwoSlots,
     selectedMemory, clearSelectedMemory,
     selectedStorage, clearSelectedStorage,
     selectedVideoCard, clearSelectedVideoCard,
@@ -18,11 +19,6 @@ export const Compatibility = () => {
     compatibilityStatus, setCompatibilityStatus, totalWattage,
     socketStatus, setSocketStatus, memoryStatus, setMemoryStatus, coolerStatus,
     setCoolerStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus } = useSharedData();
-  //const [moboSlots, setMoboSlots] = useState(0);
-  //const [memoryStatus, setMemoryStatus] = useState(null);
-  //const [memorySlots, setMemorySlots] = useState(0);
-  //const [storageSATASlots, setStorageSATASlots] = useState(0);
-  //const [storageMTwoSlots, setStorageMTwoSlots] = useState(0);
   //const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
@@ -79,17 +75,17 @@ export const Compatibility = () => {
 
     const checkMemory = () => {
       if (selectedMemory.memoryType === selectedMotherboard.motherboardMemoryType) {
-        setCompatibilityStatus('Good');
-        setMemoryStatus('Compatible'); // COMP - RAM & Mobo DDR gen. Check for memory limits SOOONNNN 
+        if (selectedMotherboard.supportedSpeeds.includes(`${selectedMemory?.memoryType}-${selectedMemory?.speed}`)) {
+          setCompatibilityStatus('Good');
+          setMemoryStatus('Compatible1'); // RAM & Mobo DDR gen and memory speed are all compatible/supported
+        } else {
+          setCompatibilityStatus('Good');
+          setMemoryStatus('Issue1'); // ISSUE - Selected RAM is likely subjected to downclocking as motherboard does not support its memory speed
+        }
       } else {
         setCompatibilityStatus('Bad');
         setMemoryStatus('Incompatible1'); // INCOMP - Mobo doesn't support DDR# type
       }
-      /* Develop upon further db configing MotherboardMemorySpeeds
-      if (mobo.supportedSpeeds.includes(`${memory.memoryType}-${memory.speed}`)) {
-        setCompatibilityStatus('Bad'); // ISSUE - Mobo doesn't support RAM speed
-      }
-      */
     };
 
     /* Develop upon further db configing MotherboardMTwoSlots
@@ -105,7 +101,7 @@ export const Compatibility = () => {
           }
         } else {
           setCompatibilityStatus('Issue');
-          setMemoryStatus('Issue'); // ISSUE - not rly minmaxing on CPU and Mobo space
+          setMemoryStatus('Issue2'); // ISSUE - not rly minmaxing on CPU and Mobo space
         }
       } // CPU, Mobo, and Memory have not been selected yet
     };
@@ -142,10 +138,8 @@ export const Compatibility = () => {
       checkSocket();
     }
 
-    if (selectedCPUCooler) {
-      if (selectedCPU && selectedMotherboard) {
-        checkCoolerSocket();
-      }
+    if (selectedCPUCooler && selectedCPU && selectedMotherboard) {
+      checkCoolerSocket();
     }
 
     if (selectedMemory && selectedMotherboard) {
@@ -188,7 +182,7 @@ export const Compatibility = () => {
         <DropdownItem
           key="socket"
           description='CPU and Motherboard sockets are compatible, but a CPU Cooler has not been selected. Consider choosing one that supports your socket type.'>Socket:
-          <span className="text-gray-500"> {selectedCPU?.cpuSocket || ''}</span>
+          <span className="text-gray-400"> {selectedCPU?.cpuSocket || ''}</span>
         </DropdownItem> :
         <DropdownItem
           key="socket"
@@ -211,18 +205,19 @@ export const Compatibility = () => {
         <DropdownItem
           key="cooler"
           description='CPU Cooler.'>CPU Cooling:
-          <span className="text-gray-500"> </span>
+          <span className="text-gray-400"> </span>
         </DropdownItem> :
         <DropdownItem
           key="cooler"
           description="Select a CPU Cooler that has the same socket type as the CPU and motherboard.">CPU Cooling:
         </DropdownItem>;
 
-  const memoryStatusInfo = memoryStatus === 'Compatible' ?
+  const memoryStatusInfo = memoryStatus === 'Compatible1' ?
     <DropdownItem
       key="memory"
-      description="The selected RAM's memory type (DDR generation) is compatible with the motherboard, and its capacity is within the maximum supported by both the CPU and motherboard.">Memory:
-      <span className="text-green-600"> {selectedMemory?.memoryType || ''}</span>
+      description="The selected RAM's memory type (DDR generation) is compatible with the motherboard, and its speed is supported.">Memory:
+      <span className="text-green-600"> {selectedMemory?.memoryType || ''} {selectedMemory?.memoryType || ''}-{selectedMemory?.speed || ''}</span>
+      {/* its capacity is within the maximum supported by both the CPU and motherboard. */}
     </DropdownItem> :
     memoryStatus === 'Incompatible1' ?
       <DropdownItem
@@ -236,10 +231,12 @@ export const Compatibility = () => {
           key="memory"
           description="RAM's overall capacity surpasses the maximum supported by both the CPU and motherboard.">Memory:
         </DropdownItem> :
-        memoryStatus === 'Issue' ?
+        memoryStatus === 'Issue1' ?
           <DropdownItem
             key="memory"
-            description="CPU and motherboard are compatible; however, the CPU's maximum supported memory exceeds the motherboard's capacity. Not fully utilizing CPU's memory potential.">Memory:
+            description="CPU and motherboard are compatible; however, the selected RAM may be downclocked as the motherboard does not support its memory speed.">Memory:
+            <span className="text-gray-400"> {selectedMemory?.memoryType || ''}-{selectedMemory?.speed || ''}</span>
+            {/* the CPU's maximum supported memory exceeds the motherboard's capacity. Not fully utilizing CPU's memory potential. */}
           </DropdownItem> :
           <DropdownItem
             key="memory"
@@ -249,7 +246,7 @@ export const Compatibility = () => {
   const videoStatusInfo = videoStatus === 'Compatible1' ?
     <DropdownItem
       key="video"
-      description="The selected CPU lacks integrated graphics, but a video card has been chosen to provide display output enhanced graphics performance.">Video:
+      description="The selected CPU lacks integrated graphics, but a video card has been chosen to allow display output and enhanced graphics performance.">Video:
       <span className="text-green-600"> {selectedVideoCard?.chipset || ''}</span>
     </DropdownItem> :
     videoStatus === 'Compatible2' ?
@@ -262,6 +259,7 @@ export const Compatibility = () => {
         <DropdownItem
           key="video"
           description="The selected CPU lacks integrated graphics, and no video card has been chosen. Please select a video card to enable display output.">Video:
+          <span className="text-red-500"> {selectedCPU?.name || ''}</span>
         </DropdownItem> :
         videoStatus === 'Issue1' ?
           <DropdownItem
@@ -273,7 +271,7 @@ export const Compatibility = () => {
             <DropdownItem
               key="video"
               description="Video card has been selected with no CPU... who picks out the video card before the CPU?">Video:
-              <span className="text-gray-500"> {selectedVideoCard?.chipset || ''}</span>
+              <span className="text-gray-400"> {selectedVideoCard?.chipset || ''}</span>
             </DropdownItem> :
             <DropdownItem
               key="video"
@@ -296,7 +294,7 @@ export const Compatibility = () => {
         <DropdownItem
           key="power_supply"
           description="Although the selected PSU exceeds your build's Total Wattage demands, it does so only marginally, putting it at risk of overloading. Consdier choosing a PSU with a higher wattage for additional headroom and stability.">Power Supply:
-          <span className="text-gray-500"> {selectedPowerSupply?.wattage + 'W' || ''}</span>
+          <span className="text-gray-400"> {selectedPowerSupply?.wattage + 'W' || ''}</span>
         </DropdownItem> :
         <DropdownItem
           key="power_supply"

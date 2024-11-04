@@ -12,7 +12,7 @@ module.exports = {
         casLatency: 15,
         trueLatency: 10,
         capacity: 16,
-        modules: '2 x 8 GB',
+        modules: 2, // 2 x 8 GB
         pricePerGig: 2.499,
         formFactor: '288-pin DIMM (DDR4)',
         color: 'Black / Yellow',
@@ -29,7 +29,7 @@ module.exports = {
         casLatency: 36,
         trueLatency: 12.857,
         capacity: 32,
-        modules: '2 x 16 GB',
+        modules: 2, // 2 x 16 GB
         pricePerGig: 3.437,
         formFactor: '288-pin DIMM (DDR5)',
         color: 'Black',
@@ -46,7 +46,7 @@ module.exports = {
         casLatency: 32,
         trueLatency: 10,
         capacity: 32,
-        modules: '2 x 16 GB',
+        modules: 2, // 2 x 16 GB
         pricePerGig: 4.312,
         formFactor: '288-pin DIMM (DDR5)',
         color: 'White / Silver',

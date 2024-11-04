@@ -12,6 +12,7 @@ module.exports = {
         type: 'SSD',
         pricePerGig: 0.132,
         interface: 'PCIe 5.0 X4', // NVMe if PCIe
+        nvme: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23,6 +24,7 @@ module.exports = {
         type: 'SSD',
         pricePerGig: 0.060,
         interface: 'PCIe 4.0 X4', // NVMe
+        nvme: 1, 
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -34,6 +36,7 @@ module.exports = {
         type: 'SSD',
         pricePerGig: 0.234,
         interface: 'SATA 6.0 GB/s', // 2.5" SSD (not M.2; therefore, not NVMe)
+        nvme: 0, // not NVMe
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -45,6 +48,7 @@ module.exports = {
         type: '7200 RPM', // RPM = HDD
         pricePerGig: 0.027,
         interface: 'SATA 6.0 GB/s',
+        nvme: 0, // not NVMe
         createdAt: new Date(),
         updatedAt: new Date(),
       },

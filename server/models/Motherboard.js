@@ -53,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           isIn: {
             args: [['DDR4', 'DDR5']],
-          },
+          },r
         }
       },
       memorySlot: {
@@ -85,6 +85,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       sataSlot: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      mTwoSlot: { // M.2-2280 M-key slots only
         type: DataTypes.INTEGER,
         allowNull: false,
       },
