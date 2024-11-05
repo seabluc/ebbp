@@ -125,7 +125,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
-
       {
         partId: 12,
         name: 'Asus ROG Maximus Z890 Extreme',

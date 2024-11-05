@@ -35,10 +35,6 @@ export default function App() {
     }
   };
 
-  const handleSelectedComponent = (component) => {
-    updateSelectedCPU(component);
-  };
-
   useEffect(() => {
     fetchComponents("../api/cpus"), setComponent;
   }, []);
@@ -213,10 +209,7 @@ export default function App() {
                   <Link href="/workshop">
                     <button // RE-DO NAVIGATION, SEE IF IT CAN JUST TAKE US BACK TO PREVIOUS ACTION
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
-                      onClick={() => {
-                        handleSelectedComponent(cpu);
-                      }}>
-                      Add to Build
+                      onClick={() => { updateSelectedCPU(cpu); }}>Add to Build
                     </button>
                     {/*
                     <Button

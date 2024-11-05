@@ -35,10 +35,6 @@ export default function App() {
     }
   };
 
-  const handleSelectedComponent = (component) => {
-    updateSelectedStorage(component);
-  };
-
   useEffect(() => {
     fetchData("../api/storages", setComponent);
   }, []);
@@ -212,10 +208,7 @@ export default function App() {
                   <Link href="/workshop">
                     <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
-                      onClick={() => {
-                        handleSelectedComponent(storage);
-                      }}>
-                      Add to Build
+                      onClick={() => { updateSelectedStorage(storage); }}>Add to Build
                     </button>
                   </Link>
                 </TableCell>

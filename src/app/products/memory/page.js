@@ -19,7 +19,7 @@ import Link from 'next/link';
 import { useSharedData } from "../../../context/SharedDataContext";
 
 export default function App() {
-  const [component, setComponent] = useState([]);
+  const [components, setComponents] = useState([]);
   const { updateSelectedMemory } = useSharedData();
 
   const fetchData = async (url, setData) => {
@@ -35,12 +35,8 @@ export default function App() {
     }
   };
 
-  const handleSelectedComponent = (component) => {
-    updateSelectedMemory(component);
-  };
-
   useEffect(() => {
-    fetchData("../api/memorys", setComponent);
+    fetchData("../api/memorys", setComponents);
   }, []);
 
   return (
@@ -195,7 +191,7 @@ export default function App() {
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {component.map((memory) => (
+            {components.map((memory) => (
               <TableRow key={memory.memoryId}>
                 <TableCell>
                   {memory.name}
@@ -216,10 +212,7 @@ export default function App() {
                   <Link href="/workshop">
                     <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
-                      onClick={() => {
-                        handleSelectedComponent(memory);
-                      }}>
-                      Add to Build
+                      onClick={() => { updateSelectedMemory(memory); }}>Add to Build
                     </button>
                   </Link>
                 </TableCell>

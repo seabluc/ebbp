@@ -87,6 +87,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      includedCooler: { // No need for a CPU Cooler if low-end build
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        },
       multithreading: { // Hyper-Threading if Intel
         type: Sequelize.BOOLEAN,
         allowNull: false,

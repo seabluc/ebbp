@@ -35,10 +35,6 @@ export default function App() {
     }
   };
 
-  const handleSelectedComponent = (component) => {
-    updateSelectedCPUCooler(component);
-  };
-
   useEffect(() => {
     fetchData("../api/cpuCoolers", setComponent);
   }, []);
@@ -210,10 +206,7 @@ export default function App() {
                   <Link href="/workshop">
                     <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
-                      onClick={() => {
-                        handleSelectedComponent(cpuCooler);
-                      }}>
-                      Add to Build
+                      onClick={() => { updateSelectedCPUCooler(cpuCooler); }}>Add to Build
                     </button>
                   </Link>
                 </TableCell>

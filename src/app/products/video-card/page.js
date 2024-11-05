@@ -34,11 +34,7 @@ export default function App() {
       setError(error.message);
     }
   };
-
-  const handleSelectedComponent = (component) => {
-    updateSelectedVideoCard(component);
-  };
-
+  
   useEffect(() => {
     fetchData("../api/videoCards", setComponent);
   }, []);
@@ -215,10 +211,7 @@ export default function App() {
                   <Link href="/workshop">
                     <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
-                      onClick={() => {
-                        handleSelectedComponent(videoCard);
-                      }}>
-                      Add to Build
+                      onClick={() => { updateSelectedVideoCard(videoCard); }}>Add to Build
                     </button>
                   </Link>
                 </TableCell>

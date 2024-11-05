@@ -24,6 +24,7 @@ module.exports = {
         integrated: 'Intel Xe',
         memoryMax: 192,
         lithography: 3,
+        includedCooler: 0,
         multithreading: 0, // tinyint(0) for false
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -48,6 +49,7 @@ module.exports = {
         integrated: 'Intel Xe',
         memoryMax: 192,
         lithography: 3,
+        includedCooler: 0,
         multithreading: 0, // tinyint(0) for false
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -72,6 +74,7 @@ module.exports = {
         integrated: 'Intel Xe',
         memoryMax: 192,
         lithography: 3,
+        includedCooler: 0,
         multithreading: 0, // tinyint(0) for false
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -96,6 +99,7 @@ module.exports = {
         integrated: 'None',
         memoryMax: 192,
         lithography: 3,
+        includedCooler: 0,
         multithreading: 0, // tinyint(0) for false
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -120,6 +124,7 @@ module.exports = {
         integrated: 'None',
         memoryMax: 192,
         lithography: 3,
+        includedCooler: 0,
         multithreading: 0, // tinyint(0) for false
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -141,6 +146,7 @@ module.exports = {
         integrated: 'Radeon',
         memoryMax: 192,
         lithography: 4,
+        includedCooler: 0,
         multithreading: 1, // tinyint(1) for true
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -162,6 +168,7 @@ module.exports = {
         integrated: 'Radeon',
         memoryMax: 192,
         lithography: 4,
+        includedCooler: 0,
         multithreading: 1, // tinyint(1) for true
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -183,6 +190,7 @@ module.exports = {
         integrated: 'Radeon',
         memoryMax: 192,
         lithography: 4,
+        includedCooler: 0,
         multithreading: 1, // tinyint(1) for true
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -204,6 +212,7 @@ module.exports = {
         integrated: 'Radeon',
         memoryMax: 192,
         lithography: 4,
+        includedCooler: 0,
         multithreading: 1, // tinyint(1) for true
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -225,6 +234,7 @@ module.exports = {
         integrated: 'None',
         memoryMax: 192,
         lithography: 7,
+        includedCooler: 1,
         multithreading: 1, // tinyint(1) for true
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -249,6 +259,7 @@ module.exports = {
         integrated: 'Intel UHD Graphics 770',
         memoryMax: 192,
         lithography: 7,
+        includedCooler: 0,
         multithreading: 1, // tinyint(1) for true
         createdAt: new Date(),
         updatedAt: new Date(),
