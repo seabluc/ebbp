@@ -1,45 +1,36 @@
-import { GoogleAuthProvider, EmailAuthProvider } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 import * as firebaseui from "firebaseui";
 import { auth } from '@/lib/firebase/config';  // Import your Firebase configuration
 
-// Define ActionCodeSettings
-const actionCodeSettings = {
-    url: 'http://localhost:3000/account/login',  // Redirect URL after sign-in
-    handleCodeInApp: true,  // Set to true for email link sign-in to open in the app
-};
-
-// FirebaseUI config
-const uiConfig = {
-    signInFlow: 'popup', // Use popup instead of redirect
+// FirebaseUI config for Google Sign-In
+const getUiConfig = () => ({
+    signInFlow: 'popup',
     signInOptions: [
-        {
-            provider: EmailAuthProvider.PROVIDER_ID,  // Email/Password provider
-            requireDisplayName: false,  // Do not require display name during sign up
-            signInMethod: EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,  // Use email link sign-in
-            emailLinkSignIn: () => actionCodeSettings,  // Set ActionCodeSettings for email link
-        },
-        GoogleAuthProvider.PROVIDER_ID,  // Google sign-in
+        GoogleAuthProvider.PROVIDER_ID,  // Google sign-in only
     ],
-    tosUrl: '/terms-of-service',  // Terms of service URL
-    privacyPolicyUrl: '/privacy-policy',  // Privacy policy URL
+    tosUrl: '/terms-of-service',
+    privacyPolicyUrl: '/privacy-policy',
     callbacks: {
-        signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+        uiShown: () => {
+            console.log('FirebaseUI loaded');
+        },
+        signInSuccessWithAuthResult: (authResult) => {
             console.log('Login successful:', authResult);
-            window.location.href = '/';  // Redirect to home page after login
-            return false;  // Prevent default redirect behavior
+            window.location.href = '/'; // Redirect to home after successful login
+            return false;
         },
         signInFailure: (error) => {
             console.error('Sign-in failed:', error);
-            return Promise.resolve();  // Handle sign-in failure gracefully
+            return Promise.resolve();
         },
-    },
-};
+    }
+});
 
 // Initialize FirebaseUI
 let ui;
 export const initializeFirebaseUI = () => {
     if (!ui) {
-        ui = new firebaseui.auth.AuthUI(auth);  // Ensure we use the initialized auth
+        ui = new firebaseui.auth.AuthUI(auth);
         console.log('FirebaseUI initialized');
     }
     return ui;
@@ -48,6 +39,13 @@ export const initializeFirebaseUI = () => {
 // Start FirebaseUI
 export const startFirebaseUI = (elementId) => {
     const ui = initializeFirebaseUI();
-    ui.start(elementId, uiConfig);  // Start FirebaseUI with the updated configuration
-    console.log('FirebaseUI started in', elementId);
+    const uiConfig = getUiConfig();
+
+    if (!ui.isPendingRedirect()) {
+        // Only start FirebaseUI if it's not already started
+        if (!document.querySelector(`${elementId} .firebaseui-container`)) {
+            ui.start(elementId, uiConfig);
+            console.log('FirebaseUI started in', elementId);
+        }
+    }
 };
