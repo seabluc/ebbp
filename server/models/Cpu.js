@@ -91,11 +91,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      /* 11/7/24 - not MVP, but nice addition as stock coolers aren't that bad.
-      includedCooler: {
+      includedCooler: { // No need for a CPU Cooler if low-end build
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      },*/
+      },
       multithreading: { // Hyper-Threading if Intel
         type: DataTypes.BOOLEAN,
         allowNull: false,

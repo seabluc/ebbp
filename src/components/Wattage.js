@@ -8,7 +8,7 @@ import WattageOff from "../../public/zap-off.svg";
 export const Wattage = () => {
   const { selectedCPU, selectedMotherboard, selectedMemory,
     selectedStorage, selectedVideoCard, selectedCPUCooler,
-  totalWattage, setTotalWattage, storageCount, memoryCount, } = useSharedData();
+    totalWattage, setTotalWattage, } = useSharedData();
   const [wattageIcon, setWattageIcon] = useState(WattageOff);
 
   const handleWattageIcon = () => {
@@ -46,23 +46,34 @@ export const Wattage = () => {
 
     // 7.75 W per 8 GBs of Memory, regardless of DDR type
     const calculateMemoryWattage = () => {
-      if (!selectedMemory) return 0;
-      return Math.ceil((selectedMemory.capacity / 8) * 7.75)
-    }
+      if (!selectedMemory || selectedMemory.length === 0) {
+        return 0;
+      }
+      let memorySum = 0;
+      selectedMemory.forEach((memoryItem) => {
+        memorySum += memoryItem.capacity;
+      });
+      return Math.ceil((memorySum / 8) * 7.75);
+      /* forEach instead of .map since we only want to calculate wattage and
+         don't need to transform the array in anyway.
+      if (selectedMemory) {
+        let memorySum = 0;
+        selectedMemory.map((memoryItem) => memorySum += memoryItem.capacity);
+        return Math.ceil((memorySum / 8) * 7.75); 
+      }
+      */
+    };
 
     // 15 W, regardless of Storage type and capacity
     const calculateStorageWattage = () => {
-      // return selectedStorage ? 15 : 0;
-      return selectedStorage ? storageCount * 15 : 0;
-      // For adding more than 1 storage, check the amount of storageID's in 
-      // selectedStorage, then return that amount * 15.
-    }
+      return selectedStorage?.length * 15 || 0;
+    };
 
     // If AIO Cooler (radiatorSize attribute exists), set to 15 W & 10 W for air
     const calculateCPUCoolerWattage = () => {
       if (!selectedCPUCooler) return 0;
       return (selectedCPUCooler.radiatorSize) ? 15 : 10;
-    }
+    };
 
     // Calculate total wattage
     const wattage =
