@@ -1,25 +1,11 @@
 'use client'; // Ensure this runs on the client side
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth"; // Firebase function to track auth state changes
-import { auth } from '@/lib/firebase/config'; // Import the initialized auth from config.js
+import { useAuth } from '@/lib/firebase/authContext'; // Import the useAuth hook from the context
 import { logOutUser } from '@/lib/firebase/authHelpers'; // Import the logout helper function
 
 export const Navbar = () => {
-  const [user, setUser] = useState(null); // State to track if a user is logged in or not
-
-  useEffect(() => {
-    // Listen for authentication state changes (whether the user is logged in or not)
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user); // If a user is logged in, update the state
-      } else {
-        setUser(null); // If no user is logged in, reset the state
-      }
-    });
-    return () => unsubscribe(); // Clean up the listener when the component unmounts
-  }, []);
+  const { user, loading } = useAuth(); // Access user and loading state from the auth context
 
   // Handle user logout when the logout button is clicked
   const handleLogout = async () => {
@@ -60,11 +46,13 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {/* Display login/logout button based on user authentication state */}
+          {/* Account links and actions */}
           <div className="flex items-center">
-            {user ? (
+            {!loading && user ? (
               <>
-                <span className="mr-4 text-gray-800">Welcome, {user.displayName || user.email}</span> {/* Display name or email */}
+                <span className="mr-4 text-gray-800">
+                  Welcome, {user.username || user.displayName}
+                </span> {/* Display username or display name */}
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-xl focus-within:bg-slate-200 hover:bg-red-300"
