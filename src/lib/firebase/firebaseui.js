@@ -12,15 +12,14 @@ const getUiConfig = () => ({
     privacyPolicyUrl: '/privacy-policy',
     callbacks: {
         uiShown: () => {
-            console.log('FirebaseUI loaded');
+            // UI shown callback, can be used to handle any actions needed on UI load
         },
         signInSuccessWithAuthResult: (authResult) => {
-            console.log('Login successful:', authResult);
             window.location.href = '/'; // Redirect to home after successful login
             return false;
         },
         signInFailure: (error) => {
-            console.error('Sign-in failed:', error);
+            console.error('Sign-in failed:', error.message);
             return Promise.resolve();
         },
     }
@@ -31,7 +30,6 @@ let ui;
 export const initializeFirebaseUI = () => {
     if (!ui) {
         ui = new firebaseui.auth.AuthUI(auth);
-        console.log('FirebaseUI initialized');
     }
     return ui;
 };
@@ -45,7 +43,6 @@ export const startFirebaseUI = (elementId) => {
         // Only start FirebaseUI if it's not already started
         if (!document.querySelector(`${elementId} .firebaseui-container`)) {
             ui.start(elementId, uiConfig);
-            console.log('FirebaseUI started in', elementId);
         }
     }
 };

@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           <Providers>
             <AuthProvider>
               <Navbar />
-              {children}
+              <main>{children}</main>
             </AuthProvider>
           </Providers>
         </SharedDataProvider>
