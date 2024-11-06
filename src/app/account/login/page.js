@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { signInUser } from '@/lib/firebase/authHelpers';
 import { useAuth } from '@/lib/firebase/authContext';
@@ -10,7 +10,9 @@ const Login = () => {
   const { user, loading } = useAuth();
   const [emailOrUsername, setEmailOrUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const firebaseUiInitialized = useRef(false);
 
   useEffect(() => {
     if (!loading && user) {
@@ -37,6 +39,24 @@ const Login = () => {
       setError('Invalid credentials. Please try again.');
     }
   };
+
+  useEffect(() => {
+    if (!firebaseUiInitialized.current && typeof window !== 'undefined') {
+      firebaseUiInitialized.current = true;
+
+      // Import FirebaseUI asynchronously
+      const loadFirebaseUI = async () => {
+        const { startFirebaseUI } = await import('@/lib/firebase/firebaseui'); // Ensure this path is correct
+
+        // Ensure FirebaseUI container exists and is not already populated to avoid double initialization
+        if (!document.querySelector("#firebaseui-auth-container").hasChildNodes()) {
+          startFirebaseUI('#firebaseui-auth-container');
+        }
+      };
+
+      loadFirebaseUI();
+    }
+  }, []); // Run once on component mount
 
   // Show a loading state while verifying the user's authentication status
   if (loading) {
@@ -70,7 +90,7 @@ const Login = () => {
             autoComplete="username"
           />
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -81,6 +101,19 @@ const Login = () => {
             required
             autoComplete="current-password"
           />
+
+          <div className="flex items-center mb-4">
+            <input
+              type="checkbox"
+              id="show-password"
+              checked={showPassword}
+              onChange={() => setShowPassword((prev) => !prev)}
+              className="mr-2"
+            />
+            <label htmlFor="show-password" className="text-gray-700">
+              Show Password
+            </label>
+          </div>
 
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
