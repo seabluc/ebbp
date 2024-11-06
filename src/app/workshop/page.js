@@ -1,5 +1,5 @@
 'use client';
-import { useState, useReducer, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, Tab, Card, CardBody, /*Image*/ } from "@nextui-org/react";
 import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
 import Image from 'next/image';
@@ -10,20 +10,25 @@ import Wattage from '@/components/Wattage';
 
 export default function Home() {
   const [selectedBuild, setSelectedBuild] = useState("build1"); // For Tab Builds #1-10
+  const [backgroundColor, setBackgroundColor] = useState('None');
   const { selectedCPU, clearSelectedCPU, selectedMotherboard, clearSelectedMotherboard,
     selectedMemory, clearSelectedMemory, selectedStorage, clearSelectedStorage,
     selectedVideoCard, clearSelectedVideoCard, selectedCPUCooler,
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
-    compatibilityStatus } = useSharedData();
+    compatibilityStatus, /*savedBuild, setSavedBuild,*/ } = useSharedData();
 
-  let backgroundColor;
-  if (compatibilityStatus === 'Bad') {
-    backgroundColor = 'bg-red-600';
-  } else if (compatibilityStatus === 'Good' || compatibilityStatus === 'Issue') {
-    backgroundColor = 'bg-green-500';
-  } else if (compatibilityStatus === 'None') {
-    backgroundColor = 'bg-default-400';
-  }
+  useEffect(() => {
+    switch (compatibilityStatus) {
+      case 'Bad':
+        setBackgroundColor('bg-red-600');
+        break;
+      case 'Good':
+        setBackgroundColor('bg-green-500');
+        break;
+      case 'None':
+        setBackgroundColor('bg-default-400');
+    }
+  }, [compatibilityStatus]);
 
   const cpuCard = () => {
     return selectedCPU ? (
@@ -449,6 +454,11 @@ export default function Home() {
           </div>
         </div>
       </div >
+      {/*
+      <button onClick={saveCurrentBuild}>
+        Click me
+      </button>
+      */}
     </div >
   );
 }

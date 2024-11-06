@@ -1,42 +1,22 @@
 "use client";
 
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableColumn,
-  TableRow,
-  TableCell,
-  CheckboxGroup,
-  Checkbox,
-  Card,
-  Slider,
-  Button,
+  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Card,
+  CheckboxGroup, Checkbox, Slider
 } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSharedData } from "../../../context/SharedDataContext";
+import { fetchComponents } from '@/utils/fetchUtils';
+import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
   const [component, setComponent] = useState([]);
+  const [error, setError] = useState(null);
   const { updateSelectedCPU } = useSharedData();
 
-  const fetchComponents = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setComponent(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   useEffect(() => {
-    fetchComponents("../api/cpus"), setComponent;
+    fetchComponents("../api/cpus", setComponent, setError);
   }, []);
 
   return (
@@ -207,19 +187,10 @@ export default function App() {
                 <TableCell>{`$` + cpu.price}</TableCell>
                 <TableCell>
                   <Link href="/workshop">
-                    <button // RE-DO NAVIGATION, SEE IF IT CAN JUST TAKE US BACK TO PREVIOUS ACTION
+                    <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
                       onClick={() => { updateSelectedCPU(cpu); }}>Add to Build
                     </button>
-                    {/*
-                    <Button
-                      onPress={() => {
-                        handleSelectedComponent(cpu);
-                      }}
-                      className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
-                      Add to Build
-                    </Button>
-                    */}
                   </Link>
                 </TableCell>
               </TableRow>

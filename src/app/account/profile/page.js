@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/firebase/authContext';
 import { useRouter } from 'next/navigation';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { fbdb } from '@/lib/firebase/config';
+import { useSharedData } from '@/context/SharedDataContext';
 
 const Profile = () => {
     const { user, loading, updateUser } = useAuth();
@@ -11,12 +14,14 @@ const Profile = () => {
     const [accountCreatedDate, setAccountCreatedDate] = useState('');
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
+    const { savedBuild } = useSharedData();
 
     useEffect(() => {
         if (!loading) {
             if (user) {
                 setDisplayName(user.displayName || '');
                 setAccountCreatedDate(user.accountCreatedDate ? new Date(user.accountCreatedDate.seconds * 1000).toLocaleString() : '');
+                //fetchSavedBuilds();
             } else {
                 router.push('/account/login'); // Redirect to login page if user is not logged in
             }
@@ -46,6 +51,48 @@ const Profile = () => {
         }
     };
 
+    // Fetch saved builds from Firestore
+    const fetchSavedBuilds = async () => {
+        if (!user) return;
+
+        try {
+            const buildsCollection = collection(fbdb, 'users', user.uid, 'builds');
+            const buildsSnapshot = await getDocs(buildsCollection);
+            const builds = buildsSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setSavedBuilds(builds);
+        } catch (error) {
+            console.error('Error fetching saved builds:', error.message);
+        }
+    };
+
+    // Handle loading a saved build into the workshop
+    const handleLoadBuild = async (buildId) => {
+        try {
+            const buildDoc = await getDoc(doc(fbdb, 'users', user.uid, 'builds', buildId));
+            if (buildDoc.exists()) {
+                const buildData = buildDoc.data();
+
+                // Update shared context state
+                updateSelectedCPU(buildData.cpu || null);
+                updateSelectedMotherboard(buildData.motherboard || null);
+                updateSelectedMemory(buildData.memory || []);
+                updateSelectedStorage(buildData.storage || []);
+                updateSelectedVideoCard(buildData.videoCard || null);
+                updateSelectedCPUCooler(buildData.cpuCooler || null);
+                updateSelectedPowerSupply(buildData.powerSupply || null);
+
+                // Redirect to the workshop page
+                router.push('/workshop');
+            } else {
+                console.error('No such build found.');
+            }
+        } catch (error) {
+            console.error('Error loading saved build:', error.message);
+        }
+    }
     // Show loading indicator while waiting for authentication status
     if (loading) {
         return (
@@ -54,6 +101,8 @@ const Profile = () => {
             </div>
         );
     }
+
+
 
     if (!user) {
         return null;

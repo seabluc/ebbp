@@ -1,4 +1,4 @@
-import connection from '@/lib/db';
+import connection from '@/utils/db';
 
 export async function GET(request) {
   try {
