@@ -1,36 +1,68 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { resetPassword } from '@/lib/firebase/authHelpers';
+import { useAuth } from '@/lib/firebase/authContext';
+import { useRouter } from 'next/navigation';
 
 const ForgotPassword = () => {
+  const { user, loading } = useAuth();
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    if (!loading && user) {
+      // Redirect logged-in users to the home page once loading is complete and user is authenticated
+      router.push('/');
+    }
+  }, [user, loading, router]);
+
   // Handle password reset email submission
   const handlePasswordReset = async () => {
+    setMessage(null); // Clear previous messages
+    setError(null);
+
+    if (!email) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
     try {
-      await resetPassword(email); // Use helper function to send reset email
+      await resetPassword(email);
       setMessage('Password reset email sent. Please check your inbox.');
-      setError(null);
-    } catch (error) {
-      console.error('Error sending password reset email:', error);
+    } catch {
       setError('Failed to send password reset email. Please try again.');
-      setMessage(null);
     }
   };
 
+  // Show a loading state while verifying the user's authentication status
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#4D585B] p-4">
+        <div className="text-center text-white">Loading...</div>
+      </div>
+    );
+  }
+
+  if (user) {
+    return null; // Prevent rendering the form if the user is logged in
+  }
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#4D585B] p-4"> {/* Background: Charcoal */}
-      <div className="bg-[#DBAE58] rounded-lg shadow-md p-8 max-w-md w-full text-center border border-[#DBAE58] transition-shadow duration-300 hover:shadow-lg"> {/* Gold Background with subtle hover effect */}
+    <div className="flex items-center justify-center min-h-screen bg-[#4D585B] p-4">
+      <div className="bg-[#DBAE58] rounded-lg shadow-md p-8 max-w-md w-full text-center border border-[#DBAE58] transition-shadow duration-300 hover:shadow-lg">
         <h1 className="text-2xl font-semibold mb-6 text-gray-800">Forgot Password</h1>
-        
-        {/* Email Input for Password Reset */}
+
         <input
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setError(null); // Clear error on input change
+            setMessage(null); // Clear success message on input change
+          }}
           placeholder="Enter your email"
           className="mb-4 p-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
@@ -43,7 +75,6 @@ const ForgotPassword = () => {
           Reset Password
         </button>
 
-        {/* Back to Login Link */}
         <p className="text-sm text-gray-600">
           Remember your password? <a href="/account/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</a>.
         </p>

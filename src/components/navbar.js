@@ -11,7 +11,6 @@ export const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logOutUser(); // Call the logout helper function
-      console.log('User logged out');
     } catch (error) {
       console.error('Error logging out:', error);
     }
@@ -50,9 +49,9 @@ export const Navbar = () => {
           <div className="flex items-center">
             {!loading && user ? (
               <>
-                <span className="mr-4 text-gray-800">
-                  Welcome, {user.username || user.displayName}
-                </span> {/* Display username or display name */}
+                <Link href="/account/profile" className="mr-4 text-gray-800 hover:underline">
+                  {user.displayName || user.username}
+                </Link> {/* Display displayName first, fallback to username, clickable to lead to profile page */}
                 <button
                   onClick={handleLogout}
                   className="bg-red-500 text-white px-4 py-2 rounded-xl focus-within:bg-slate-200 hover:bg-red-300"
