@@ -1,12 +1,16 @@
 'use client';
-import { useState, useReducer, useEffect } from "react";
-import { Tabs, Tab, Card, CardBody, /*Image*/ } from "@nextui-org/react";
+import { useState, useEffect } from "react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from '../../context/SharedDataContext';
 import Compatibility from '@/components/Compatibility';
 import Wattage from '@/components/Wattage';
+import { useAuth } from '@/lib/firebase/authContext';
+import { useRouter } from 'next/navigation';
+import { doc, setDoc } from 'firebase/firestore';
+import { fbdb } from '@/lib/firebase/config';
 
 export default function Home() {
   const [selectedBuild, setSelectedBuild] = useState("build1"); // For Tab Builds #1-10
@@ -16,6 +20,10 @@ export default function Home() {
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
     compatibilityStatus } = useSharedData();
 
+  const { user } = useAuth();
+  const router = useRouter();
+  const [message, setMessage] = useState('');
+
   let backgroundColor;
   if (compatibilityStatus === 'Bad') {
     backgroundColor = 'bg-red-600';
@@ -24,6 +32,37 @@ export default function Home() {
   } else if (compatibilityStatus === 'None') {
     backgroundColor = 'bg-default-400';
   }
+
+  // Function to handle saving the build
+  const handleSaveBuild = async () => {
+    if (!user) {
+      router.push('/account/login'); // Redirect to login page if user is not logged in
+      return;
+    }
+
+    try {
+      const buildData = {
+        cpu: selectedCPU,
+        motherboard: selectedMotherboard,
+        memory: selectedMemory,
+        storage: selectedStorage,
+        videoCard: selectedVideoCard,
+        cpuCooler: selectedCPUCooler,
+        powerSupply: selectedPowerSupply,
+        timestamp: new Date().toISOString()
+      };
+
+      await setDoc(doc(fbdb, 'users', user.uid, 'builds', selectedBuild), buildData);
+      setMessage('Build saved successfully!');
+
+      // Clear the message after a few seconds
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
+    } catch (error) {
+      console.error('Error saving build:', error);
+    }
+  };
 
   const cpuCard = () => {
     return selectedCPU ? (
@@ -208,8 +247,9 @@ export default function Home() {
           Choose A Power Supply
         </Link>
       </CardBody>
-    )
-  }
+    );
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#4D585B] py-4 px-8 items-center text-workshopTextColor"> {/* Background: Charcoal */}
       <div className="flex flex-col">
@@ -217,11 +257,18 @@ export default function Home() {
         <h1 className="flex justify-center text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
           PC Workshop
         </h1>
-        {/* DEBUGGING WILL DELETE SOON
-        <div> {selectedMemory.length > 0 ? selectedMemory[0]?.name : 'No memory selected.'}
-          <span>{` It does have a length of ${selectedMemory?.length}.`}</span>
-        </div>
-        */}
+
+        <button
+          onClick={handleSaveBuild}
+          className="bg-green-500 text-white px-4 py-2 rounded-lg mb-4 w-48 transition-all duration-200 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+        >
+          Save Build
+        </button>
+
+        {message && (
+          <div className="text-green-500 text-center mb-4">{message}</div>
+        )}
+
         <div className="flex-col bg-slate-100 rounded-lg">
           {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
           <Tabs

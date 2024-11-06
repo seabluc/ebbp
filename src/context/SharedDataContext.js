@@ -59,6 +59,22 @@ export function SharedDataProvider({ children }) {
     }
   }, []);
 
+  const showSavedBuild = (cpu, mobo, mem, storage, gpu, psu, cooler) => {
+    clearSelectedCPU();
+    clearSelectedMotherboard();
+    clearSelectedMemory();
+    clearSelectedStorage();
+    clearSelectedCPUCooler();
+    clearSelectedPowerSupply();
+    clearSelectedVideoCard();
+    setSelectedCPU(cpu);
+    setSelectedMotherboard(mobo);
+    setSelectedMemory(mem);
+    setSelectedStorage(storage);
+    setSelectedVideoCard(gpu);
+    setSelectedPowerSupply(psu);
+    setSelectedCPUCooler(cooler);
+  }
   /*
   // handling for multiple Memory & Storage 
   useEffect(() => {
@@ -213,7 +229,7 @@ export function SharedDataProvider({ children }) {
         totalWattage, setTotalWattage, compatibilityStatus, setCompatibilityStatus,
         socketStatus, setSocketStatus, coolerStatus, setCoolerStatus, memoryStatus,
         setMemoryStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus,
-        slotStatus, setSlotStatus,
+        slotStatus, setSlotStatus, showSavedBuild
       }}>
       {children}
     </SharedDataContext.Provider>
