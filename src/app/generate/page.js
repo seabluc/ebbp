@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Card, Button, Slider, RadioGroup, Radio, CheckboxGroup, Checkbox } from "@nextui-org/react";
 
 export default function Home() {
-  const [priceRange, setPriceRange] = useState([100, 500]); // Initial range values
+  const [priceRange, setPriceRange] = useState([1000, 10000]); // Initial range values
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex flex-col items-center p-8"> {/* Charcoal background */}
@@ -21,7 +21,7 @@ export default function Home() {
           step={50}
           minValue={1000}
           maxValue={10000}
-          defaultValue={priceRange}
+          defaultValue={priceRange} // Updated range values
           formatOptions={{ style: "currency", currency: "USD" }}
           className="max-w-md"
           onChange={setPriceRange} // Update range values in real-time
