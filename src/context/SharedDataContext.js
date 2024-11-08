@@ -59,8 +59,24 @@ export function SharedDataProvider({ children }) {
     */
   }, []);
 
-  /* Selecting components (/products) and removing components (/workshop) */
-  // when user selects a CPU in /products/cpu
+  const showSavedBuild = (cpu, mobo, mem, storage, gpu, psu, cooler) => {
+    clearSelectedCPU();
+    clearSelectedMotherboard();
+    clearSelectedMemory(mem);
+    clearSelectedStorage(storage);
+    clearSelectedCPUCooler();
+    clearSelectedPowerSupply();
+    clearSelectedVideoCard();
+    setSelectedCPU(cpu);
+    setSelectedMotherboard(mobo);
+    setSelectedMemory(mem);
+    setSelectedStorage(storage);
+    setSelectedVideoCard(gpu);
+    setSelectedPowerSupply(psu);
+    setSelectedCPUCooler(cooler);
+  };
+
+  {/* Selecting components (/products) and removing components (/workshop) */ }
   const updateSelectedCPU = (cpu) => {
     setSelectedCPU(cpu);
     localStorage.setItem('selectedCPU', JSON.stringify(cpu));
@@ -183,7 +199,7 @@ export function SharedDataProvider({ children }) {
         totalWattage, setTotalWattage, compatibilityStatus, setCompatibilityStatus,
         socketStatus, setSocketStatus, coolerStatus, setCoolerStatus, memoryStatus,
         setMemoryStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus,
-        slotStatus, setSlotStatus, /*savedBuild, setSavedBuild,*/
+        slotStatus, setSlotStatus, showSavedBuild
       }}>
       {children}
     </SharedDataContext.Provider>
