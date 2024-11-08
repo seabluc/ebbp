@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect } from "react";
-import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+import { useState, useReducer, useEffect } from "react";
+import { Tabs, Tab, Card, CardBody, /*Image*/ } from "@nextui-org/react";
 import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,12 +18,12 @@ export default function Home() {
     selectedMemory, clearSelectedMemory, selectedStorage, clearSelectedStorage,
     selectedVideoCard, clearSelectedVideoCard, selectedCPUCooler,
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
-    compatibilityStatus } = useSharedData();
+    compatibilityStatus, /*savedBuild, setSavedBuild,*/ } = useSharedData();
 
-  const { user } = useAuth();
-  const router = useRouter();
-  const [message, setMessage] = useState('');
-
+    const { user } = useAuth();
+    const router = useRouter();
+    const [message, setMessage] = useState('');
+    
   let backgroundColor;
   if (compatibilityStatus === 'Bad') {
     backgroundColor = 'bg-red-600';
@@ -32,14 +32,12 @@ export default function Home() {
   } else if (compatibilityStatus === 'None') {
     backgroundColor = 'bg-default-400';
   }
-
   // Function to handle saving the build
   const handleSaveBuild = async () => {
     if (!user) {
       router.push('/account/login'); // Redirect to login page if user is not logged in
       return;
     }
-
     try {
       const buildData = {
         cpu: selectedCPU,
@@ -51,10 +49,8 @@ export default function Home() {
         powerSupply: selectedPowerSupply,
         timestamp: new Date().toISOString()
       };
-
       await setDoc(doc(fbdb, 'users', user.uid, 'builds', selectedBuild), buildData);
       setMessage('Build saved successfully!');
-
       // Clear the message after a few seconds
       setTimeout(() => {
         setMessage('');
@@ -487,6 +483,7 @@ export default function Home() {
 
           </div>
           {/* Mobo diagram */}
+          {/*
           <div className="flex flex-col items-center">
             <Image
               width={400}
@@ -494,8 +491,14 @@ export default function Home() {
               src={MoboDiagram}
               alt="mobo goes here" />
           </div>
+          */}
         </div>
       </div >
+      {/*
+      <button onClick={saveCurrentBuild}>
+        Click me
+      </button>
+      */}
     </div >
   );
 }

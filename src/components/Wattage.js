@@ -1,9 +1,9 @@
-"use client"
+'use client'
 import { useSharedData } from '@/context/SharedDataContext';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import WattageOn from '../../public/zap.svg';
-import WattageOff from "../../public/zap-off.svg";
+import WattageOff from '../../public/zap-off.svg';
 
 export const Wattage = () => {
   const { selectedCPU, selectedMotherboard, selectedMemory,

@@ -1,42 +1,22 @@
 "use client";
 
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableColumn,
-  TableRow,
-  TableCell,
-  CheckboxGroup,
-  Checkbox,
-  Card,
-  Slider,
-  Button,
+  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Card,
+  CheckboxGroup, Checkbox, Slider
 } from "@nextui-org/react";
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSharedData } from "../../../context/SharedDataContext";
+import { fetchComponents } from '@/utils/fetchUtils';
+import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
   const [component, setComponent] = useState([]);
+  const [error, setError] = useState(null);
   const { updateSelectedMotherboard } = useSharedData();
 
-  const fetchData = async (url, setData) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.json();
-      setData(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   useEffect(() => {
-    fetchData("../api/motherboards", setComponent);
+    fetchComponents("../api/motherboards", setComponent, setError);
   }, []);
 
   return (
