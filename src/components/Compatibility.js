@@ -28,14 +28,13 @@ export const Compatibility = () => {
     };
 
     const checkCoolerSocket = () => {
-      if (selectedCPU.cpuSocket === selectedMotherboard.motherboardSocket) {
-        if (selectedCPUCooler.supportedSockets.includes(selectedCPU.cpuSocket)) {
-          setCompatibilityStatus('Good');
-          setCoolerStatus('Compatible'); // cooler socket
-        } else {
-          setCompatibilityStatus('Bad');
-          setCoolerStatus('Incompatible'); // cooler socket
-        }
+      if (!selectedCPUCooler.supportedSockets.includes(selectedCPU.cpuSocket) ||
+        (!selectedCPUCooler.supportedSockets.includes(selectedMotherboard.motherboardSocket))) {
+        setCompatibilityStatus('Bad');
+        setCoolerStatus('Incompatible'); // cooler socket
+      } else {
+        setCompatibilityStatus('Good');
+        setCoolerStatus('Compatible'); // cooler socket
       }
     };
 
@@ -69,13 +68,15 @@ export const Compatibility = () => {
     };
 
     const checkMemory = () => {
-      setMemoryStatus('Compatible1'); // Default status to Compatible1
+      setMemoryStatus('Compatible1'); // Default status to Compatible1 - (DDR gen & mobo supports ram speed)
       // Check for memory speed compatibility
       for (let i = 0; i < selectedMemory.length; i++) {
         const memorySpeed = `${selectedMemory[i].memoryType}-${selectedMemory[i].speed}`;
-        if (!selectedMotherboard.supportedSpeeds.includes(memorySpeed)) {
-          setMemoryStatus('Issue1');
-          //memoryStatus = 'Issue1'; // Speed issue: RAM will likely be downclocked
+        if (selectedMotherboard.supportedSpeeds.includes(memorySpeed)) {
+          setCompatibilityStatus('Good');
+        } else {
+          setCompatibilityStatus('Good'); // still compatible tho
+          setMemoryStatus('Issue1'); // Speed issue: RAM will likely be downclocked
         }
       }
       // Check for memory type compatibility
@@ -86,7 +87,7 @@ export const Compatibility = () => {
           setCompatibilityStatus('Bad');
         }
       }
-    };
+    }
 
     /* Not MVP - implement soon.
     const checkMemoryCapacity = () => {
@@ -186,9 +187,13 @@ export const Compatibility = () => {
         && selectedPowerSupply) {
         setCompatibilityStatus("None");
       }
+      if ((slotStatus === 'Incompatible1' || slotStatus === 'Incompatible2' || slotStatus == 'Incompatible3')
+        || (memoryStatus === 'Incompatible1' || memoryStatus === 'Incompatible2' || memoryStatus === 'Incompatible3')
+        || (coolerStatus === 'Incompatible') || (videoStatus === 'Incomnpatible')
+        || (powerStatus === 'Incompatible') || (socketStatus === 'Incompatible')) {
+        setCompatibilityStatus('Bad'); // if any current statuses are incompatible, maintain 'Bad' compatibility status
+      }
     };
-
-    checkCompatibilityStatus();
 
     if (selectedCPU || selectedVideoCard) {
       checkIntegrated();
@@ -196,6 +201,18 @@ export const Compatibility = () => {
 
     if (selectedCPU && selectedMotherboard) {
       checkSocket();
+    }
+
+    // Check for CPU is compatible with memory based on socket (case where mobo isn't selected)
+    if (selectedCPU && selectedMemory) {
+      if (selectedCPU.socket === 'LGA1851' || selectedCPU.socket === 'AM5') {
+        for (let i = 0; i < selectedMemory.length; i++) {
+          if (selectedMemory[i].memoryType === 'DDR4') {
+            setCompatibilityStatus('Bad');
+            setMemoryStatus('Incompatible3');
+          }
+        }
+      }
     }
 
     if (selectedCPUCooler && selectedCPU && selectedMotherboard) {
@@ -213,6 +230,8 @@ export const Compatibility = () => {
     if (selectedPowerSupply) {
       checkWattage();
     }
+
+    checkCompatibilityStatus();
   }, [selectedCPU, selectedMotherboard, selectedMemory, selectedStorage,
     selectedVideoCard, selectedCPUCooler, selectedPowerSupply, totalWattage,
     compatibilityStatus, setCompatibilityStatus, socketStatus, memoryStatus,
@@ -279,23 +298,29 @@ export const Compatibility = () => {
           key="memory"
           description="RAM's overall capacity surpasses the maximum supported by both the CPU and motherboard.">Memory:
         </DropdownItem> :
-        memoryStatus === 'Issue1' ?
+        memoryStatus === 'Incompatible3' ?
           <DropdownItem
             key="memory"
-            description="CPU and motherboard are compatible; however, the selected RAM may be downclocked as the motherboard does not support its memory speed.">Memory:
-            <span className="text-gray-400">
-              {(() => {
-                for (let i = 0; i < selectedMemory.length; i++) {
-                  const memorySpeed = `${selectedMemory[i].memoryType}-${selectedMemory[i].speed}`;
-                  if (!selectedMotherboard.supportedSpeeds.includes(memorySpeed)) return ` ${memorySpeed}`;
-                }
-              })()}
-            </span>
+            description="The CPU's socket (LGA1851 or AM5) is not compatible with DDR4 memory.">
+            <span className="text-red-500"> CPU socket: {selectedCPU?.socket || ''}</span>
           </DropdownItem> :
-          <DropdownItem
-            key="memory"
-            description="Select a motherboard and memory with the same memory type (DDR4 or DDR5). Ensure the CPU's maximum supported memory capacity matches the motherboard's limit, and never exceed this total with the installed memory.">Memory:
-          </DropdownItem>;
+          memoryStatus === 'Issue1' ?
+            <DropdownItem
+              key="memory"
+              description="CPU and motherboard are compatible; however, the selected RAM may be downclocked as the motherboard does not support its memory speed.">Memory:
+              <span className="text-gray-400">
+                {(() => {
+                  for (let i = 0; i < selectedMemory.length; i++) {
+                    const memorySpeed = `${selectedMemory[i].memoryType}-${selectedMemory[i].speed}`;
+                    if (!selectedMotherboard.supportedSpeeds.includes(memorySpeed)) return ` ${memorySpeed}`;
+                  }
+                })()}
+              </span>
+            </DropdownItem> :
+            <DropdownItem
+              key="memory"
+              description="Select a motherboard and memory with the same memory type (DDR4 or DDR5). Ensure the CPU's maximum supported memory capacity matches the motherboard's limit, and never exceed this total with the installed memory.">Memory:
+            </DropdownItem>;
 
   const coolerStatusInfo = coolerStatus === 'Compatible' ?
     <DropdownItem
@@ -306,8 +331,12 @@ export const Compatibility = () => {
     coolerStatus === 'Incompatible' ?
       <DropdownItem
         key="cooler"
-        description='Selected CPU Cooler is incompatible with CPU & Mobo socket.'>CPU Cooling:
-        <span className="text-red-500"> </span>
+        description='Selected CPU Cooler is incompatible with your CPU and/or Motherboard socket.'>CPU Cooling:
+        <span className="text-red-500">
+          <div>
+            CPU Cooler only supports these sockets:<br />{selectedCPUCooler.supportedSockets.join(', ')}
+          </div>
+        </span>
       </DropdownItem> :
       coolerStatus === 'Issue' ?
         <DropdownItem

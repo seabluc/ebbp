@@ -766,6 +766,24 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        motherboardId: 11,
+        memorySpeed: 'DDR5-4800',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        motherboardId: 11,
+        memorySpeed: 'DDR5-6400',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        motherboardId: 11,
+        memorySpeed: 'DDR5-7600',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 

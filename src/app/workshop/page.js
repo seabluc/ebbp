@@ -445,6 +445,7 @@ export default function Home() {
 
           </div>
           {/* Mobo diagram */}
+          {/*
           <div className="flex flex-col items-center">
             <Image
               width={400}
@@ -452,6 +453,7 @@ export default function Home() {
               src={MoboDiagram}
               alt="mobo goes here" />
           </div>
+          */}
         </div>
       </div >
       {/*
