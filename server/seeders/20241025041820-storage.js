@@ -91,7 +91,8 @@ module.exports = {
       {
         storageId: 8,
         partId: 94,
-        capacity: 750,
+        //capacity: 750,
+        capacity: 1,
         formFactor: '3.5"',
         type: '7200 RPM', // RPM = HDD
         pricePerGig: 0.105,

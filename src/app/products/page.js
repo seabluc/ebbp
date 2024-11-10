@@ -30,30 +30,6 @@ export default function ProductsPage() {
           </CardBody>
         </Card>
 
-        {/* CPU Cooler Card */}
-        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
-          <CardHeader className="flex items-center">
-            <Image
-              alt="CPU Cooler"
-              height={50}
-              width={50}
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-            />
-            <Link isExternal showAnchorIcon href="/products/cpu-cooler" className="text-[#DBAE58] ml-4">
-              CPU Cooler
-            </Link>
-          </CardHeader>
-          <Divider className="border-[#DBAE58]" />
-          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
-            <p>Browse the latest CPUs for your PC build.</p>
-            <Link href="/products/cpu-cooler">
-              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
-                Choose a CPU Cooler
-              </Button>
-            </Link>
-          </CardBody>
-        </Card>
-
         {/* Motherboard Card */}
         <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
           <CardHeader className="flex items-center">
@@ -150,6 +126,30 @@ export default function ProductsPage() {
           </CardBody>
         </Card>
 
+        {/* CPU Cooler Card */}
+        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
+          <CardHeader className="flex items-center">
+            <Image
+              alt="CPU Cooler"
+              height={50}
+              width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+            />
+            <Link isExternal showAnchorIcon href="/products/cpu-cooler" className="text-[#DBAE58] ml-4">
+              CPU Cooler
+            </Link>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
+            <p>Browse the latest CPUs for your PC build.</p>
+            <Link href="/products/cpu-cooler">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+                Choose a CPU Cooler
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
+
         {/* PSU Card */}
         <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
           <CardHeader className="flex items-center">
@@ -169,6 +169,54 @@ export default function ProductsPage() {
             <Link href="/products/power-supply">
               <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
                 Choose a PSU
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
+
+        {/* Case Card */}
+        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
+          <CardHeader className="flex items-center">
+            <Image
+              alt="case"
+              height={50}
+              width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+            />
+            <Link isExternal showAnchorIcon href="/" className="text-[#DBAE58] ml-4">
+              Case
+            </Link>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
+            <p>Provide adeqate enclosure for your PC components.</p>
+            <Link href="/">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+                Choose a Case
+              </Button>
+            </Link>
+          </CardBody>
+        </Card>
+
+        {/* Monitor Card */}
+        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
+          <CardHeader className="flex items-center">
+            <Image
+              alt="monitor"
+              height={50}
+              width={50}
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+            />
+            <Link isExternal showAnchorIcon href="/products/" className="text-[#DBAE58] ml-4">
+              Monitor
+            </Link>
+          </CardHeader>
+          <Divider className="border-[#DBAE58]" />
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
+            <p>Display graphical output.</p>
+            <Link href="/">
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+                Choose a Monitor
               </Button>
             </Link>
           </CardBody>

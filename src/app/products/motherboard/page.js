@@ -21,135 +21,98 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-4 w-1/4 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-4 w-1/5 mt-4"> {/* Container for filter cards */}
 
-        {/* Filter card for brands (moved to the first position) */}
+        {/* Filter card for manufacturers */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Manufacturer</h2>
-          <CheckboxGroup label="Select brands" defaultValue={[]}>
-            <Checkbox value="intel">CoolerMaster</Checkbox>
-            <Checkbox value="amd">Kraken</Checkbox>
-            <Checkbox value="intel">Be Quiet!</Checkbox>
-            <Checkbox value="amd">Corsair</Checkbox>
-            <Checkbox value="amd">Thermalright</Checkbox>
+          <h2 className="text-[#DBAE58]">Manufacturer</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="asus">Asus</Checkbox>
+            <Checkbox value="asrock">ASRock</Checkbox>
+            <Checkbox value="gigabyte">Gigabyte</Checkbox>
+            <Checkbox value="msi">MSI</Checkbox>
           </CheckboxGroup>
         </Card>
 
         {/* Filter card for processors */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Socket</h2>
-          <CheckboxGroup label="Select processors" defaultValue={[]}>
-            <Checkbox value="intel-i9">LGA1851</Checkbox>
-            <Checkbox value="amd-ryzen-7">LGA1700</Checkbox>
-            <Checkbox value="intel-i7">LGA1200</Checkbox>
-            <Checkbox value="amd-ryzen-5">AM5</Checkbox>
-            <Checkbox value="amd-ryzen-5">AM4</Checkbox>
+          <h2 className="text-[#DBAE58]">Socket</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="lga1851">LGA1851</Checkbox>
+            <Checkbox value="lga1700">LGA1700</Checkbox>
+            <Checkbox value="lga1200">LGA1200</Checkbox>
+            <Checkbox value="am5">AM5</Checkbox>
+            <Checkbox value="am4">AM4</Checkbox>
           </CheckboxGroup>
         </Card>
 
-        {/* Slider card for core count range */}
+        {/* Filter card for Memory Types */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Core Count Range</h2>
+          <h2 className="text-[#DBAE58]" >Memory Type</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="DDR5">DDR5</Checkbox>
+            <Checkbox value="DDR4">DDR4</Checkbox>
+          </CheckboxGroup>
+        </Card>
+
+        {/* Filter card for form factors */}
+        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+          <h2 className="text-[#DBAE58]">Form Factor</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="eatx">E-ATX</Checkbox>
+            <Checkbox value="atx">ATX</Checkbox>
+            <Checkbox value="matx">mATX</Checkbox>
+            <Checkbox value="itx">Mini-ITX</Checkbox>
+          </CheckboxGroup>
+        </Card>
+
+
+        {/* Slider card for Memory range */}
+        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+          <h2 className="text-[#DBAE58]">Memory Capacity (GB)</h2>
           <Slider
-            step={1}
-            minValue={2}
-            maxValue={24}
-            defaultValue={[4, 24]}
+            step={32}
+            minValue={96}
+            maxValue={256}
+            defaultValue={[96, 256]}
             className="max-w-md"
             label=" " // Keep the label for the slider
           />
         </Card>
 
-        {/* Slider card for performance */}
+        {/* Filter card for Memory Slots */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Performance</h2>
-          <CheckboxGroup label="Select performance" defaultValue={[]}>
-            <Checkbox value="low">Low-end</Checkbox>
-            <Checkbox value="medium">Mid-range</Checkbox>
-            <Checkbox value="high">High-end</Checkbox>
+          <h2 className="text-[#DBAE58]" >Memory Slots</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="4">4</Checkbox>
+            <Checkbox value="2">2</Checkbox>
           </CheckboxGroup>
         </Card>
 
-        {/* Slider card for core clock range */}
+        {/* Filter card for Color */}
+        {/*
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Performance Core Clock Range (GHz)</h2>
-          <Slider
-            step={0.1}
-            minValue={0}
-            maxValue={6}
-            defaultValue={[2.0, 5.0]}
-            className="max-w-md"
-            label=" " // Keep the label for the slider
-          />
-        </Card>
-
-        {/* Slider card for performance core boost clock range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Performance Core Boost Clock Range (GHz)</h2>
-          <Slider
-            step={0.1}
-            minValue={0}
-            maxValue={6}
-            defaultValue={[2.5, 5.5]}
-            className="max-w-md"
-            label=" " // Keep the label for the slider
-          />
-        </Card>
-
-        {/* Filter card for microarchitecture */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Microarchitecture</h2>
-          <CheckboxGroup label="Select microarchitecture" defaultValue={[]}>
-            <Checkbox value="zen2">Zen 3</Checkbox>
-            <Checkbox value="zen3">Zen 5</Checkbox>
-            <Checkbox value="alder-lake">Arrow Lake</Checkbox>
-            <Checkbox value="comet-lake">Alder Lake</Checkbox>
-            <Checkbox value="jasper-lake">Raptor Lake Refresh</Checkbox>
+          <h2 className="text-[#DBAE58]">Color</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="black">Black</Checkbox>
+            <Checkbox value="white">White</Checkbox>
           </CheckboxGroup>
         </Card>
-
-        {/* Slider card for TDP range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">TDP Range (W)</h2>
-          <Slider
-            step={10}
-            minValue={0}
-            maxValue={400}
-            defaultValue={[100, 200]}
-            className="max-w-md"
-            label=" " // Keep the label for the slider
-          />
-        </Card>
-
-        {/* Filter card for integrated graphics */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Integrated Graphics</h2>
-          <CheckboxGroup label="Select integrated graphics" defaultValue={[]}>
-            <Checkbox value="intel-uhd">Intel Xe</Checkbox>
-            <Checkbox value="intel-uhd">Intel UHD</Checkbox>
-            <Checkbox value="intel-uhd">Radeon</Checkbox>
-            <Checkbox value="none">None</Checkbox>
-          </CheckboxGroup>
-        </Card>
+        */}
 
         {/* Slider card for price range (still in last position) */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Price Range</h2>
+          <h2 className="text-[#DBAE58]">Price ($)</h2>
           <Slider
-            step={50}
+            step={10}
             minValue={0}
-            maxValue={1000}
-            defaultValue={[100, 500]}
+            maxValue={700}
+            defaultValue={[0, 700]}
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider
           />
         </Card>
-
-        {/* Apply Filters Button */}
-        <button className="mt-4 bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
-          Apply Filters
-        </button>
       </div>
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
@@ -160,12 +123,12 @@ export default function App() {
         >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
-            <TableColumn>Form Factor</TableColumn>
             <TableColumn>Socket</TableColumn>
             <TableColumn>Memory Type</TableColumn>
+            <TableColumn>Form Factor</TableColumn>
             <TableColumn>Max Memory Capacity</TableColumn>
             <TableColumn>Memory Slots</TableColumn>
-            <TableColumn>Color</TableColumn>
+            {/*<TableColumn>Color</TableColumn>*/}
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
@@ -179,12 +142,12 @@ export default function App() {
                     height="70"
                     alt="motherboard" />
                 </TableCell>
-                <TableCell>{motherboard.formFactor}</TableCell>
                 <TableCell>{motherboard.socket}</TableCell>
                 <TableCell>{motherboard.memoryType}</TableCell>
+                <TableCell>{motherboard.formFactor}</TableCell>
                 <TableCell>{motherboard.memoryMax + ` GB`}</TableCell>
                 <TableCell>{motherboard.memorySlot}</TableCell>
-                <TableCell>{motherboard.color}</TableCell>
+                {/*<TableCell>{motherboard.color}</TableCell>*/}
                 <TableCell>{`$` + motherboard.price}</TableCell>
                 <TableCell>
                   <Link href="/workshop">
