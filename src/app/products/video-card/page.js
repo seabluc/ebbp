@@ -23,130 +23,113 @@ export default function App() {
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
       <div className="flex flex-col gap-4 w-1/4 mt-4"> {/* Container for filter cards */}
 
-        {/* Filter card for brands (moved to the first position) */}
+        {/* Filter card for manufacturers */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Manufacturer</h2>
-          <CheckboxGroup label="Select brands" defaultValue={[]}>
-            <Checkbox value="intel">Intel</Checkbox>
-            <Checkbox value="amd">AMD</Checkbox>
+          <h2 className="text-[#DBAE58]">Manufacturer</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="MSI">MSI</Checkbox>
+            <Checkbox value="xfx">XFX</Checkbox>
+            <Checkbox value="yeston">Yeston</Checkbox>
           </CheckboxGroup>
         </Card>
 
-        {/* Filter card for processors */}
+        {/* Filter card for chipsets */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Socket</h2>
-          <CheckboxGroup label="Select processors" defaultValue={[]}>
-            <Checkbox value="intel-i9">LGA1851</Checkbox>
-            <Checkbox value="amd-ryzen-7">LGA1700</Checkbox>
-            <Checkbox value="intel-i7">LGA1200</Checkbox>
-            <Checkbox value="amd-ryzen-5">AM5</Checkbox>
-            <Checkbox value="amd-ryzen-5">AM4</Checkbox>
+          <h2 className="text-[#DBAE58]">Chipset</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="rtx 4090">GeForce RTX 4090</Checkbox>
+            <Checkbox value="rtx 4080">GeForce RTX 4080</Checkbox>
+            <Checkbox value="rtx 4070 super">GeForce RTX 4070 SUPER</Checkbox>
+            <Checkbox value="rtx 4070">GeForce RTX 4070</Checkbox>
+            <Checkbox value="rtx 4060">GeForce RTX 4060</Checkbox>
+            <Checkbox value="rtx 3080 ti">GeForce RTX 3080 TI</Checkbox>
+            <Checkbox value="rtx 3080">GeForce RTX 3080</Checkbox>
+            <Checkbox value="rtx 3070">GeForce RTX 3070</Checkbox>
+            <Checkbox value="rtx 3060">GeForce RTX 3060</Checkbox>
+            {/*<Checkbox value="rtx 2080">GeForce RTX 2080</Checkbox>
+            <Checkbox value="rtx 2070">GeForce RTX 2070</Checkbox>
+            <Checkbox value="rtx 2060">GeForce RTX 2060</Checkbox>*/}
+            <Checkbox value="rx 7900 XT">Radeon RX 7900 XTX</Checkbox>
+            <Checkbox value="rx 7900 XT">Radeon RX 7900 XT</Checkbox>
+            <Checkbox value="rx 7800 XT">Radeon RX 7800 XT</Checkbox>
+            <Checkbox value="rx 7700 XT">Radeon RX 7700 XT</Checkbox>
+            <Checkbox value="rx 7600 XT">Radeon RX 7600 XT</Checkbox>
+            <Checkbox value="rx 6900 XT">Radeon RX 6900 XT</Checkbox>
+            <Checkbox value="rx 6800 XT">Radeon RX 6800 XT</Checkbox>
+            {/*
+            <Checkbox value="rx 6700 XT">Radeon RX 6700 XT</Checkbox>
+            <Checkbox value="rx 6600 XT">Radeon RX 6600 XT</Checkbox>
+            <Checkbox value="rx 6500 XT">Radeon RX 6500 XT</Checkbox>
+            <Checkbox value="rx 5700 XT">Radeon RX 5700 XT</Checkbox>
+            <Checkbox value="rx 5600 XT">Radeon RX 5600 XT</Checkbox>
+            <Checkbox value="rx 5500 XT">Radeon RX 5500 XT</Checkbox>*/}
           </CheckboxGroup>
         </Card>
 
-        {/* Slider card for core count range */}
+        {/* Filter card for GDDR types */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Core Count Range</h2>
+          <h2 className="text-[#DBAE58]" >Graphics Memory Type</h2>
+          <CheckboxGroup className="my-2">
+            <Checkbox value="GDDR6X">GDDR6X</Checkbox>
+            <Checkbox value="GDDR6">GDDR6</Checkbox>
+            <Checkbox value="GDDR5X">GDDR5X</Checkbox>
+            <Checkbox value="GDDR5">GDDR5</Checkbox>
+          </CheckboxGroup>
+        </Card>
+
+        {/* Slider card for VRAM range */}
+        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+          <h2 className="text-[#DBAE58]">VRAM</h2>
           <Slider
-            step={1}
-            minValue={2}
+            step={2}
+            minValue={6}
             maxValue={24}
-            defaultValue={[4, 24]}
+            defaultValue={[6, 24]}
             className="max-w-md"
             label=" " // Keep the label for the slider
           />
-        </Card>
-
-        {/* Slider card for performance */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Performance</h2>
-          <CheckboxGroup label="Select performance" defaultValue={[]}>
-            <Checkbox value="low">Low-end</Checkbox>
-            <Checkbox value="medium">Mid-range</Checkbox>
-            <Checkbox value="high">High-end</Checkbox>
-          </CheckboxGroup>
-        </Card>
-
-        {/* Slider card for core clock range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Performance Core Clock Range (GHz)</h2>
-          <Slider
-            step={0.1}
-            minValue={0}
-            maxValue={6}
-            defaultValue={[2.0, 5.0]}
-            className="max-w-md"
-            label=" " // Keep the label for the slider
-          />
-        </Card>
-
-        {/* Slider card for performance core boost clock range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Performance Core Boost Clock Range (GHz)</h2>
-          <Slider
-            step={0.1}
-            minValue={0}
-            maxValue={6}
-            defaultValue={[2.5, 5.5]}
-            className="max-w-md"
-            label=" " // Keep the label for the slider
-          />
-        </Card>
-
-        {/* Filter card for microarchitecture */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Microarchitecture</h2>
-          <CheckboxGroup label="Select microarchitecture" defaultValue={[]}>
-            <Checkbox value="zen2">Zen 3</Checkbox>
-            <Checkbox value="zen3">Zen 5</Checkbox>
-            <Checkbox value="alder-lake">Arrow Lake</Checkbox>
-            <Checkbox value="comet-lake">Alder Lake</Checkbox>
-            <Checkbox value="jasper-lake">Raptor Lake Refresh</Checkbox>
-          </CheckboxGroup>
         </Card>
 
         {/* Slider card for TDP range */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">TDP Range (W)</h2>
+          <h2 className="text-[#DBAE58]">TDP (W)</h2>
           <Slider
-            step={10}
+            step={5}
             minValue={0}
-            maxValue={400}
-            defaultValue={[100, 200]}
+            maxValue={200}
+            defaultValue={[0, 200]}
+            className="max-w-md"
+            label=" " // Keep the label for the slider
+          //onChange={setTdpRange}
+          />
+        </Card>
+
+        {/* Slider card for length range */}
+        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+          <h2 className="text-[#DBAE58]">Length (mm)</h2>
+          <Slider
+            step={5}
+            minValue={200}
+            maxValue={500}
+            defaultValue={[0, 500]}
             className="max-w-md"
             label=" " // Keep the label for the slider
           />
         </Card>
 
-        {/* Filter card for integrated graphics */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Select Integrated Graphics</h2>
-          <CheckboxGroup label="Select integrated graphics" defaultValue={[]}>
-            <Checkbox value="intel-uhd">Intel Xe</Checkbox>
-            <Checkbox value="intel-uhd">Intel UHD</Checkbox>
-            <Checkbox value="intel-uhd">Radeon</Checkbox>
-            <Checkbox value="none">None</Checkbox>
-          </CheckboxGroup>
-        </Card>
-
         {/* Slider card for price range (still in last position) */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Price Range</h2>
+          <h2 className="text-[#DBAE58]">Price ($)</h2>
           <Slider
-            step={50}
+            step={10}
             minValue={0}
-            maxValue={1000}
-            defaultValue={[100, 500]}
+            maxValue={3500}
+            defaultValue={[0, 3500]}
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider
           />
         </Card>
-
-        {/* Apply Filters Button */}
-        <button className="mt-4 bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95">
-          Apply Filters
-        </button>
       </div>
 
       <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
@@ -158,13 +141,13 @@ export default function App() {
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
             <TableColumn>Chipset</TableColumn>
-            <TableColumn>Memory Type</TableColumn>
-            <TableColumn>Memory</TableColumn>
+            <TableColumn>Graphics Memory Type</TableColumn> {/* Add (?) icon and provide ToolTip ... GDDR does not need to be equal to Memory DDR */}
+            <TableColumn>VRAM</TableColumn> {/* Add (?) icon and provide ToolTip */}
             <TableColumn>Core Clock</TableColumn>
-            <TableColumn>Boost Clock (MHz)</TableColumn>
-            <TableColumn>Length</TableColumn>
+            {/*<TableColumn>Boost Clock (MHz)</TableColumn>*/}
             <TableColumn>TDP</TableColumn>
-            <TableColumn>Color</TableColumn>
+            <TableColumn>Length</TableColumn>
+            {/*<TableColumn>Color</TableColumn>*/}
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
@@ -182,10 +165,10 @@ export default function App() {
                 <TableCell>{videoCard.memoryType}</TableCell>
                 <TableCell>{videoCard.memory + ` GB`}</TableCell>
                 <TableCell>{videoCard.coreClock + ` MHz`}</TableCell>
-                <TableCell>{videoCard.boostClock || "--"}</TableCell>
-                <TableCell>{videoCard.length + ` mm`}</TableCell>
+                {/*<TableCell>{videoCard.boostClock || "--"}</TableCell>*/}
                 <TableCell>{videoCard.tdp + ` W`}</TableCell>
-                <TableCell>{videoCard.color}</TableCell>
+                <TableCell>{videoCard.length + ` mm`}</TableCell>
+                {/*<TableCell>{videoCard.color}</TableCell>*/}
                 <TableCell>{`$` + videoCard.price}</TableCell>
                 <TableCell>
                   <Link href="/workshop">
