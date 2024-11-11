@@ -1088,7 +1088,7 @@ module.exports = {
         type: 'Storage',
         image: 'https://cdna.pcpartpicker.com/static/forever/images/product/d8e9bca5694297b950214e548b052da3.256p.jpg',
         price: 109.99,
-        manufacturer: 'Western Digital',
+        manufacturer: 'ADATA',
         partNum: 'ASU800SS-1TT-C',
         createdAt: new Date(),
         updatedAt: new Date(),

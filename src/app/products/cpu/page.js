@@ -11,16 +11,16 @@ import { fetchComponents } from '@/utils/fetchUtils';
 import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
-  const [component, setComponent] = useState([]);
-  const [filteredComponents, setFilteredComponents] = useState([]);
+  const [components, setComponents] = useState([]);
   const [error, setError] = useState(null);
   const { updateSelectedCPU } = useSharedData();
 
   // Filter states
+  const [filteredComponents, setFilteredComponents] = useState([]);
   const [selectedManufacturers, setSelectedManufacturers] = useState([]);
   const [selectedSockets, setSelectedSockets] = useState([]);
   const [coreCountRange, setCoreCountRange] = useState([0, 24]);
-  const [threadCountRange, setThreadCountRange] = useState([0, 48]);
+  {/*const [threadCountRange, setThreadCountRange] = useState([0, 48]);*/ }
   const [clockSpeedRange, setClockSpeedRange] = useState([0.0, 5.0]);
   const [boostClockSpeedRange, setBoostClockSpeedRange] = useState([0.0, 6.0]);
   const [selectedMicroarchitectures, setSelectedMicroarchitectures] = useState([]);
@@ -30,19 +30,19 @@ export default function App() {
 
   useEffect(() => {
     // Fetch the components from the API on load
-    fetchComponents("../api/cpus", setComponent, setError);
+    fetchComponents("../api/cpus", setComponents, setError);
   }, []);
 
   // Apply filters whenever the filter values change
   useEffect(() => {
     const filterComponents = () => {
-      const filtered = component.filter((cpu) => {
+      const filtered = components.filter((cpu) => {
         // Apply all filters based on selected criteria
         return (
           (selectedManufacturers.length === 0 || selectedManufacturers.includes(cpu.manufacturer.toLowerCase())) &&
           (selectedSockets.length === 0 || selectedSockets.includes(cpu.socket.toLowerCase())) &&
           cpu.coreCount >= coreCountRange[0] && cpu.coreCount <= coreCountRange[1] &&
-          cpu.threadCount >= threadCountRange[0] && cpu.threadCount <= threadCountRange[1] &&
+          /*cpu.threadCount >= threadCountRange[0] && cpu.threadCount <= threadCountRange[1] && */
           cpu.performanceCoreClock >= clockSpeedRange[0] && cpu.performanceCoreClock <= clockSpeedRange[1] &&
           cpu.performanceCoreBoostClock >= boostClockSpeedRange[0] && cpu.performanceCoreBoostClock <= boostClockSpeedRange[1] &&
           (selectedMicroarchitectures.length === 0 || selectedMicroarchitectures.includes(cpu.microarchitecture.toLowerCase())) &&
@@ -55,8 +55,8 @@ export default function App() {
     };
 
     filterComponents();
-  }, [component, selectedManufacturers, selectedSockets, coreCountRange, threadCountRange, clockSpeedRange,
-    boostClockSpeedRange, selectedMicroarchitectures, tdpRange, selectedGraphics, priceRange]);
+  }, [components, selectedManufacturers, selectedSockets, coreCountRange, /*threadCountRange*/,
+    clockSpeedRange, boostClockSpeedRange, selectedMicroarchitectures, tdpRange, selectedGraphics, priceRange]);
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
@@ -212,7 +212,8 @@ export default function App() {
         </Card>
       </div>
 
-      <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
+      {/* Container for table */}
+      <div className="flex-grow flex items-start justify-center mt-4 gap-4">
         <Table
           aria-label="CPU Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding

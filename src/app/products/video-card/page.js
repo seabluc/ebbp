@@ -132,7 +132,8 @@ export default function App() {
         </Card>
       </div>
 
-      <div className="flex-grow flex items-start justify-center mt-4 gap-4"> {/* Container for table */}
+      {/* Container for table */}
+      <div className="flex-grow flex items-start justify-center mt-4 gap-4">
         <Table
           aria-label="Video Card Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
