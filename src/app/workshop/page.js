@@ -1,7 +1,11 @@
 'use client';
 import { useState, useReducer, useEffect } from "react";
-import { Tabs, Tab, Card, CardBody, /*Image*/ } from "@nextui-org/react";
+import {
+  Tabs, Tab, Card, CardBody, Table, TableHeader, TableColumn, TableBody,
+  TableRow, TableCell, Button, RadioGroup, Radio, /*Image*/
+} from "@nextui-org/react";
 import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
+import RedX from "../../../public/x.svg";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from '../../context/SharedDataContext';
@@ -12,6 +16,8 @@ import { useRouter } from 'next/navigation';
 import { doc, setDoc } from 'firebase/firestore';
 import { fbdb } from '@/lib/firebase/config';
 
+const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
+
 export default function Home() {
   const [selectedBuild, setSelectedBuild] = useState("build1"); // For Tab Builds #1-10
   const { selectedCPU, clearSelectedCPU, selectedMotherboard, clearSelectedMotherboard,
@@ -20,10 +26,12 @@ export default function Home() {
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
     compatibilityStatus, /*savedBuild, setSavedBuild,*/ } = useSharedData();
 
-    const { user } = useAuth();
-    const router = useRouter();
-    const [message, setMessage] = useState('');
-    
+  const [selectedColor, setSelectedColor] = useState("default"); // Table
+  // Firebase
+  const { user } = useAuth();
+  const router = useRouter();
+  const [message, setMessage] = useState('');
+
   let backgroundColor;
   if (compatibilityStatus === 'Bad') {
     backgroundColor = 'bg-red-600';
@@ -60,6 +68,7 @@ export default function Home() {
     }
   };
 
+  {/*
   const cpuCard = () => {
     return selectedCPU ? (
       <CardBody className="text-base">
@@ -184,7 +193,7 @@ export default function Home() {
             alt="Video Card">
           </Image>
           <span>{selectedVideoCard.name} {selectedVideoCard.videoCardMemoryType} {selectedVideoCard.memory + ' GB '}
-            {selectedVideoCard.coreClock + ' MHz '}{/*selectedVideoCard.tdp + ' W'*/}{/*selectedVideoCard.length + ' mm'*/}
+            {selectedVideoCard.coreClock + ' MHz '}
           </span>
         </div>
       </CardBody>
@@ -233,7 +242,6 @@ export default function Home() {
             alt="Power Supply">
           </Image>
           <span>{selectedPowerSupply.name} {selectedPowerSupply.formFactor} {selectedPowerSupply.efficiency} {selectedPowerSupply.wattage + " W"} {selectedPowerSupply.modularity}
-            {/*selectedPowerSupply.length + " mm"*/}
           </span>
         </div>
       </CardBody>
@@ -243,6 +251,349 @@ export default function Home() {
           Choose A Power Supply
         </Link>
       </CardBody>
+    );
+  }; */}
+  const cpuRows = () => {
+    return selectedCPU ? (
+      <TableRow key="1" /*className="border-2"*/ >
+        <TableCell>
+          <span className="flex flex-row">
+            <Link href="products/cpu">
+              <u className="text-blue-600">CPU</u>
+            </Link>
+          </span>
+        </TableCell>
+        <TableCell className="flex flex-row items-center">
+          <Image
+            width={60}
+            height={60}
+            src={selectedCPU.image}
+            alt="CPU">
+          </Image>
+          <span className="flex items-center ml-2">
+            {selectedCPU.name}
+            <button onClick={clearSelectedCPU}
+              className="items-end hover:opacity-50 ml-1">
+              <Image width={24} height={24} src={RedX} alt='❌' />
+            </button>
+          </span>
+        </TableCell>
+        <TableCell className="px-12">{selectedCPU?.price || '--'}</TableCell>
+      </TableRow>
+    ) : (
+      <TableRow key="1">
+        <TableCell>
+          <Link href="products/cpu">
+            <u className="text-blue-600">CPU</u>
+          </Link>
+        </TableCell>
+        <TableCell>
+          <Link href="products/cpu">
+            <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+              Choose A CPU
+            </Button>
+          </Link>
+        </TableCell>
+        <TableCell className="px-12">{selectedCPU?.price || '--'}</TableCell>
+      </TableRow>
+    );
+  };
+
+  const moboRows = () => {
+    return selectedMotherboard ? (
+      <TableRow key="2">
+        <TableCell className="">
+          <span className="flex flex-row">
+            <Link href="products/motherboard">
+              <u className="text-blue-600">Motherboard</u>
+            </Link>
+          </span>
+        </TableCell>
+        <TableCell className="flex flex-row items-center">
+          <Image
+            width={70}
+            height={70}
+            src={selectedMotherboard.image}
+            alt="Motherboard">
+          </Image>
+          <span className="flex items-center ml-0">
+            {selectedMotherboard.name}
+            <button onClick={clearSelectedMotherboard}
+              className="items-end hover:opacity-50 ml-1">
+              <Image width={24} height={24} src={RedX} alt='❌' />
+            </button>
+          </span>
+        </TableCell>
+        <TableCell className="px-12">{selectedMotherboard?.price || '--'}</TableCell>
+      </TableRow>
+    ) : (
+      <TableRow key="2">
+        <TableCell>
+          <Link href="products/motherboard">
+            <u className="text-blue-600">Motherboard</u>
+          </Link>
+        </TableCell>
+        <TableCell>
+          <Link href="products/motherboard">
+            <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+              Choose A Motherboard
+            </Button>
+          </Link>
+        </TableCell>
+        <TableCell className="px-12">{selectedMotherboard?.price || '--'}</TableCell>
+      </TableRow>
+    );
+  };
+
+  const memoryRows = () => {
+    // When no memory component is selected
+    if (!selectedMemory || selectedMemory.length === 0) {
+      return (
+        <TableRow key="no-memory">
+          <TableCell>
+            <Link href="products/memory">
+              <u className="text-blue-600">Memory</u>
+            </Link>
+          </TableCell>
+          <TableCell>
+            <Link href="products/memory">
+              <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+                Choose Memory
+              </Button>
+            </Link>
+          </TableCell>
+          <TableCell className="px-12">--</TableCell>
+        </TableRow>
+      );
+    }
+
+    return selectedMemory.map((memoryItem, index) => (
+      <TableRow key={memoryItem.instanceId}>
+        <TableCell>
+          <Link href="products/memory">
+            <u className="text-blue-600">Memory</u>
+          </Link>
+        </TableCell>
+        <TableCell className="flex flex-col">
+          <div className="flex flex-row items-center">
+            <Image width={60} height={60} src={memoryItem.image} alt="Memory" />
+            <span className="flex items-center ml-2">
+              {memoryItem.name}
+              <button
+                onClick={() => clearSelectedMemory(memoryItem)}
+                className="items-end hover:opacity-50 ml-1">
+                <Image width={24} height={24} src={RedX} alt="❌" />
+              </button>
+            </span>
+          </div>
+          {/* Conditionally render "Add Additional Memory" button only once at the end */}
+          {index === selectedMemory.length - 1 && (
+            <div className="mt-2">
+              <Link href="products/memory">
+                <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+                  Add Additional Memory
+                </Button>
+              </Link>
+            </div>
+          )}
+        </TableCell>
+        <TableCell className="px-12">{memoryItem.price || '--'}</TableCell>
+      </TableRow>
+    ));
+  };
+
+  const storageRows = () => {
+    // When no memory component is selected
+    if (!selectedStorage || selectedStorage.length === 0) {
+      return (
+        <TableRow key="no-storage">
+          <TableCell>
+            <Link href="products/storage">
+              <u className="text-blue-600">Storage</u>
+            </Link>
+          </TableCell>
+          <TableCell>
+            <Link href="products/storage">
+              <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+                Choose Storage
+              </Button>
+            </Link>
+          </TableCell>
+          <TableCell className="px-12">--</TableCell>
+        </TableRow>
+      );
+    }
+
+    return selectedStorage.map((storageItem, index) => (
+      <TableRow key={storageItem.instanceId}>
+        <TableCell>
+          <Link href="products/storage">
+            <u className="text-blue-600">Storage</u>
+          </Link>
+        </TableCell>
+        <TableCell className="flex flex-col">
+          <div className="flex flex-row items-center">
+            <Image width={60} height={60} src={storageItem.image} alt="Storage" />
+            <span className="flex items-center ml-2">
+              {storageItem.name}
+              <button
+                onClick={() => clearSelectedStorage(storageItem)}
+                className="items-end hover:opacity-50 ml-1">
+                <Image width={24} height={24} src={RedX} alt="❌" />
+              </button>
+            </span>
+          </div>
+          {/* Conditionally render "Add Additional Memory" button only once at the end */}
+          {index === selectedStorage.length - 1 && (
+            <div className="mt-2">
+              <Link href="products/storage">
+                <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+                  Add Additional Storage
+                </Button>
+              </Link>
+            </div>
+          )}
+        </TableCell>
+        <TableCell className=" px-12">{storageItem.price || '--'}</TableCell>
+      </TableRow>
+    ));
+  };
+
+  const gpuRows = () => {
+    return selectedVideoCard ? (
+      <TableRow key="5">
+        <TableCell className="">
+          <span className="flex flex-row">
+            <Link href="products/video-card">
+              <u className="text-blue-600">Video Card</u>
+            </Link>
+          </span>
+        </TableCell>
+        <TableCell className="flex flex-row items-center">
+          <Image
+            width={80}
+            height={80}
+            src={selectedVideoCard.image}
+            alt="VideoCard">
+          </Image>
+          <span className="flex items-center ml-2">
+            {selectedVideoCard.name}
+            <button onClick={clearSelectedVideoCard}
+              className="items-end hover:opacity-50 ml-1">
+              <Image width={24} height={24} src={RedX} alt='❌' />
+            </button>
+          </span>
+        </TableCell>
+        <TableCell className="px-12">{selectedVideoCard?.price || '--'}</TableCell>
+      </TableRow>
+    ) : (
+      <TableRow key="5">
+        <TableCell>
+          <Link href="products/video-card">
+            <u className="text-blue-600">Video Card</u>
+          </Link>
+        </TableCell>
+        <TableCell>
+          <Link href="products/video-card">
+            <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+              Choose A Video Card
+            </Button>
+          </Link>
+        </TableCell>
+        <TableCell className="px-12">{selectedVideoCard?.price || '--'}</TableCell>
+      </TableRow>
+    );
+  };
+
+  const cpuCoolerRows = () => {
+    return selectedCPUCooler ? (
+      <TableRow key="6">
+        <TableCell className="">
+          <span className="flex flex-row">
+            <Link href="products/cpu-cooler">
+              <u className="text-blue-600">CPU Cooler</u>
+            </Link>
+          </span>
+        </TableCell>
+        <TableCell className="flex flex-row items-center">
+          <Image
+            width={70}
+            height={70}
+            src={selectedCPUCooler.image}
+            alt="CPUCooler">
+          </Image>
+          <span className="flex items-center ml-2">
+            {selectedCPUCooler.name}
+            <button onClick={clearSelectedCPUCooler}
+              className="items-end hover:opacity-50 ml-1">
+              <Image width={24} height={24} src={RedX} alt='❌' />
+            </button>
+          </span>
+        </TableCell>
+        <TableCell className="px-12">{selectedCPUCooler?.price || '--'}</TableCell>
+      </TableRow>
+    ) : (
+      <TableRow key="6">
+        <TableCell>
+          <Link href="products/cpu-cooler">
+            <u className="text-blue-600">CPU Cooler</u>
+          </Link>
+        </TableCell>
+        <TableCell>
+          <Link href="products/cpu-cooler">
+            <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+              Choose A CPU Cooler
+            </Button>
+          </Link>
+        </TableCell>
+        <TableCell className="px-12">{selectedCPUCooler?.price || '--'}</TableCell>
+      </TableRow>
+    );
+  };
+
+  const psuRows = () => {
+    return selectedPowerSupply ? (
+      <TableRow key="7">
+        <TableCell className="">
+          <span className="flex flex-row">
+            <Link href="products/power-supply">
+              <u className="text-blue-600">Power Supply</u>
+            </Link>
+          </span>
+        </TableCell>
+        <TableCell className="flex flex-row items-center">
+          <Image
+            width={70}
+            height={70}
+            src={selectedPowerSupply.image}
+            alt="PowerSupply">
+          </Image>
+          <span className="flex items-center ml-2">
+            {selectedPowerSupply.name}
+            <button onClick={clearSelectedPowerSupply}
+              className="items-end hover:opacity-50 ml-1">
+              <Image width={24} height={24} src={RedX} alt='❌' />
+            </button>
+          </span>
+        </TableCell>
+        <TableCell className="px-12">{selectedPowerSupply?.price || '--'}</TableCell>
+      </TableRow>
+    ) : (
+      <TableRow key="7">
+        <TableCell>
+          <Link href="products/power-supply">
+            <u className="text-blue-600">Power Supply</u>
+          </Link>
+        </TableCell>
+        <TableCell>
+          <Link href="products/power-supply">
+            <Button className="bg-[#DBAE58] hover:bg-opacity-hover">
+              Choose A Power Supply
+            </Button>
+          </Link>
+        </TableCell>
+        <TableCell className="px-12">{selectedPowerSupply?.price || '--'}</TableCell>
+      </TableRow>
     );
   };
 
@@ -294,7 +645,50 @@ export default function Home() {
 
         <div className="flex flex-row items-stretch justify-center py-4 gap-4">
 
-          {/* Vertical Tabs for Components */}
+
+
+          {/* Selected Components */}
+          <div className="flex flex-col gap-3">
+
+            <Table color={selectedColor} aria-label="Selected PC Part Table">
+              <TableHeader>
+                <TableColumn>Component</TableColumn>
+                <TableColumn>Name</TableColumn>
+                <TableColumn className="px-12">Price</TableColumn>
+              </TableHeader>
+              <TableBody>
+                {cpuRows()}
+                {moboRows()}
+                {memoryRows()}
+                {storageRows()}
+                {gpuRows()}
+                {cpuCoolerRows()}
+                {psuRows()}
+              </TableBody>
+            </Table>
+          </div>
+          {/* Mobo diagram */}
+          {/*
+          <div className="flex flex-col items-center">
+            <Image
+              width={400}
+              height={500}
+              src={MoboDiagram}
+              alt="mobo goes here" />
+          </div>
+          */}
+        </div>
+      </div >
+      {/*
+      <button onClick={saveCurrentBuild}>
+        Click me
+      </button>
+      */}
+    </div >
+  );
+}
+{/* Vertical Tabs for Components */ }
+{/*
           <div className="flex flex-col p-4">
             <Tabs aria-label="PC Components" isVertical>
               <Tab className="text-xl my-2" key="cpu" title="CPU">
@@ -326,10 +720,10 @@ export default function Home() {
               </Tab>
             </Tabs>
           </div>
-
-          {/* Selected Components */}
+          */}
+{/*}
           <div className="flex flex-col items-center p-4 mr-24 gap-4 bg-white">
-            {/* Selected CPU */}
+            // Selected CPU 
             <div className="">
               {selectedCPU ? (
                 <div className="flex flex-col items-center">
@@ -348,7 +742,7 @@ export default function Home() {
               )}
               <hr className=" flex bg-black h-0.5" />
             </div>
-            {/* Selected Motherboard */}
+            // Selected Motherboard 
             <div className="">
               {selectedMotherboard ? (
                 <div className="flex flex-col items-center">
@@ -367,7 +761,7 @@ export default function Home() {
               )}
               <hr className="flex bg-black h-0.5" />
             </div>
-            {/* Selected Memory */}
+            // Selected Memory
             <div className="">
               {(selectedMemory && selectedMemory.length > 0) ? (
                 <div className="text-base">
@@ -396,7 +790,7 @@ export default function Home() {
               )}
               <hr className="flex bg-black h-0.5" />
             </div>
-            {/* Selected Storage */}
+            // Selected Storage
             <div className="">
               {(selectedStorage && selectedStorage.length > 0) ? (
                 <div className="text-base">
@@ -422,7 +816,7 @@ export default function Home() {
               )}
               <hr className="flex bg-black h-0.5" />
             </div>
-            {/* Selected Video Card */}
+            // Selected Video Card 
             <div className="">
               {selectedVideoCard ? (
                 <div className="flex flex-col items-center">
@@ -434,7 +828,7 @@ export default function Home() {
                     alt="Video Card">
                   </Image>
                   <span>{selectedVideoCard.name} {selectedVideoCard.videoCardMemoryType} {selectedVideoCard.memory + ' GB '}
-                    {selectedVideoCard.coreClock + ' MHz '}{/*selectedVideoCard.tdp + ' W'*/}{/*selectedVideoCard.length + ' mm'*/}
+                    {selectedVideoCard.coreClock + ' MHz '}
                   </span>
                 </div>
               ) : (
@@ -442,7 +836,7 @@ export default function Home() {
               )}
               <hr className="flex bg-black h-0.5" />
             </div>
-            {/* Selected CPU Cooler */}
+            // Selected CPU Cooler
             <div className="">
               {selectedCPUCooler ? (
                 <div className="flex flex-col items-center">
@@ -461,7 +855,7 @@ export default function Home() {
               )}
               <hr className="flex bg-black h-0.5" />
             </div>
-            {/* Selected Power Supply */}
+            // Selected Power Supply
             <div className="">
               {selectedPowerSupply ? (
                 <div className="flex flex-col items-center">
@@ -473,32 +867,11 @@ export default function Home() {
                     alt="Power Supply">
                   </Image>
                   <span>{selectedPowerSupply.name} {selectedPowerSupply.formFactor} {selectedPowerSupply.efficiency} {selectedPowerSupply.wattage + " W"} {selectedPowerSupply.modularity}
-                    {/*selectedPowerSupply.length + " mm"*/}
                   </span>
                 </div>
               ) : (
                 <p>no Power Supply selected</p>
               )}
             </div>
-
-          </div>
-          {/* Mobo diagram */}
-          {/*
-          <div className="flex flex-col items-center">
-            <Image
-              width={400}
-              height={500}
-              src={MoboDiagram}
-              alt="mobo goes here" />
           </div>
           */}
-        </div>
-      </div >
-      {/*
-      <button onClick={saveCurrentBuild}>
-        Click me
-      </button>
-      */}
-    </div >
-  );
-}

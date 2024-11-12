@@ -86,6 +86,9 @@ export function SharedDataProvider({ children }) {
     setSelectedCPU(null);
     setVideoStatus(null);
     setSocketStatus(null);
+    if (memoryStatus === 'Incompatible3') {
+      setMemoryStatus('None');
+    }
     localStorage.removeItem('selectedCPU');
   };
 
