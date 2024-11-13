@@ -53,7 +53,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-4 w-1/4 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-4 w-1/5 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for manufacturers */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">

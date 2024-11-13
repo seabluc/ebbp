@@ -2,7 +2,7 @@
 import { useState, useReducer, useEffect } from "react";
 import {
   Tabs, Tab, Card, CardBody, Table, TableHeader, TableColumn, TableBody,
-  TableRow, TableCell, Button, RadioGroup, Radio, /*Image*/
+  TableRow, TableCell, Button, RadioGroup, Radio, Tooltip /*Image*/
 } from "@nextui-org/react";
 import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
 import RedX from "../../../public/x.svg";
@@ -91,12 +91,15 @@ export default function Home() {
           </span>
         </TableCell>
         <TableCell className="flex flex-row items-center">
-          <Image
-            width={60}
-            height={60}
-            src={selectedCPU.image}
-            alt="CPU">
-          </Image>
+          <Tooltip className="whitespace-pre bg-opacity-90"
+            content={`Socket: ${selectedCPU.socket}\nMax Memory Capacity: ${selectedCPU.memoryMax} GB`}>
+            <Image
+              width={60}
+              height={60}
+              src={selectedCPU.image}
+              alt="CPU">
+            </Image>
+          </Tooltip>
           <span className="flex items-center ml-2">
             {selectedCPU.name}
             <button onClick={clearSelectedCPU}
@@ -104,8 +107,9 @@ export default function Home() {
               <Image width={24} height={24} src={RedX} alt='❌' />
             </button>
           </span>
+
         </TableCell>
-        <TableCell className="px-12">{selectedCPU?.price || '--'}</TableCell>
+        <TableCell className="px-12">{`$${selectedCPU?.price}`}</TableCell>
       </TableRow>
     ) : (
       <TableRow key="1">
@@ -137,12 +141,15 @@ export default function Home() {
           </span>
         </TableCell>
         <TableCell className="flex flex-row items-center">
-          <Image
-            width={70}
-            height={70}
-            src={selectedMotherboard.image}
-            alt="Motherboard">
-          </Image>
+          <Tooltip className="whitespace-pre bg-opacity-90"
+            content={`Socket: ${selectedMotherboard.socket}\nMemory Type: ${selectedMotherboard.memoryType}\nMax Memory Capacity: ${selectedMotherboard.memoryMax} GB\n`}>
+            <Image
+              width={70}
+              height={70}
+              src={selectedMotherboard.image}
+              alt="Motherboard">
+            </Image>
+          </Tooltip>
           <span className="flex items-center ml-0">
             {selectedMotherboard.name}
             <button onClick={clearSelectedMotherboard}
@@ -151,7 +158,7 @@ export default function Home() {
             </button>
           </span>
         </TableCell>
-        <TableCell className="px-12">{selectedMotherboard?.price || '--'}</TableCell>
+        <TableCell className="px-12">{`$${selectedMotherboard.price}`}</TableCell>
       </TableRow>
     ) : (
       <TableRow key="2">
@@ -203,7 +210,10 @@ export default function Home() {
         </TableCell>
         <TableCell className="flex flex-col">
           <div className="flex flex-row items-center">
-            <Image width={60} height={60} src={memoryItem.image} alt="Memory" />
+            <Tooltip className="whitespace-pre bg-opacity-90"
+              content={`Memory Type: ${memoryItem.memoryType}\nCapacity: ${memoryItem.capacity} GB`}>
+              <Image width={60} height={60} src={memoryItem.image} alt="Memory" />
+            </Tooltip>
             <span className="flex items-center ml-2">
               {memoryItem.name}
               <button
@@ -224,7 +234,7 @@ export default function Home() {
             </div>
           )}
         </TableCell>
-        <TableCell className="px-12">{memoryItem.price || '--'}</TableCell>
+        <TableCell className="px-12">{`$${memoryItem.price}`}</TableCell>
       </TableRow>
     ));
   };
@@ -260,7 +270,10 @@ export default function Home() {
         </TableCell>
         <TableCell className="flex flex-col">
           <div className="flex flex-row items-center">
-            <Image width={60} height={60} src={storageItem.image} alt="Storage" />
+            <Tooltip className="whitespace-pre bg-opacity-90"
+              content={`Storage Type: ${storageItem.storageType}\nInterface: ${storageItem.interface}\nCapacity: ${storageItem.capacity} TB`}>
+              <Image width={60} height={60} src={storageItem.image} alt="Storage" />
+            </Tooltip>
             <span className="flex items-center ml-2">
               {storageItem.name}
               <button
@@ -281,7 +294,7 @@ export default function Home() {
             </div>
           )}
         </TableCell>
-        <TableCell className=" px-12">{storageItem.price || '--'}</TableCell>
+        <TableCell className=" px-12">{`$${storageItem.price}`}</TableCell>
       </TableRow>
     ));
   };
@@ -297,12 +310,15 @@ export default function Home() {
           </span>
         </TableCell>
         <TableCell className="flex flex-row items-center">
-          <Image
-            width={80}
-            height={80}
-            src={selectedVideoCard.image}
-            alt="VideoCard">
-          </Image>
+          <Tooltip className="whitespace-pre bg-opacity-90"
+            content={`Graphics Memory Type: ${selectedVideoCard.memoryType}\nVideo Memory: ${selectedVideoCard.memory} GB`}>
+            <Image
+              width={80}
+              height={80}
+              src={selectedVideoCard.image}
+              alt="VideoCard">
+            </Image>
+          </Tooltip>
           <span className="flex items-center ml-2">
             {selectedVideoCard.name}
             <button onClick={clearSelectedVideoCard}
@@ -311,7 +327,7 @@ export default function Home() {
             </button>
           </span>
         </TableCell>
-        <TableCell className="px-12">{selectedVideoCard?.price || '--'}</TableCell>
+        <TableCell className="px-12">{`$${selectedVideoCard.price}`}</TableCell>
       </TableRow>
     ) : (
       <TableRow key="5">
@@ -343,12 +359,15 @@ export default function Home() {
           </span>
         </TableCell>
         <TableCell className="flex flex-row items-center">
-          <Image
-            width={70}
-            height={70}
-            src={selectedCPUCooler.image}
-            alt="CPUCooler">
-          </Image>
+          <Tooltip className="whitespace-pre bg-opacity-90"
+            content={`Compatible Sockets: ${selectedCPUCooler.supportedSockets.join(', ')}\nFan Speed: ${selectedCPUCooler.fanRPM}\nNoise Level: ${selectedCPUCooler.noiseLevel} dB`}>
+            <Image
+              width={70}
+              height={70}
+              src={selectedCPUCooler.image}
+              alt="CPUCooler">
+            </Image>
+          </Tooltip>
           <span className="flex items-center ml-2">
             {selectedCPUCooler.name}
             <button onClick={clearSelectedCPUCooler}
@@ -357,7 +376,7 @@ export default function Home() {
             </button>
           </span>
         </TableCell>
-        <TableCell className="px-12">{selectedCPUCooler?.price || '--'}</TableCell>
+        <TableCell className="px-12">{`$${selectedCPUCooler?.price}`}</TableCell>
       </TableRow>
     ) : (
       <TableRow key="6">
@@ -373,7 +392,7 @@ export default function Home() {
             </Button>
           </Link>
         </TableCell>
-        <TableCell className="px-12">{selectedCPUCooler?.price || '--'}</TableCell>
+        <TableCell className="px-12">--</TableCell>
       </TableRow>
     );
   };
@@ -389,12 +408,15 @@ export default function Home() {
           </span>
         </TableCell>
         <TableCell className="flex flex-row items-center">
-          <Image
-            width={70}
-            height={70}
-            src={selectedPowerSupply.image}
-            alt="PowerSupply">
-          </Image>
+          <Tooltip className="whitespace-pre bg-opacity-90"
+            content={`Wattage: ${selectedPowerSupply.wattage} W\nEfficiency: ${selectedPowerSupply.efficiency}\nModularity: ${selectedPowerSupply.modularity}`}>
+            <Image
+              width={70}
+              height={70}
+              src={selectedPowerSupply.image}
+              alt="PowerSupply">
+            </Image>
+          </Tooltip>
           <span className="flex items-center ml-2">
             {selectedPowerSupply.name}
             <button onClick={clearSelectedPowerSupply}
@@ -403,7 +425,7 @@ export default function Home() {
             </button>
           </span>
         </TableCell>
-        <TableCell className="px-12">{selectedPowerSupply?.price || '--'}</TableCell>
+        <TableCell className="px-12">{`$${selectedPowerSupply.price}`}</TableCell>
       </TableRow>
     ) : (
       <TableRow key="7">
@@ -419,7 +441,7 @@ export default function Home() {
             </Button>
           </Link>
         </TableCell>
-        <TableCell className="px-12">{selectedPowerSupply?.price || '--'}</TableCell>
+        <TableCell className="px-12">--</TableCell>
       </TableRow>
     );
   };
