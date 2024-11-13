@@ -10,11 +10,7 @@ import { useSharedData } from '@/context/SharedDataContext';
 
 const Profile = () => {
     const { user, loading, updateUser } = useAuth();
-    const {
-        updateSelectedCPU, updateSelectedMotherboard, updateSelectedMemory,
-        updateSelectedStorage, updateSelectedVideoCard, updateSelectedCPUCooler,
-        updateSelectedPowerSupply, showSavedBuild
-    } = useSharedData();
+    const { showSavedBuild } = useSharedData();
     const router = useRouter();
     const [displayName, setDisplayName] = useState('');
     const [accountCreatedDate, setAccountCreatedDate] = useState('');

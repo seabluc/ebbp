@@ -57,7 +57,7 @@ export default function App() {
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedManufacturers}>
-            {/*<Checkbox value="adata">ADATA</Checkbox> add back once redo part seeder*/}
+            <Checkbox value="adata">ADATA</Checkbox>
             <Checkbox value="crucial">Crucial</Checkbox>
             <Checkbox value="kingston">Kingston</Checkbox>
             <Checkbox value="msi">MSI</Checkbox>

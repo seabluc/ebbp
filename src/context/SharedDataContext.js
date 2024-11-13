@@ -67,13 +67,13 @@ export function SharedDataProvider({ children }) {
     clearSelectedCPUCooler();
     clearSelectedPowerSupply();
     clearSelectedVideoCard();
-    setSelectedCPU(cpu);
-    setSelectedMotherboard(mobo);
+    updateSelectedCPU(cpu);
+    updateSelectedMotherboard(mobo);
     setSelectedMemory(mem);
     setSelectedStorage(storage);
-    setSelectedVideoCard(gpu);
-    setSelectedPowerSupply(psu);
-    setSelectedCPUCooler(cooler);
+    updateSelectedVideoCard(gpu);
+    updateSelectedPowerSupply(psu);
+    updateSelectedCPUCooler(cooler);
   };
 
   {/* Selecting components (/products) and removing components (/workshop) */ }
@@ -115,6 +115,13 @@ export function SharedDataProvider({ children }) {
     localStorage.setItem('selectedMemory', JSON.stringify([...selectedMemory, memory]));
   };
 
+  const loadedBuildMemory = (memory) => {
+    if (memory.length >= 1) {
+      setSelectedMemory(memory);
+      localStorage.setItem('selectedMemory', JSON.stringify([memory]));
+    }
+  };
+
   // when user deselects a RAM module kit in /workshop
   const clearSelectedMemory = (memory) => {
     setSelectedMemory((prevMemory) =>
@@ -133,6 +140,13 @@ export function SharedDataProvider({ children }) {
     const newStorageItem = { ...storage, instanceId };
     setSelectedStorage((prevStorage) => [...prevStorage, newStorageItem]);
     localStorage.setItem('selectedStorage', JSON.stringify([...selectedStorage, storage]));
+  };
+
+  const loadedBuildStorage = (storage) => {
+    if (storage.length >= 1) {
+      setSelectedStorage(storage);
+      localStorage.setItem('selectedStorage', JSON.stringify([storage]));
+    }
   };
 
   // when user deselects a storage device in /workshop
@@ -202,7 +216,7 @@ export function SharedDataProvider({ children }) {
         totalWattage, setTotalWattage, compatibilityStatus, setCompatibilityStatus,
         socketStatus, setSocketStatus, coolerStatus, setCoolerStatus, memoryStatus,
         setMemoryStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus,
-        slotStatus, setSlotStatus, showSavedBuild
+        slotStatus, setSlotStatus, showSavedBuild, loadedBuildMemory, loadedBuildStorage
       }}>
       {children}
     </SharedDataContext.Provider>

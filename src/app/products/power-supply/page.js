@@ -11,13 +11,45 @@ import { fetchComponents } from '@/utils/fetchUtils';
 import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
-  const [component, setComponent] = useState([]);
+  const [components, setComponents] = useState([]);
   const [error, setError] = useState(null);
   const { updateSelectedPowerSupply } = useSharedData();
 
+  // Filter states
+  const [filteredComponents, setFilteredComponents] = useState([]);
+  const [selectedManufacturers, setSelectedManufacturers] = useState([]);
+  const [selectedFormFactors, setSelectedFormFactors] = useState([]);
+  const [selectedEfficiency, setSelectedEfficiency] = useState([]);
+  const [wattageRange, setWattageRange] = useState([0, 1800]);
+  const [selectedModularity, setSelectedModularity] = useState([]);
+  const [lengthRange, setLengthRange] = useState([100, 220]);
+  const [priceRange, setPriceRange] = useState([0, 500]);
+
   useEffect(() => {
-    fetchComponents("../api/powerSupplys", setComponent, setError);
+    fetchComponents("../api/powerSupplys", setComponents, setError);
   }, []);
+
+  // Apply filters whenever the filter values change
+  useEffect(() => {
+    const filterComponents = () => {
+      const filtered = components.filter((powerSupply) => {
+        // Apply all filters based on selected criteria
+        return (
+          (selectedManufacturers.length === 0 || selectedManufacturers.includes(powerSupply.manufacturer.toLowerCase())) &&
+          (selectedFormFactors.length === 0 || selectedFormFactors.includes(powerSupply.formFactor.toLowerCase())) &&
+          (selectedEfficiency.length === 0 || selectedEfficiency.includes(powerSupply.efficiency.toLowerCase())) &&
+          powerSupply.wattage >= wattageRange[0] && powerSupply.wattage <= wattageRange[1] &&
+          (selectedModularity.length === 0 || selectedModularity.includes(powerSupply.modularity.toLowerCase())) &&
+          powerSupply.length >= lengthRange[0] && powerSupply.length <= lengthRange[1] &&
+          powerSupply.price >= priceRange[0] && powerSupply.price <= priceRange[1]
+        );
+      });
+      setFilteredComponents(filtered);
+    };
+
+    filterComponents();
+  }, [components, selectedManufacturers, selectedFormFactors, selectedEfficiency,
+    selectedModularity, wattageRange, lengthRange, priceRange]);
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
@@ -26,30 +58,35 @@ export default function App() {
         {/* Filter card for manufacturers */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
-          <CheckboxGroup className="my-2">
-            <Checkbox value="MSI">MSI</Checkbox>
-            <Checkbox value="xfx">XFX</Checkbox>
+          <CheckboxGroup className="my-2" onChange={setSelectedManufacturers}>
+            <Checkbox value="asus">Asus</Checkbox>
+            <Checkbox value="be quiet!">be quiet!</Checkbox>
+            <Checkbox value="corsair">Corsair</Checkbox>
+            <Checkbox value="lian li">Lian Li</Checkbox>
+            <Checkbox value="msi">MSI</Checkbox>
+            <Checkbox value="silverstone">Silverstone</Checkbox>
+            <Checkbox value="thermaltake">Thermaltake</Checkbox>
           </CheckboxGroup>
         </Card>
 
         {/* Filter card for PSU form factors */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Form Factor</h2>
-          <CheckboxGroup className="my-2">
-            <Checkbox value='ATX'>ATX</Checkbox>
-            <Checkbox value='SFX'>SFX</Checkbox>
+          <CheckboxGroup className="my-2" onChange={setSelectedFormFactors}>
+            <Checkbox value='atx'>ATX</Checkbox>
+            <Checkbox value='sfx'>SFX</Checkbox>
           </CheckboxGroup>
         </Card>
 
         {/* Slider card for efficiency rating */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Efficiency Tier</h2>
-          <CheckboxGroup className="my-2">
-            <Checkbox value="80+ Titanium">80+ Titanium</Checkbox>
-            <Checkbox value="80+ Platinum">80+ Platinum</Checkbox>
-            <Checkbox value="80+ Gold">80+ Gold</Checkbox>
-            <Checkbox value="80+ Silver">80+ Silver</Checkbox>
-            <Checkbox value="80+ Bronze">80+ Bronze</Checkbox>
+          <CheckboxGroup className="my-2" onChange={setSelectedEfficiency}>
+            <Checkbox value="80+ titanium">80+ Titanium</Checkbox>
+            <Checkbox value="80+ platinum">80+ Platinum</Checkbox>
+            <Checkbox value="80+ gold">80+ Gold</Checkbox>
+            <Checkbox value="80+ silver">80+ Silver</Checkbox>
+            <Checkbox value="80+ bronze">80+ Bronze</Checkbox>
             <Checkbox value="80+">80+</Checkbox>
           </CheckboxGroup>
         </Card>
@@ -60,18 +97,19 @@ export default function App() {
           <Slider
             step={50}
             minValue={0}
-            maxValue={1200}
-            defaultValue={[0, 1200]}
+            maxValue={1800}
+            defaultValue={[0, 1800]}
             className="max-w-md"
             label=" " // Keep the label for the slider
+            onChange={setWattageRange}
           />
         </Card>
 
         {/* Slider card for performance */}
         <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Modularity</h2>
-          <CheckboxGroup className="my-2">
-            <Checkbox value="fully modular">Full</Checkbox>
+          <CheckboxGroup className="my-2" onChange={setSelectedModularity}>
+            <Checkbox value="fully-modular">Full</Checkbox>
             <Checkbox value="semi-modular">Semi</Checkbox>
             <Checkbox value="non-modular">Non-Modular</Checkbox>
           </CheckboxGroup>
@@ -87,6 +125,7 @@ export default function App() {
             defaultValue={[0, 200]}
             className="max-w-md"
             label=" " // Keep the label for the slider
+            onChange={setLengthRange}
           />
         </Card>
 
@@ -101,6 +140,7 @@ export default function App() {
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider
+            onChange={setPriceRange}
           />
         </Card>
       </div>
@@ -124,7 +164,7 @@ export default function App() {
             <TableColumn></TableColumn>
           </TableHeader>
           <TableBody>
-            {component.map((powerSupply) => (
+            {filteredComponents.map((powerSupply) => (
               <TableRow key={powerSupply.powerSupplyId}>
                 <TableCell>
                   {powerSupply.name}
