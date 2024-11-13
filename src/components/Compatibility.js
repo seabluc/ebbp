@@ -12,7 +12,7 @@ export const Compatibility = () => {
     selectedVideoCard, selectedPowerSupply, selectedCPUCooler, compatibilityStatus,
     setCompatibilityStatus, totalWattage, socketStatus, setSocketStatus, memoryStatus,
     setMemoryStatus, coolerStatus, setCoolerStatus, slotStatus, setSlotStatus,
-    videoStatus, setVideoStatus, powerStatus, setPowerStatus } = useSharedData();
+    videoStatus, setVideoStatus, powerStatus, setPowerStatus,} = useSharedData();
   //const [totalPrice, setTotalPrice] = useState(0);
 
   // Run all compatibility checks

@@ -19,7 +19,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-firebase-hooks": "^5.1.1",
-    "sequelize": "^6.37.4"
+    "sequelize": "^6.37.4",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "eslint": "^8.57.1",

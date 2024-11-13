@@ -1,5 +1,6 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const SharedDataContext = createContext();
 
@@ -20,6 +21,7 @@ export function SharedDataProvider({ children }) {
   const [powerStatus, setPowerStatus] = useState(null);
   const [slotStatus, setSlotStatus] = useState(null);
   //const [savedBuild, setSavedBuild] = useState([]);
+  const [buildName, setBuildName] = useState('');
 
   /* localStorage handling */
   useEffect(() => {
@@ -69,8 +71,8 @@ export function SharedDataProvider({ children }) {
     clearSelectedVideoCard();
     updateSelectedCPU(cpu);
     updateSelectedMotherboard(mobo);
-    setSelectedMemory(mem);
-    setSelectedStorage(storage);
+    loadedBuildMemory(mem);
+    loadedBuildStorage(storage);
     updateSelectedVideoCard(gpu);
     updateSelectedPowerSupply(psu);
     updateSelectedCPUCooler(cooler);
@@ -109,16 +111,16 @@ export function SharedDataProvider({ children }) {
 
   // when user selects a RAM module kit in /products/memory
   const updateSelectedMemory = (memory) => {
-    const instanceId = selectedMemory.length + 1;
+    const instanceId = uuidv4();
     const newMemoryItem = { ...memory, instanceId };
     setSelectedMemory((prevMemory) => [...prevMemory, newMemoryItem]);
-    localStorage.setItem('selectedMemory', JSON.stringify([...selectedMemory, memory]));
+    localStorage.setItem('selectedMemory', JSON.stringify([...selectedMemory, newMemoryItem]));
   };
 
   const loadedBuildMemory = (memory) => {
     if (memory.length >= 1) {
       setSelectedMemory(memory);
-      localStorage.setItem('selectedMemory', JSON.stringify([memory]));
+      localStorage.setItem('selectedMemory', JSON.stringify(memory));
     }
   };
 
@@ -136,16 +138,16 @@ export function SharedDataProvider({ children }) {
 
   // when user selects a storage device in /products/storage
   const updateSelectedStorage = (storage) => {
-    const instanceId = selectedStorage.length + 1;
+    const instanceId = uuidv4();
     const newStorageItem = { ...storage, instanceId };
     setSelectedStorage((prevStorage) => [...prevStorage, newStorageItem]);
-    localStorage.setItem('selectedStorage', JSON.stringify([...selectedStorage, storage]));
+    localStorage.setItem('selectedStorage', JSON.stringify([...selectedStorage, newStorageItem]));
   };
 
   const loadedBuildStorage = (storage) => {
     if (storage.length >= 1) {
       setSelectedStorage(storage);
-      localStorage.setItem('selectedStorage', JSON.stringify([storage]));
+      localStorage.setItem('selectedStorage', JSON.stringify(storage));
     }
   };
 
@@ -216,7 +218,7 @@ export function SharedDataProvider({ children }) {
         totalWattage, setTotalWattage, compatibilityStatus, setCompatibilityStatus,
         socketStatus, setSocketStatus, coolerStatus, setCoolerStatus, memoryStatus,
         setMemoryStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus,
-        slotStatus, setSlotStatus, showSavedBuild, loadedBuildMemory, loadedBuildStorage
+        slotStatus, setSlotStatus, showSavedBuild, loadedBuildMemory, loadedBuildStorage, buildName, setBuildName
       }}>
       {children}
     </SharedDataContext.Provider>

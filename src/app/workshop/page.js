@@ -24,13 +24,17 @@ export default function Home() {
     selectedMemory, clearSelectedMemory, selectedStorage, clearSelectedStorage,
     selectedVideoCard, clearSelectedVideoCard, selectedCPUCooler,
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
-    compatibilityStatus, /*savedBuild, setSavedBuild,*/ } = useSharedData();
+    compatibilityStatus, buildName, setBuildName /*savedBuild, setSavedBuild,*/ } = useSharedData();
 
   const [selectedColor, setSelectedColor] = useState("default"); // Table
   // Firebase
   const { user } = useAuth();
   const router = useRouter();
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({ text: '', type: '' });
+
+  const handleBuildNameChange = (e) => {
+    setBuildName(e.target.value);
+  };
 
   let backgroundColor;
   if (compatibilityStatus === 'Bad') {
@@ -46,8 +50,15 @@ export default function Home() {
       router.push('/account/login'); // Redirect to login page if user is not logged in
       return;
     }
+
+    if (!buildName) {
+      setMessage({ text: 'Please enter a name for your build before saving.', type: 'error' });
+      return;
+    }
+
     try {
       const buildData = {
+        name: buildName,
         cpu: selectedCPU,
         motherboard: selectedMotherboard,
         memory: selectedMemory,
@@ -57,14 +68,15 @@ export default function Home() {
         powerSupply: selectedPowerSupply,
         timestamp: new Date().toISOString()
       };
-      await setDoc(doc(fbdb, 'users', user.uid, 'builds', selectedBuild), buildData);
-      setMessage('Build saved successfully!');
+      await setDoc(doc(fbdb, 'users', user.uid, 'builds', buildName), buildData);
+      setMessage({ text: 'Build saved successfully!', type: 'success' });
       // Clear the message after a few seconds
       setTimeout(() => {
-        setMessage('');
+        setMessage({ text: '', type: '' });
       }, 3000);
     } catch (error) {
       console.error('Error saving build:', error);
+      setMessage({ text: 'Failed to save the build. Please try again.', type: 'error' });
     }
   };
 
@@ -419,12 +431,27 @@ export default function Home() {
         <h1 className="flex justify-center text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
           PC Workshop
         </h1>
-        <button onClick={handleSaveBuild} className="bg-green-500 text-white
-          px-4 py-2 rounded-lg mb-4 w-48 transition-all duration-200 hover:bg-green-600
-          focus:outline-none focus:ring-2 focus:ring-green-400"> Save Build
-        </button>
-        {message && (
-          <div className="text-green-500 text-center mb-4">{message}</div>
+
+        <div className="flex flex-col items-center mb-4">
+          <input
+            type="text"
+            value={buildName}
+            onChange={handleBuildNameChange}
+            placeholder="Enter Build Name"
+            className="p-2 border rounded-lg mb-2 w-64 text-center"
+          />
+          <button
+            onClick={handleSaveBuild}
+            className="bg-green-500 text-white px-4 py-2 rounded-lg w-48 transition-all duration-200 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+          >
+            Save Build
+          </button>
+        </div>
+
+        {message.text && (
+          <div className={`text-center mb-4 ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+            {message.text}
+          </div>
         )}
         <div className="flex-col bg-slate-100 rounded-lg">
           {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
