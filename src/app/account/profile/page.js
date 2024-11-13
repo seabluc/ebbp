@@ -10,13 +10,11 @@ import Image from 'next/image';
 
 const Profile = () => {
     const { user, loading, updateUser } = useAuth();
-    const {
-        updateSelectedCPU, updateSelectedMotherboard, updateSelectedMemory,
-        updateSelectedStorage, updateSelectedVideoCard, updateSelectedCPUCooler,
-        updateSelectedPowerSupply, showSavedBuild
-    } = useSharedData();
+    const { showSavedBuild } = useSharedData();
     const router = useRouter();
     const [displayName, setDisplayName] = useState('');
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [accountCreatedDate, setAccountCreatedDate] = useState('');
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
@@ -26,13 +24,29 @@ const Profile = () => {
         if (!loading) {
             if (user) {
                 setDisplayName(user.displayName || '');
+                setEmail(user.email || '');
                 setAccountCreatedDate(user.accountCreatedDate ? new Date(user.accountCreatedDate.seconds * 1000).toLocaleString() : '');
+                fetchUserDetails();
                 fetchSavedBuilds();
             } else {
                 router.push('/account/login'); // Redirect to login page if user is not logged in
             }
         }
     }, [user, loading, router]);
+
+    const fetchUserDetails = async () => {
+        if (!user) return;
+
+        try {
+            const userDoc = await getDoc(doc(fbdb, 'users', user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                setUsername(userData.username || '');
+            }
+        } catch (error) {
+            console.error('Error fetching user details:', error.message);
+        }
+    };
 
     const isDisplayNameValid = (displayName) => /^[a-zA-Z0-9_]{3,20}$/.test(displayName);
 
@@ -127,6 +141,20 @@ const Profile = () => {
             {/* Profile Section */}
             <div className="flex flex-col bg-[#DBAE58] p-8 rounded-lg shadow-lg w-full lg:w-1/3 mb-8 lg:mb-0 space-y-6 lg:self-start">
                 <h1 className="text-2xl font-bold text-gray-800 text-center">Your Profile</h1>
+
+                <div>
+                    <label className="block text-left mb-1 text-gray-700">Email:</label>
+                    <p className="p-2 w-full border rounded-lg bg-gray-100 text-gray-700">
+                        {email}
+                    </p>
+                </div>
+
+                <div>
+                    <label className="block text-left mb-1 text-gray-700">Username:</label>
+                    <p className="p-2 w-full border rounded-lg bg-gray-100 text-gray-700">
+                        {username}
+                    </p>
+                </div>
 
                 <div>
                     <label className="block text-left mb-1 text-gray-700">Display Name:</label>
