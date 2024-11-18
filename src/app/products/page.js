@@ -190,7 +190,7 @@ export default function ProductsPage() {
           <Divider className="border-[#DBAE58]" />
           <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
             <p>Provide adeqate enclosure for your PC components.</p>
-            <Link href="/">
+            <Link href="/products/case">
               <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
                 Choose a Case
               </Button>
@@ -207,14 +207,14 @@ export default function ProductsPage() {
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
-            <Link isExternal showAnchorIcon href="/products/" className="text-[#DBAE58] ml-4">
+            <Link isExternal showAnchorIcon href="/products/monitor" className="text-[#DBAE58] ml-4">
               Monitor
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
           <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
             <p>Display graphical output.</p>
-            <Link href="/">
+            <Link href="/products/monitor">
               <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
                 Choose a Monitor
               </Button>

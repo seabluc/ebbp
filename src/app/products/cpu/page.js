@@ -2,18 +2,34 @@
 
 import {
   Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Card,
-  CheckboxGroup, Checkbox, Slider
+  CheckboxGroup, Checkbox, Slider, Spinner
 } from "@nextui-org/react";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fetchComponents } from '@/utils/fetchUtils';
 import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
+  // Scroll to the top when the page is first loaded or refreshed
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Handle query params for Load More button 
+  const router = useRouter();
+
+  // CPU States
   const [components, setComponents] = useState([]);
   const [error, setError] = useState(null);
   const { updateSelectedCPU } = useSharedData();
+
+  // Pagination state
+  const [limit, setLimit] = useState(10);
+  const [offset, setOffset] = useState(0);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
   // Filter states
   const [filteredComponents, setFilteredComponents] = useState([]);
@@ -28,10 +44,62 @@ export default function App() {
   const [selectedGraphics, setSelectedGraphics] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 700]);
 
+  // Ref to track the initial fetch
+  const isInitialFetch = useRef(true);
+
+  // Fetch components function
+  const fetchCPUs = async (newOffset = 0) => {
+    setIsLoadingMore(true);
+    try {
+      const url = `/api/cpus?limit=${limit}&offset=${newOffset}`;
+      await fetchComponents(url, (newComponents) => {
+        if (newComponents.length < limit) setHasMore(false);
+        setComponents((prev) => (newOffset === 0 ? newComponents : [...prev, ...newComponents]));
+      }, setError);
+    } catch (err) {
+      console.error("Error fetching CPUs:", err);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
+  // Initial data fetch
   useEffect(() => {
-    // Fetch the components from the API on load
-    fetchComponents("../api/cpus", setComponents, setError);
+    fetchCPUs(0);
+    isInitialFetch.current = false;
   }, []);
+
+  // Function to apply filters
+  const applyFilters = () => {
+    const filtered = components.filter((cpu) => {
+      return (
+        (selectedManufacturers.length === 0 || selectedManufacturers.includes(cpu.manufacturer.toLowerCase())) &&
+        (selectedSockets.length === 0 || selectedSockets.includes(cpu.socket.toLowerCase())) &&
+        cpu.coreCount >= coreCountRange[0] && cpu.coreCount <= coreCountRange[1] &&
+        /*cpu.threadCount >= threadCountRange[0] && cpu.threadCount <= threadCountRange[1] && */
+        cpu.performanceCoreClock >= clockSpeedRange[0] && cpu.performanceCoreClock <= clockSpeedRange[1] &&
+        cpu.performanceCoreBoostClock >= boostClockSpeedRange[0] && cpu.performanceCoreBoostClock <= boostClockSpeedRange[1] &&
+        (selectedMicroarchitectures.length === 0 || selectedMicroarchitectures.includes(cpu.microarchitecture.toLowerCase())) &&
+        cpu.tdp >= tdpRange[0] && cpu.tdp <= tdpRange[1] &&
+        (selectedGraphics.length === 0 || selectedGraphics.includes(cpu.integrated.toLowerCase())) &&
+        cpu.price >= priceRange[0] && cpu.price <= priceRange[1]
+      );
+    });
+    setFilteredComponents(filtered);
+  };
+
+  // Apply filters whenever filter states change
+  useEffect(() => {
+    if (!isInitialFetch.current) applyFilters();
+  }, [selectedManufacturers, selectedSockets, coreCountRange, clockSpeedRange,
+    boostClockSpeedRange, selectedMicroarchitectures, tdpRange, selectedGraphics, priceRange]);
+
+  // Update offset state to fetch more data when "Load More" button is clicked
+  const handleLoadMore = async () => {
+    const newOffset = offset + limit;
+    setOffset(newOffset);
+    await fetchCPUs(newOffset);
+  };
 
   // Apply filters whenever the filter values change
   useEffect(() => {
@@ -60,10 +128,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-4 w-1/5 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for brands (moved to the first position) */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedManufacturers}>
             <Checkbox value="amd">AMD</Checkbox>
@@ -72,7 +140,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for sockets */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Socket</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedSockets}> {/* label="Select processors" defaultValue={[]}*/}
             <Checkbox value="lga1851">LGA1851</Checkbox>
@@ -84,7 +152,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for TDP range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">TDP (W)</h2>
           <Slider
             step={5}
@@ -98,7 +166,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for microarchitecture */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Microarchitecture</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedMicroarchitectures}>
             <Checkbox value="arrow lake">Arrow Lake</Checkbox>
@@ -126,7 +194,7 @@ export default function App() {
         */}
 
         {/* Filter card for integrated graphics */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Integrated Graphics</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedGraphics}> {/*label="Select integrated graphics" defaultValue={[]}*/}
             <Checkbox value="intel xe">Intel Xe</Checkbox>
@@ -139,7 +207,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for core count range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Core Count</h2>
           <Slider
             step={2}
@@ -169,7 +237,7 @@ export default function App() {
         */}
 
         {/* Slider card for core clock range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Performance Core Clock (GHz)</h2>
           <Slider
             step={0.1}
@@ -183,7 +251,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for performance core boost clock range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Performance Core Boost Clock (GHz)</h2>
           <Slider
             step={0.1}
@@ -196,8 +264,8 @@ export default function App() {
           />
         </Card>
 
-        {/* Slider card for price range (still in last position) */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        {/* Slider card for price range */}
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Price ($)</h2>
           <Slider
             step={10}
@@ -218,7 +286,19 @@ export default function App() {
           aria-label="CPU Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
-        >
+          bottomContent={
+            hasMore && (
+              <button
+                className="bg-[#DBAE58] text-black self-center mt-1 px-6 py-2 rounded transition-transform transform active:scale-95 max-h-screen"
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}>
+                {isLoadingMore ? (<Spinner color="default" size="sm" />) : ("Load More")}
+              </button>
+            )}
+          classNames={{
+            base: "max-h-screen",
+            // table: "min-h-screen",
+          }}>
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
             <TableColumn>Socket</TableColumn>
@@ -232,26 +312,26 @@ export default function App() {
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
-          <TableBody>
+          <TableBody className="flex-none">
             {filteredComponents.map((cpu) => (
-              <TableRow key={cpu.cpuId}>
-                <TableCell>
+              <TableRow key={cpu.cpuId} className="h-[80px]">
+                <TableCell className="align-top">
                   {cpu.name}
                   <Image src={cpu.image}
                     width="70"
                     height="70"
                     alt="cpu" />
                 </TableCell>
-                <TableCell>{cpu.socket}</TableCell>
-                <TableCell >{cpu.tdp + `W`}</TableCell>
-                <TableCell>{cpu.microarchitecture}</TableCell>
-                <TableCell>{cpu.integrated}</TableCell>
-                <TableCell>{cpu.coreCount}</TableCell>
-                {/*<TableCell>{cpu.threadCount}</TableCell>*/}
-                <TableCell>{cpu.performanceCoreClock + ` GHz`}</TableCell>
-                <TableCell>{cpu.performanceCoreBoostClock + ` GHz`}</TableCell>
-                <TableCell>{`$` + cpu.price}</TableCell>
-                <TableCell>
+                <TableCell className="align-top">{cpu.socket}</TableCell>
+                <TableCell className="align-top" >{cpu.tdp + `W`}</TableCell>
+                <TableCell className="align-top">{cpu.microarchitecture}</TableCell>
+                <TableCell className="align-top">{cpu.integrated}</TableCell>
+                <TableCell className="align-top">{cpu.coreCount}</TableCell>
+                {/*<TableCell className="align-top">{cpu.threadCount}</TableCell>*/}
+                <TableCell className="align-top">{cpu.performanceCoreClock + ` GHz`}</TableCell>
+                <TableCell className="align-top">{cpu.performanceCoreBoostClock + ` GHz`}</TableCell>
+                <TableCell className="align-top">{`$` + cpu.price}</TableCell>
+                <TableCell className="align-top">
                   <Link href="/workshop">
                     <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"

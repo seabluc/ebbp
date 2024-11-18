@@ -51,10 +51,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-4 w-1/5 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for Manufacturers */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedManufacturers}>
             <Checkbox value="adata">ADATA</Checkbox>
@@ -72,7 +72,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for storage capacity */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Storage Capacity (TB)</h2>
           <Slider
             step={0.250}
@@ -86,7 +86,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for storage type */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Storage Type</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedStorageTypes}>
             <Checkbox value="ssd">SSD</Checkbox>
@@ -95,7 +95,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for storage form factors */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Form Factor</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedFormFactors}>
             <Checkbox value='2.5"'>2.5"</Checkbox>
@@ -105,7 +105,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for storage interface */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Interface</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedInterfaces}>
             <Checkbox value='PCIe 5.0 X4'>PCIe 5.0 X4"</Checkbox>
@@ -116,8 +116,8 @@ export default function App() {
           </CheckboxGroup>
         </Card>
 
-        {/* Slider card for price range (still in last position) */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        {/* Slider card for price range */}
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Price ($)</h2>
           <Slider
             step={10}

@@ -21,10 +21,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-4 w-1/5 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for manufacturers */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2">
             <Checkbox value="asus">Asus</Checkbox>
@@ -42,7 +42,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for processors */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Compatible Sockets</h2>
           <CheckboxGroup className="my-2">
             <Checkbox value="lga1851">LGA1851</Checkbox>
@@ -54,7 +54,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for RPM range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Fan Speed (RPM)</h2>
           <Slider
             step={100}
@@ -67,7 +67,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for noise level range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Noise Level (dB)</h2>
           <Slider
             step={2}
@@ -80,7 +80,7 @@ export default function App() {
         </Card>
 
         {/* Slider card for height range */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Height (mm)</h2>
           <Slider
             step={10}
@@ -93,7 +93,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for Radiator Sizes */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Radiator Sizes</h2>
           <CheckboxGroup className="my-2">
             <Checkbox value="240">240 mm</Checkbox>
@@ -103,8 +103,8 @@ export default function App() {
           </CheckboxGroup>
         </Card>
 
-        {/* Slider card for price range (still in last position) */}
-        <Card className="bg-gray-500 p-4 rounded border-2 border-[#DBAE58]">
+        {/* Slider card for price range */}
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Price ($)</h2>
           <Slider
             step={10}

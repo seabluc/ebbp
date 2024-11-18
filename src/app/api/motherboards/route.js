@@ -14,7 +14,14 @@ export async function GET(request) {
       GROUP BY Motherboard.motherboardId
     `;
     const [rows] = await connection.query(query);
-    return new Response(JSON.stringify(rows), {
+
+    // Map rows to transform `supportedSpeeds` to an array
+    const motherboardsWithSpeeds = rows.map(row => ({
+      ...row,
+      supportedSpeeds: row.supportedSpeeds ? row.supportedSpeeds.split(',') : [],
+    }));
+
+    return new Response(JSON.stringify(motherboardsWithSpeeds), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {

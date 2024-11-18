@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
+    "@react-stately/data": "^3.11.7",
     "dotenv": "^16.4.5",
     "firebase": "^10.14.0",
     "firebaseui": "^6.1.0",

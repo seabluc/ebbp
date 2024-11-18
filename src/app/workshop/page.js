@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useSharedData } from '../../context/SharedDataContext';
 import Compatibility from '@/components/Compatibility';
 import Wattage from '@/components/Wattage';
+import Price from '@/components/Price';
 import { useAuth } from '@/lib/firebase/authContext';
 import { useRouter } from 'next/navigation';
 import { doc, setDoc } from 'firebase/firestore';
@@ -141,8 +142,8 @@ export default function Home() {
           </span>
         </TableCell>
         <TableCell className="flex flex-row items-center">
-          <Tooltip className="whitespace-pre bg-opacity-90"
-            content={`Socket: ${selectedMotherboard.socket}\nMemory Type: ${selectedMotherboard.memoryType}\nMax Memory Capacity: ${selectedMotherboard.memoryMax} GB\n`}>
+          <Tooltip className="whitespace-pre bg-opacity-90" offset={0}
+            content={`Socket: ${selectedMotherboard.socket}\nMemory Type: ${selectedMotherboard.memoryType}\nMax Memory Capacity: ${selectedMotherboard.memoryMax} GB\nMemory Slots: ${selectedMotherboard.memorySlot}\nSupported Memory Speeds: ${selectedMotherboard.supportedSpeeds.join(', ')}\nM.2 Slots: ${selectedMotherboard.mTwoSlot}\nSATA Slots: ${selectedMotherboard.sataSlot}`}>
             <Image
               width={70}
               height={70}
@@ -211,7 +212,7 @@ export default function Home() {
         <TableCell className="flex flex-col">
           <div className="flex flex-row items-center">
             <Tooltip className="whitespace-pre bg-opacity-90"
-              content={`Memory Type: ${memoryItem.memoryType}\nCapacity: ${memoryItem.capacity} GB`}>
+              content={`Memory Type: ${memoryItem.memoryType}\nCapacity: ${memoryItem.capacity} GB\nModule Count: ${memoryItem.modules}`}>
               <Image width={60} height={60} src={memoryItem.image} alt="Memory" />
             </Tooltip>
             <span className="flex items-center ml-2">
@@ -447,88 +448,116 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#4D585B] py-4 px-8 items-center text-workshopTextColor"> {/* Background: Charcoal */}
-      <div className="flex flex-col">
-        {/* Flex-col for Title/header, Build Tabs & Compatibility Checker */}
-        <h1 className="flex justify-center text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
-          PC Workshop
-        </h1>
-
-        <div className="flex flex-col items-center mb-4">
-          <input
-            type="text"
-            value={buildName}
-            onChange={handleBuildNameChange}
-            placeholder="Enter Build Name"
-            className="p-2 border rounded-lg mb-2 w-64 text-center"
-          />
-          <button
-            onClick={handleSaveBuild}
-            className="bg-green-500 text-white px-4 py-2 rounded-lg w-48 transition-all duration-200 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-          >
-            Save Build
-          </button>
-        </div>
-
-        {message.text && (
-          <div className={`text-center mb-4 ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
-            {message.text}
+    <div className="flex flex-col w-full min-h-screen bg-[#4D585B] py-4 px-8 items-center text-workshopTextColor"> {/* Background: Charcoal */}
+      <div className="w-full">
+        <div className="flex flex-col w-auto justify-center items-center">
+          {/* Flex-col for Title/header, Build Tabs & Compatibility Checker */}
+          <h1 className="flex justify-center text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
+            PC Workshop
+          </h1>
+          <div className="flex flex-col items-center mb-4">
+            <input
+              type="text"
+              value={buildName}
+              onChange={handleBuildNameChange}
+              placeholder="Enter Build Name"
+              className="p-2 border rounded-lg mb-2 w-64 text-center" />
+            <button
+              onClick={handleSaveBuild}
+              className="bg-green-500 text-white px-4 py-2 rounded-lg w-48 transition-all duration-200 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+              Save Build
+            </button>
           </div>
-        )}
-        <div className="flex-col bg-slate-100 rounded-lg">
-          {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
-          <Tabs
-            aria-label="Build Options"
-            selectedKey={selectedBuild}
-            onSelectionChange={setSelectedBuild}
-            isVertical={false} // Ensures the tabs remain horizontal
-            className="rounded-lg bg-rgb(229, 231, 235)">
-            <Tab key="build1" title="Build 1" />
-            <Tab key="build2" title="Build 2" />
-            <Tab key="build3" title="Build 3" />
-            <Tab key="build4" title="Build 4" />
-            <Tab key="build5" title="Build 5" />
-            <Tab key="build6" title="Build 6" />
-            <Tab key="build7" title="Build 7" />
-            <Tab key="build8" title="Build 8" />
-            <Tab key="build9" title="Build 9" />
-            <Tab key="build10" title="Build 10" />
-          </Tabs>
-          {<div className={`flex rounded-b-lg ${backgroundColor}`}>
-            <Compatibility /><Wattage />
-          </div>}
+          {message.text && (
+            <div className={`text-center mb-4 ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+              {message.text}
+            </div>
+          )}
+          <div className="flex-col bg-slate-100 rounded-lg">
+            {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
+            <Tabs
+              aria-label="Build Options"
+              selectedKey={selectedBuild}
+              onSelectionChange={setSelectedBuild}
+              isVertical={false} // Ensures the tabs remain horizontal
+              className="flex justify-evenly rounded-lg bg-rgb(229, 231, 235)">
+              <Tab key="build1" title="Build 1" />
+              <Tab key="build2" title="Build 2" />
+              <Tab key="build3" title="Build 3" />
+              <Tab key="build4" title="Build 4" />
+              <Tab key="build5" title="Build 5" />
+              <Tab key="build6" title="Build 6" />
+              <Tab key="build7" title="Build 7" />
+              <Tab key="build8" title="Build 8" />
+              <Tab key="build9" title="Build 9" />
+              <Tab key="build10" title="Build 10" />
+            </Tabs>
+            {<div className={`flex w-auto rounded-b-lg ${backgroundColor}`}>
+              <Compatibility /><Wattage />
+            </div>}
+          </div>
         </div>
-      </div>
 
-
-      {/* Flex-row for PC Part Table & Compatibility Audit */}
-      <div className="flex flex-row items-stretch justify-center py-4 gap-4">
-        {/* Table for Selected Components */}
-        <div className="flex flex-col gap-3">
-
-          <Table color={selectedColor} aria-label="Selected PC Part Table"
-            className="">
-            <TableHeader>
-              <TableColumn>Component</TableColumn>
-              <TableColumn>Name</TableColumn>
-              <TableColumn className="px-12">Price</TableColumn>
-            </TableHeader>
-            <TableBody>
-              {cpuRows()}
-              {moboRows()}
-              {memoryRows()}
-              {storageRows()}
-              {gpuRows()}
-              {cpuCoolerRows()}
-              {psuRows()}
-            </TableBody>
-          </Table>
-        </div>
-        {/* Mobo diagram */}
-        {/*<div className="flex flex-col items-center">
+        {/* Flex-row for PC Part Table & Compatibility Audit */}
+        <div className="flex flex-row items-stretch justify-center py-4 gap-4">
+          {/* Table for Selected Components */}
+          <div className="flex w-2/5 flex-col gap-3 ml-4 mt-8">
+            <Table color={selectedColor} aria-label="Selected PC Part Table"
+              className="">
+              <TableHeader>
+                <TableColumn>Component</TableColumn>
+                <TableColumn>Name</TableColumn>
+                <TableColumn className="px-12">Price</TableColumn>
+              </TableHeader>
+              <TableBody>
+                {cpuRows()}
+                {moboRows()}
+                {memoryRows()}
+                {storageRows()}
+                {gpuRows()}
+                {cpuCoolerRows()}
+                {psuRows()}
+              </TableBody>
+            </Table>
+          </div>
+          {/* Mobo diagram */}
+          {/*<div className="flex flex-col items-center">
               <Image width={400} height={500} src={MoboDiagram} alt="mobo" />
           </div> */}
+          {/*}
+          <div className="flex w-1/5 flex-col bg-white rounded-xl mr-4 mt-8">
+            <Table aria-label="PC Build Audit">
+              <TableHeader>
+                <TableColumn className="text-center">PC Build Audit</TableColumn>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Socket:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Memory:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>CPU Cooling:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Slots:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Video:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Power Supply:</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+          */}
+        </div>
       </div>
+      <div className="">
+            <Price />
+          </div>
     </div >
   );
 }

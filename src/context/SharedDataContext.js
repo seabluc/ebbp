@@ -13,6 +13,7 @@ export function SharedDataProvider({ children }) {
   const [selectedCPUCooler, setSelectedCPUCooler] = useState(null);
   const [selectedPowerSupply, setSelectedPowerSupply] = useState(null);
   const [totalWattage, setTotalWattage] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [compatibilityStatus, setCompatibilityStatus] = useState('None');
   const [socketStatus, setSocketStatus] = useState(null);
   const [coolerStatus, setCoolerStatus] = useState(null);
@@ -215,10 +216,11 @@ export function SharedDataProvider({ children }) {
         selectedVideoCard, updateSelectedVideoCard, clearSelectedVideoCard,
         selectedCPUCooler, updateSelectedCPUCooler, clearSelectedCPUCooler,
         selectedPowerSupply, updateSelectedPowerSupply, clearSelectedPowerSupply,
-        totalWattage, setTotalWattage, compatibilityStatus, setCompatibilityStatus,
-        socketStatus, setSocketStatus, coolerStatus, setCoolerStatus, memoryStatus,
-        setMemoryStatus, videoStatus, setVideoStatus, powerStatus, setPowerStatus,
-        slotStatus, setSlotStatus, showSavedBuild, loadedBuildMemory, loadedBuildStorage, buildName, setBuildName
+        totalWattage, setTotalWattage, totalPrice, setTotalPrice,
+        compatibilityStatus, setCompatibilityStatus, socketStatus, setSocketStatus,
+        coolerStatus, setCoolerStatus, memoryStatus, setMemoryStatus,
+        videoStatus, setVideoStatus, powerStatus, setPowerStatus, slotStatus, setSlotStatus,
+        showSavedBuild, loadedBuildMemory, loadedBuildStorage, buildName, setBuildName
       }}>
       {children}
     </SharedDataContext.Provider>
