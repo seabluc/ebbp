@@ -1,4 +1,5 @@
 import connection from '@/utils/db';
+// import db from '@/../server/models'; attempt on connecting to db w/ Sequelize via mysql2
 
 export async function GET(request) {
   const url = new URL(request.url);

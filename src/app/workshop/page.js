@@ -556,8 +556,8 @@ export default function Home() {
         </div>
       </div>
       <div className="">
-            <Price />
-          </div>
+        <Price />
+      </div>
     </div >
   );
 }

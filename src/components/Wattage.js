@@ -84,7 +84,6 @@ export const Wattage = () => {
       (selectedVideoCard?.tdp || 0) +
       calculateCPUCoolerWattage();
 
-    // Update totalWattage state
     setTotalWattage(wattage);
   }, [selectedCPU, selectedMotherboard, selectedMemory, selectedStorage,
     selectedVideoCard, selectedCPUCooler]);

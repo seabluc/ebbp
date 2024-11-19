@@ -102,7 +102,7 @@ module.exports = {
       },
       {
         cpuCoolerId: 4,
-        socket: 'AM4',
+        socket: 'AM5',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
