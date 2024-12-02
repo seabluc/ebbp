@@ -21,15 +21,17 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-3 w-1/4 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for manufacturers */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2">
-            <Checkbox value="MSI">MSI</Checkbox>
+            <Checkbox value="MSI">Asus</Checkbox>
+            <Checkbox value="yeston">EVGA</Checkbox>
+            <Checkbox value="yeston">Gigabyte</Checkbox>
+            <Checkbox value="yeston">MSI</Checkbox>
             <Checkbox value="xfx">XFX</Checkbox>
-            <Checkbox value="yeston">Yeston</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -37,6 +39,7 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Chipset</h2>
           <CheckboxGroup className="my-2">
+            {/*
             <Checkbox value="rtx 4090">GeForce RTX 4090</Checkbox>
             <Checkbox value="rtx 4080">GeForce RTX 4080</Checkbox>
             <Checkbox value="rtx 4070 super">GeForce RTX 4070 SUPER</Checkbox>
@@ -48,7 +51,7 @@ export default function App() {
             <Checkbox value="rtx 3060">GeForce RTX 3060</Checkbox>
             {/*<Checkbox value="rtx 2080">GeForce RTX 2080</Checkbox>
             <Checkbox value="rtx 2070">GeForce RTX 2070</Checkbox>
-            <Checkbox value="rtx 2060">GeForce RTX 2060</Checkbox>*/}
+            <Checkbox value="rtx 2060">GeForce RTX 2060</Checkbox>
             <Checkbox value="rx 7900 XT">Radeon RX 7900 XTX</Checkbox>
             <Checkbox value="rx 7900 XT">Radeon RX 7900 XT</Checkbox>
             <Checkbox value="rx 7800 XT">Radeon RX 7800 XT</Checkbox>
@@ -56,13 +59,21 @@ export default function App() {
             <Checkbox value="rx 7600 XT">Radeon RX 7600 XT</Checkbox>
             <Checkbox value="rx 6900 XT">Radeon RX 6900 XT</Checkbox>
             <Checkbox value="rx 6800 XT">Radeon RX 6800 XT</Checkbox>
-            {/*
+            
             <Checkbox value="rx 6700 XT">Radeon RX 6700 XT</Checkbox>
             <Checkbox value="rx 6600 XT">Radeon RX 6600 XT</Checkbox>
             <Checkbox value="rx 6500 XT">Radeon RX 6500 XT</Checkbox>
             <Checkbox value="rx 5700 XT">Radeon RX 5700 XT</Checkbox>
             <Checkbox value="rx 5600 XT">Radeon RX 5600 XT</Checkbox>
-            <Checkbox value="rx 5500 XT">Radeon RX 5500 XT</Checkbox>*/}
+            <Checkbox value="rx 5500 XT">Radeon RX 5500 XT</Checkbox>
+            */}
+            <Checkbox value="rtx 4090">GeForce RTX 40 series</Checkbox>
+            <Checkbox value="rtx 4090">GeForce RTX 30 series</Checkbox>
+            <Checkbox value="rtx 4090">GeForce GTX 16 series</Checkbox>
+            <Checkbox value="rtx 4090">Radeon RX 500 series</Checkbox>
+            <Checkbox value="rtx 4090">Radeon RX 5000 series</Checkbox>
+            <Checkbox value="rtx 4090">Radeon RX 6000 series</Checkbox>
+            <Checkbox value="rtx 4090">Radeon RX 7000 series</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -72,7 +83,6 @@ export default function App() {
           <CheckboxGroup className="my-2">
             <Checkbox value="GDDR6X">GDDR6X</Checkbox>
             <Checkbox value="GDDR6">GDDR6</Checkbox>
-            <Checkbox value="GDDR5X">GDDR5X</Checkbox>
             <Checkbox value="GDDR5">GDDR5</Checkbox>
           </CheckboxGroup>
         </Card>
@@ -94,10 +104,10 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">TDP (W)</h2>
           <Slider
-            step={5}
+            step={10}
             minValue={0}
-            maxValue={200}
-            defaultValue={[0, 200]}
+            maxValue={450}
+            defaultValue={[0, 450]}
             className="max-w-md"
             label=" " // Keep the label for the slider
           //onChange={setTdpRange}
@@ -108,8 +118,8 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Length (mm)</h2>
           <Slider
-            step={5}
-            minValue={200}
+            step={10}
+            minValue={0}
             maxValue={500}
             defaultValue={[0, 500]}
             className="max-w-md"

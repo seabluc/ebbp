@@ -40,7 +40,6 @@ export default function App() {
           <CheckboxGroup className="my-2">
             <Checkbox value="lga1851">LGA1851</Checkbox>
             <Checkbox value="lga1700">LGA1700</Checkbox>
-            <Checkbox value="lga1200">LGA1200</Checkbox>
             <Checkbox value="am5">AM5</Checkbox>
             <Checkbox value="am4">AM4</Checkbox>
           </CheckboxGroup>
@@ -61,7 +60,7 @@ export default function App() {
           <CheckboxGroup className="my-2">
             <Checkbox value="eatx">E-ATX</Checkbox>
             <Checkbox value="atx">ATX</Checkbox>
-            <Checkbox value="matx">mATX</Checkbox>
+            <Checkbox value="matx">MATX</Checkbox>
             <Checkbox value="itx">Mini-ITX</Checkbox>
           </CheckboxGroup>
         </Card>
@@ -106,8 +105,8 @@ export default function App() {
           <Slider
             step={10}
             minValue={0}
-            maxValue={700}
-            defaultValue={[0, 700]}
+            maxValue={1000}
+            defaultValue={[0, 1000]}
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider

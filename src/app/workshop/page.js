@@ -143,7 +143,7 @@ export default function Home() {
         </TableCell>
         <TableCell className="flex flex-row items-center">
           <Tooltip className="whitespace-pre bg-opacity-90" offset={0}
-            content={`Socket: ${selectedMotherboard.socket}\nMemory Type: ${selectedMotherboard.memoryType}\nMax Memory Capacity: ${selectedMotherboard.memoryMax} GB\nMemory Slots: ${selectedMotherboard.memorySlot}\nSupported Memory Speeds: ${selectedMotherboard.supportedSpeeds.join(', ')}\nM.2 Slots: ${selectedMotherboard.mTwoSlot}\nSATA Slots: ${selectedMotherboard.sataSlot}`}>
+            content={`Socket: ${selectedMotherboard.socket}\nMemory Type: ${selectedMotherboard.memoryType}\nMax Memory Capacity: ${selectedMotherboard.memoryMax} GB\nMemory Slots: ${selectedMotherboard.memorySlot}\nM.2 Slots: ${selectedMotherboard.mTwoSlot}\nSATA Slots: ${selectedMotherboard.sataSlot}`}>
             <Image
               width={70}
               height={70}

@@ -18,11 +18,11 @@ export default function App() {
   // Filter states
   const [filteredComponents, setFilteredComponents] = useState([]);
   const [selectedManufacturers, setSelectedManufacturers] = useState([]);
-  const [capacityRange, setCapacityRange] = useState([0, 4]);
+  const [capacityRange, setCapacityRange] = useState([0, 8000]);
   const [selectedStorageTypes, setSelectedStorageTypes] = useState([]);
   const [selectedFormFactors, setSelectedFormFactors] = useState([]);
   const [selectedInterfaces, setSelectedInterfaces] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 300]);
+  const [priceRange, setPriceRange] = useState([0, 700]);
 
   useEffect(() => {
     fetchComponents("../api/storages", setComponents, setError);
@@ -57,28 +57,21 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedManufacturers}>
-            <Checkbox value="adata">ADATA</Checkbox>
             <Checkbox value="crucial">Crucial</Checkbox>
-            <Checkbox value="kingston">Kingston</Checkbox>
-            <Checkbox value="msi">MSI</Checkbox>
-            <Checkbox value="patriot">Patriot</Checkbox>
-            <Checkbox value="sk hynix">SK Hynix</Checkbox>
             <Checkbox value="samsung">Samsung</Checkbox>
             <Checkbox value="seagate">Seagate</Checkbox>
-            <Checkbox value="teamgroup">TEAMGROUP</Checkbox>
-            <Checkbox value="toshiba">Toshiba</Checkbox>
             <Checkbox value="western digital">Western Digital</Checkbox>
           </CheckboxGroup>
         </Card>
 
         {/* Slider card for storage capacity */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
-          <h2 className="text-[#DBAE58]">Storage Capacity (TB)</h2>
+          <h2 className="text-[#DBAE58]">Storage Capacity (GB)</h2>
           <Slider
-            step={0.250}
+            step={100}
             minValue={0}
-            maxValue={4}
-            defaultValue={[0.0, 4.0]}
+            maxValue={8000}
+            defaultValue={[0, 8000]}
             className="max-w-md"
             label=" " // Keep the label for the slider
             onChange={setCapacityRange}
@@ -90,7 +83,7 @@ export default function App() {
           <h2 className="text-[#DBAE58]">Storage Type</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedStorageTypes}>
             <Checkbox value="ssd">SSD</Checkbox>
-            <Checkbox value="hdd">HDD</Checkbox>
+            <Checkbox value="RPM">HDD</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -98,8 +91,8 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Form Factor</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedFormFactors}>
-            <Checkbox value='2.5"'>2.5"</Checkbox>
-            <Checkbox value='3.5"'>3.5"</Checkbox>
+            <Checkbox value='2.5'>2.5"</Checkbox>
+            <Checkbox value='3.5'>3.5"</Checkbox>
             <Checkbox value='m.2-2280'>M.2-2280</Checkbox>
           </CheckboxGroup>
         </Card>
@@ -108,11 +101,11 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Interface</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedInterfaces}>
-            <Checkbox value='PCIe 5.0 X4'>PCIe 5.0 X4"</Checkbox>
+            <Checkbox value='M.2 PCIe 5.0 X4'>PCIe 5.0 X4"</Checkbox>
             {/*<Checkbox value='PCIe5x2'>PCIe 5.0 X2"</Checkbox>*/}
-            <Checkbox value='PCIe 4.0 X4'>PCIe 4.0 X4"</Checkbox>
+            <Checkbox value='M.2 PCIe 4.0 X4'>PCIe 4.0 X4"</Checkbox>
             {/*<Checkbox value='PCIe4x2'>PCIe 4.0 X2"</Checkbox>*/}
-            <Checkbox value='SATA 6.0 GB/s'>SATA 6.0 GB/s</Checkbox>
+            <Checkbox value='SATA 6.0 Gb/s'>SATA 6.0 GB/s</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -122,8 +115,8 @@ export default function App() {
           <Slider
             step={10}
             minValue={0}
-            maxValue={300}
-            defaultValue={[0, 300]}
+            maxValue={700}
+            defaultValue={[0, 700]}
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider
@@ -159,7 +152,7 @@ export default function App() {
                     height="70"
                     alt="storage" />
                 </TableCell>
-                <TableCell>{storage.capacity + ` TB`}</TableCell>
+                <TableCell>{storage.capacity + ` GB`}</TableCell>
                 <TableCell>{storage.storageType}</TableCell>
                 <TableCell>{storage.formFactor}</TableCell>
                 <TableCell>{storage.interface}</TableCell>

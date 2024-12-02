@@ -175,7 +175,8 @@ export default function ProductsPage() {
         </Card>
 
         {/* Case Card */}
-        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
+        {/*
+        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
           <CardHeader className="flex items-center">
             <Image
               alt="case"
@@ -188,18 +189,19 @@ export default function ProductsPage() {
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
             <p>Provide adeqate enclosure for your PC components.</p>
             <Link href="/products/case">
-              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2">
                 Choose a Case
               </Button>
             </Link>
           </CardBody>
         </Card>
-
+        */}
         {/* Monitor Card */}
-        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
+        {/*
+        <Card className="w-[350px] h-[250px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> 
           <CardHeader className="flex items-center">
             <Image
               alt="monitor"
@@ -212,15 +214,16 @@ export default function ProductsPage() {
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
-          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]"> {/* Text: Light Gray */}
+          <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
             <p>Display graphical output.</p>
             <Link href="/products/monitor">
-              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2">
                 Choose a Monitor
               </Button>
             </Link>
           </CardBody>
         </Card>
+        */}
       </div>
     </div>
   );

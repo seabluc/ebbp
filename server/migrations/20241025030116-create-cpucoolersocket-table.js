@@ -7,7 +7,6 @@ module.exports = {
       coolerSocketId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       cpuCoolerId: {
         type: Sequelize.INTEGER,
@@ -25,9 +24,9 @@ module.exports = {
         validate: {
           isIn: {
             args: [
-              ['AM4', 'AM5', 'LGA1200', 'LGA1700', 'LGA1851',],
+              ['AM4', 'AM5', 'LGA1700', 'LGA1851',],
             ],
-            msg: "All Motherboards and Cpus on EBBP are limited to AM4, AM5, LGA1200, LGA1700, and LGA1851 sockets."
+            msg: "All Motherboards and Cpus on EBBP are limited to AM4, AM5, LGA1700, and LGA1851 sockets."
           },
         },
       },

@@ -5,7 +5,10 @@ const nextConfig = {
       'm.media-amazon.com',
       'images-na.ssl-images-amazon.com',
       'images-eu.ssl-images-amazon.com',
-      'i.redd.it'],
+      'i.redd.it',
+      'static',
+      'images-fe.ssl-images-amazon.com'
+    ],
   },
 };
 

@@ -12,24 +12,10 @@ import { fetchComponents } from '@/utils/fetchUtils';
 import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
-  // Scroll to the top when the page is first loaded or refreshed
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  // Handle query params for Load More button 
-  const router = useRouter();
-
   // CPU States
   const [components, setComponents] = useState([]);
   const [error, setError] = useState(null);
   const { updateSelectedCPU } = useSharedData();
-
-  // Pagination state
-  const [limit, setLimit] = useState(10);
-  const [offset, setOffset] = useState(0);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
 
   // Filter states
   const [filteredComponents, setFilteredComponents] = useState([]);
@@ -44,62 +30,9 @@ export default function App() {
   const [selectedGraphics, setSelectedGraphics] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 700]);
 
-  // Ref to track the initial fetch
-  const isInitialFetch = useRef(true);
-
-  // Fetch components function
-  const fetchCPUs = async (newOffset = 0) => {
-    setIsLoadingMore(true);
-    try {
-      const url = `/api/cpus?limit=${limit}&offset=${newOffset}`;
-      await fetchComponents(url, (newComponents) => {
-        if (newComponents.length < limit) setHasMore(false);
-        setComponents((prev) => (newOffset === 0 ? newComponents : [...prev, ...newComponents]));
-      }, setError);
-    } catch (err) {
-      console.error("Error fetching CPUs:", err);
-    } finally {
-      setIsLoadingMore(false);
-    }
-  };
-
-  // Initial data fetch
   useEffect(() => {
-    fetchCPUs(0);
-    isInitialFetch.current = false;
+    fetchComponents("../api/cpus", setComponents, setError);
   }, []);
-
-  // Function to apply filters
-  const applyFilters = () => {
-    const filtered = components.filter((cpu) => {
-      return (
-        (selectedManufacturers.length === 0 || selectedManufacturers.includes(cpu.manufacturer.toLowerCase())) &&
-        (selectedSockets.length === 0 || selectedSockets.includes(cpu.socket.toLowerCase())) &&
-        cpu.coreCount >= coreCountRange[0] && cpu.coreCount <= coreCountRange[1] &&
-        /*cpu.threadCount >= threadCountRange[0] && cpu.threadCount <= threadCountRange[1] && */
-        cpu.performanceCoreClock >= clockSpeedRange[0] && cpu.performanceCoreClock <= clockSpeedRange[1] &&
-        cpu.performanceCoreBoostClock >= boostClockSpeedRange[0] && cpu.performanceCoreBoostClock <= boostClockSpeedRange[1] &&
-        (selectedMicroarchitectures.length === 0 || selectedMicroarchitectures.includes(cpu.microarchitecture.toLowerCase())) &&
-        cpu.tdp >= tdpRange[0] && cpu.tdp <= tdpRange[1] &&
-        (selectedGraphics.length === 0 || selectedGraphics.includes(cpu.integrated.toLowerCase())) &&
-        cpu.price >= priceRange[0] && cpu.price <= priceRange[1]
-      );
-    });
-    setFilteredComponents(filtered);
-  };
-
-  // Apply filters whenever filter states change
-  useEffect(() => {
-    if (!isInitialFetch.current) applyFilters();
-  }, [selectedManufacturers, selectedSockets, coreCountRange, clockSpeedRange,
-    boostClockSpeedRange, selectedMicroarchitectures, tdpRange, selectedGraphics, priceRange]);
-
-  // Update offset state to fetch more data when "Load More" button is clicked
-  const handleLoadMore = async () => {
-    const newOffset = offset + limit;
-    setOffset(newOffset);
-    await fetchCPUs(newOffset);
-  };
 
   // Apply filters whenever the filter values change
   useEffect(() => {
@@ -145,7 +78,6 @@ export default function App() {
           <CheckboxGroup className="my-2" onChange={setSelectedSockets}> {/* label="Select processors" defaultValue={[]}*/}
             <Checkbox value="lga1851">LGA1851</Checkbox>
             <Checkbox value="lga1700">LGA1700</Checkbox>
-            <Checkbox value="lga1200">LGA1200</Checkbox>
             <Checkbox value="am5">AM5</Checkbox>
             <Checkbox value="am4">AM4</Checkbox>
           </CheckboxGroup>
@@ -178,6 +110,7 @@ export default function App() {
             <Checkbox value="zen 3">Zen 3</Checkbox>
             <Checkbox value="zen 2">Zen 2</Checkbox>
             <Checkbox value="zen+">Zen+</Checkbox>
+            <Checkbox value="zen">Zen</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -201,7 +134,12 @@ export default function App() {
             <Checkbox value="intel uhd graphics 770">Intel UHD 770</Checkbox>
             <Checkbox value="intel uhd graphics 730">Intel UHD 730</Checkbox>
             <Checkbox value="radeon">Radeon</Checkbox>
+            <Checkbox value="radeon 780m">Radeon 780M</Checkbox>
+            <Checkbox value="radeon 760m">Radeon 760M</Checkbox>
+            <Checkbox value="radeon 740m">Radeon 740M</Checkbox>
+            <Checkbox value="radeon vega 11">Radeon Vega 11</Checkbox>
             <Checkbox value="radeon vega 8">Radeon Vega 8</Checkbox>
+            <Checkbox value="radeon vega 7">Radeon Vega 7</Checkbox>
             <Checkbox value="none">None</Checkbox>
           </CheckboxGroup>
         </Card>
@@ -286,19 +224,7 @@ export default function App() {
           aria-label="CPU Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
-          bottomContent={
-            hasMore && (
-              <button
-                className="bg-[#DBAE58] text-black self-center mt-1 px-6 py-2 rounded transition-transform transform active:scale-95 max-h-screen"
-                onClick={handleLoadMore}
-                disabled={isLoadingMore}>
-                {isLoadingMore ? (<Spinner color="default" size="sm" />) : ("Load More")}
-              </button>
-            )}
-          classNames={{
-            base: "max-h-screen",
-            // table: "min-h-screen",
-          }}>
+        >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
             <TableColumn>Socket</TableColumn>

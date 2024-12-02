@@ -7,7 +7,6 @@ module.exports = {
       memorySpeedId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
       },
       motherboardId: {
         type: Sequelize.INTEGER,

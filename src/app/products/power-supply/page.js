@@ -12,14 +12,6 @@ import { fetchComponents } from '@/utils/fetchUtils';
 import { useSharedData } from "@/context/SharedDataContext";
 
 export default function App() {
-  // Scroll to the top when the page is first loaded or refreshed
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  // Handle query params for Load More button 
-  const router = useRouter();
-
   // Power Supply States
   const [components, setComponents] = useState([]);
   const [error, setError] = useState(null);
@@ -38,62 +30,12 @@ export default function App() {
   const [selectedEfficiency, setSelectedEfficiency] = useState([]);
   const [wattageRange, setWattageRange] = useState([0, 1800]);
   const [selectedModularity, setSelectedModularity] = useState([]);
-  const [lengthRange, setLengthRange] = useState([100, 220]);
-  const [priceRange, setPriceRange] = useState([0, 500]);
+  const [lengthRange, setLengthRange] = useState([0, 220]);
+  const [priceRange, setPriceRange] = useState([0, 750]);
 
-  // Ref to track the initial fetch
-  const isInitialFetch = useRef(true);
-
-  // Fetch components function
-  const fetchPowerSupplies = async (newOffset = 0) => {
-    setIsLoadingMore(true);
-    try {
-      const url = `/api/powerSupplys?limit=${limit}&offset=${newOffset}`;
-      await fetchComponents(url, (newComponents) => {
-        if (newComponents.length < limit) setHasMore(false);
-        setComponents((prev) => (newOffset === 0 ? newComponents : [...prev, ...newComponents]));
-      }, setError);
-    } catch (err) {
-      console.error("Error fetching power supplies:", err);
-    } finally {
-      setIsLoadingMore(false);
-    }
-  };
-
-  // Initial data fetch
   useEffect(() => {
-    fetchPowerSupplies(0);
-    isInitialFetch.current = false;
+    fetchComponents("../api/powerSupplys", setComponents, setError);
   }, []);
-
-  // Function to apply filters
-  const applyFilters = () => {
-    const filtered = components.filter((powerSupply) => {
-      return (
-        (selectedManufacturers.length === 0 || selectedManufacturers.includes(powerSupply.manufacturer.toLowerCase())) &&
-        (selectedFormFactors.length === 0 || selectedFormFactors.includes(powerSupply.formFactor.toLowerCase())) &&
-        (selectedEfficiency.length === 0 || selectedEfficiency.includes(powerSupply.efficiency.toLowerCase())) &&
-        powerSupply.wattage >= wattageRange[0] && powerSupply.wattage <= wattageRange[1] &&
-        (selectedModularity.length === 0 || selectedModularity.includes(powerSupply.modularity.toLowerCase())) &&
-        powerSupply.length >= lengthRange[0] && powerSupply.length <= lengthRange[1] &&
-        powerSupply.price >= priceRange[0] && powerSupply.price <= priceRange[1]
-      );
-    });
-    setFilteredComponents(filtered);
-  };
-
-  // Apply filters whenever filter states change
-  useEffect(() => {
-    if (!isInitialFetch.current) applyFilters();
-  }, [selectedManufacturers, selectedFormFactors, selectedEfficiency,
-    selectedModularity, wattageRange, lengthRange, priceRange]);
-
-  // Update offset state to fetch more data when "Load More" button is clicked
-  const handleLoadMore = async () => {
-    const newOffset = offset + limit;
-    setOffset(newOffset);
-    await fetchPowerSupplies(newOffset);
-  };
 
   // Apply filters whenever the filter values change
   useEffect(() => {
@@ -123,12 +65,9 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedManufacturers}>
-            <Checkbox value="asus">Asus</Checkbox>
-            <Checkbox value="be quiet!">be quiet!</Checkbox>
+            <Checkbox value="cooler master">Cooler Master</Checkbox>
             <Checkbox value="corsair">Corsair</Checkbox>
-            <Checkbox value="lian li">Lian Li</Checkbox>
-            <Checkbox value="msi">MSI</Checkbox>
-            <Checkbox value="silverstone">Silverstone</Checkbox>
+            <Checkbox value="evga">EVGA</Checkbox>
             <Checkbox value="thermaltake">Thermaltake</Checkbox>
           </CheckboxGroup>
         </Card>
@@ -184,9 +123,9 @@ export default function App() {
           <h2 className="text-[#DBAE58]">Length (mm)</h2>
           <Slider
             step={10}
-            minValue={100}
-            maxValue={200}
-            defaultValue={[0, 200]}
+            minValue={0}
+            maxValue={220}
+            defaultValue={[0, 220]}
             className="max-w-md"
             label=" " // Keep the label for the slider
             onChange={setLengthRange}
@@ -199,8 +138,8 @@ export default function App() {
           <Slider
             step={10}
             minValue={0}
-            maxValue={500}
-            defaultValue={[0, 500]}
+            maxValue={750}
+            defaultValue={[0, 750]}
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider
@@ -215,19 +154,7 @@ export default function App() {
           aria-label="Power Supply Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4"
           isStriped
-          bottomContent={
-            hasMore && (
-              <button
-                className="bg-[#DBAE58] text-black self-center mt-1 px-6 py-2 rounded transition-transform transform active:scale-95 max-h-screen"
-                onClick={handleLoadMore}
-                disabled={isLoadingMore}>
-                {isLoadingMore ? (<Spinner color="default" size="sm" />) : ("Load More")}
-              </button>
-            )}
-          classNames={{
-            base: "max-h-screen",
-            // table: "min-h-screen",
-          }}>
+          >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
             <TableColumn>Form Factor</TableColumn>

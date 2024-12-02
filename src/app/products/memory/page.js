@@ -19,13 +19,12 @@ export default function App() {
   const [filteredComponents, setFilteredComponents] = useState([]);
   const [selectedManufacturers, setSelectedManufacturers] = useState([]);
   const [selectedMemoryType, setSelectedMemoryType] = useState([]);
-  const [speedRange, setSpeedRange] = useState([2133, 6400]);
-  const [latencyRange, setLatencyRange] = useState([15, 38]);
-  const [trueLatencyRange, setTrueLatencyRange] = useState([8, 14]);
-  const [selectedModules, setSelectedModules] = useState([1, 2]);
-  //const [selectedModules, setSelectedModules] = useState([]);
+  const [speedRange, setSpeedRange] = useState([2133, 8400]);
+  const [latencyRange, setLatencyRange] = useState([13, 40]);
+  const [trueLatencyRange, setTrueLatencyRange] = useState([7.3, 15.4]);
+  //const [selectedModules, setSelectedModules] = useState([1, 2]);
   const [selectedColor, setSelectedColor] = useState([]);
-  const [priceRange, setPriceRange] = useState([0, 400]);
+  const [priceRange, setPriceRange] = useState([0, 800]);
 
   useEffect(() => {
     fetchComponents("../api/memorys", setComponents, setError);
@@ -43,7 +42,7 @@ export default function App() {
           memory.casLatency >= latencyRange[0] && memory.casLatency <= latencyRange[1] &&
           memory.trueLatency >= trueLatencyRange[0] && memory.trueLatency <= trueLatencyRange[1] &&
           //(selectedModules.length === 0 || selectedModules.includes(memory.modules)) &&
-          memory.modules >= selectedModules[0] && memory.modules <= selectedModules[1] &&
+          //memory.modules >= selectedModules[0] && memory.modules <= selectedModules[1] &&
           (selectedColor.length === 0 || selectedColor.includes(memory.color.toLowerCase())) &&
           memory.price >= priceRange[0] && memory.price <= priceRange[1]
         );
@@ -53,7 +52,7 @@ export default function App() {
 
     filterComponents();
   }, [components, selectedManufacturers, selectedMemoryType, speedRange,
-    latencyRange, trueLatencyRange, selectedModules, selectedColor, priceRange]);
+    latencyRange, trueLatencyRange, /*selectedModules,*/ selectedColor, priceRange]);
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
@@ -67,9 +66,6 @@ export default function App() {
             <Checkbox value="crucial">Crucial</Checkbox>
             <Checkbox value="g.skill">G.Skill</Checkbox>
             <Checkbox value="kingston">Kingston</Checkbox>
-            <Checkbox value="patriot">Patriot</Checkbox>
-            <Checkbox value="silicon power">Silicon Power</Checkbox>
-            <Checkbox value="teamgroup">TEAMGROUP</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -87,9 +83,9 @@ export default function App() {
           <h2 className="text-[#DBAE58]">Speed (MHz)</h2>
           <Slider
             step={100}
-            minValue={2100}
-            maxValue={6400}
-            defaultValue={[2100, 6400]}
+            minValue={2133}
+            maxValue={8400}
+            defaultValue={[2133, 8400]}
             className="max-w-md"
             label=" " // Keep the label for the slider
             onChange={setSpeedRange}
@@ -101,9 +97,9 @@ export default function App() {
           <h2 className="text-[#DBAE58]">CAS Latency</h2>
           <Slider
             step={1}
-            minValue={15}
-            maxValue={38}
-            defaultValue={[15, 38]}
+            minValue={13}
+            maxValue={40}
+            defaultValue={[13, 40]}
             className="max-w-md"
             label=" " // Keep the label for the slider
             onChange={setLatencyRange}
@@ -114,10 +110,10 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">True Latency (ns)</h2>
           <Slider
-            step={1}
-            minValue={8}
-            maxValue={14}
-            defaultValue={[8, 14]}
+            step={0.1}
+            minValue={7.0}
+            maxValue={15.5}
+            defaultValue={[7.0, 15.5]}
             className="max-w-md"
             label=" " // Keep the label for the slider
             onChange={setTrueLatencyRange}
@@ -125,6 +121,7 @@ export default function App() {
         </Card>
 
         {/* Filter card for Module range */}
+        {/*
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Module Count</h2>
           <Slider
@@ -137,6 +134,7 @@ export default function App() {
             onChange={setSelectedModules}
           />
         </Card>
+        */}
 
         {/* Filter card for Color */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
@@ -153,8 +151,8 @@ export default function App() {
           <Slider
             step={10}
             minValue={0}
-            maxValue={400}
-            defaultValue={[0, 400]}
+            maxValue={800}
+            defaultValue={[0, 800]}
             formatOptions={{ style: "currency", currency: "USD" }}
             className="max-w-md"
             label=" " // Keep the label for the slider

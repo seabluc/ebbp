@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { Card, CardHeader, CardBody, Divider, Link, Image } from "@nextui-org/react";
 
-export default function App() {
+export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#4D585B]"> {/* Background: Charcoal */}
       <h1 className="text-4xl font-bold mt-16 mb-4 text-[#DBAE58] text-center">Home Page</h1> {/* Title: Gold */}
@@ -9,15 +9,17 @@ export default function App() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1650px] mx-auto"> {/* Centering the card grid */}
         {/* First Card */}
         <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg"> {/* Background: Gray 500 */}
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center justify-center">
+            {/*
             <Image
               alt="PC Workshop"
               height={50}
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
+            */}
             <Link isExternal showAnchorIcon href="/workshop" className="text-[#DBAE58] ml-4">
-              PC Workshop
+              <h1 className="py-2 text-xl">PC Workshop</h1>
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
@@ -33,15 +35,17 @@ export default function App() {
 
         {/* Second Card */}
         <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center justify-center">
+            {/*
             <Image
               alt="Products"
               height={50}
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
+            */}
             <Link isExternal showAnchorIcon href="/products" className="text-[#DBAE58] ml-4">
-              Products
+              <h1 className="py-2 text-xl">Products</h1>
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
@@ -57,22 +61,24 @@ export default function App() {
 
         {/* Third Card */}
         <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center justify-center">
+            {/*
             <Image
               alt="Guides"
               height={50}
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
+            */}
             <Link isExternal showAnchorIcon href="/guides" className="text-[#DBAE58] ml-4">
-              Guides
+              <h1 className="py-2 text-xl">Guides</h1>
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
           <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
             <p className="mb-4 text-center">Access a collection of guides designed to assist you in your PC building journey. Our resources cover everything from basic components to advanced setups, ensuring you have all the knowledge you need to succeed.</p>
             <Link href="/guides">
-              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2">
                 View Guides
               </Button>
             </Link>
@@ -80,6 +86,7 @@ export default function App() {
         </Card>
 
         {/* Fourth Card */}
+        {/*
         <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
           <CardHeader className="flex items-center">
             <Image
@@ -96,24 +103,27 @@ export default function App() {
           <CardBody className="flex flex-col justify-between items-center text-[#D3D3D3]">
             <p className="mb-4 text-center">Use our PC Generator tool to create your custom PC build based on your preferences and budget. Select components tailored to your needs, and let our generator do the hard work of suggesting the best combinations for performance and compatibility.</p>
             <Link href="/generate-pc">
-              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2"> {/* Darker black text color */}
+              <Button className="bg-[#C8A15D] text-[#4B4B4B] hover:bg-[#C8A15D]/80 h-12 w-41 mt-2">
                 Generate Now
               </Button>
             </Link>
           </CardBody>
         </Card>
+        */}
 
         {/* Fifth Card */}
         <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center justify-center">
+            {/*
             <Image
               alt="Account"
               height={50}
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
+            */}
             <Link isExternal showAnchorIcon href="/account" className="text-[#DBAE58] ml-4">
-              Account
+              <h1 className="py-2 text-xl">Account</h1>
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />
@@ -129,15 +139,17 @@ export default function App() {
 
         {/* Sixth Card: Credits */}
         <Card className="w-[450px] h-[300px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg">
-          <CardHeader className="flex items-center">
+          <CardHeader className="flex items-center justify-center">
+            {/*
             <Image
               alt="Credits"
               height={50}
               width={50}
               src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
             />
+            */}
             <Link isExternal showAnchorIcon href="/credits" className="text-[#DBAE58] ml-4">
-              Credits
+              <h1 className="py-2 text-xl">Credits</h1>
             </Link>
           </CardHeader>
           <Divider className="border-[#DBAE58]" />

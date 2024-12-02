@@ -27,17 +27,10 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Manufacturer</h2>
           <CheckboxGroup className="my-2">
-            <Checkbox value="asus">Asus</Checkbox>
-            <Checkbox value="arctic">Arctic</Checkbox>
             <Checkbox value="be quiet!">Be Quiet!</Checkbox>
             <Checkbox value="coolermaster">CoolerMaster</Checkbox>
             <Checkbox value="corsair">Corsair</Checkbox>
-            <Checkbox value="deepcool">Deepcool</Checkbox>
-            <Checkbox value="kraken">Kraken</Checkbox>
             <Checkbox value="noctua">Noctua</Checkbox>
-            <Checkbox value="nzxt">NZXT</Checkbox>
-            <Checkbox value="thermalright">Thermalright</Checkbox>
-            <Checkbox value="vetroo">Vetroo</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -47,7 +40,6 @@ export default function App() {
           <CheckboxGroup className="my-2">
             <Checkbox value="lga1851">LGA1851</Checkbox>
             <Checkbox value="lga1700">LGA1700</Checkbox>
-            <Checkbox value="lga1200">LGA1200</Checkbox>
             <Checkbox value="am5">AM5</Checkbox>
             <Checkbox value="am4">AM4</Checkbox>
           </CheckboxGroup>
@@ -96,7 +88,9 @@ export default function App() {
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Radiator Sizes</h2>
           <CheckboxGroup className="my-2">
+            <Checkbox value="120">120 mm</Checkbox>
             <Checkbox value="240">240 mm</Checkbox>
+            <Checkbox value="260">260 mm</Checkbox>
             <Checkbox value="360">360 mm</Checkbox>
             <Checkbox value="420">420 mm</Checkbox>
             <Checkbox value="none">None</Checkbox>

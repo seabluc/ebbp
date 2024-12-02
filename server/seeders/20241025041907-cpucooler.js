@@ -1,174 +1,36 @@
-'use strict';
+const fs = require('fs');
+const path = require('path');
+const csv = require('csv-parser');
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('CpuCooler', [
-      {
-        cpuCoolerId: 1,
-        partId: 23,
-        fanRPM: 2400,
-        noiseLevel: 37,
-        color: 'White',
-        radiatorSize: 360,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 2,
-        partId: 24,
-        fanRPM: 1400,
-        noiseLevel: 21.4,
-        color: 'Black',
-        height: 159,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 3,
-        partId: 51,
-        fanRPM: 2000,
-        noiseLevel: 26,
-        color: 'Black',
-        height: 159,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 4,
-        partId: 52,
-        fanRPM: 2500,
-        noiseLevel: 23.6,
-        color: 'Brown',
-        height: 37,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 5,
-        partId: 53,
-        fanRPM: 1500,
-        noiseLevel: 24.6,
-        color: 'Black',
-        height: 165,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 6,
-        partId: 54,
-        fanRPM: 2500,
-        noiseLevel: 23.6,
-        color: 'Black',
-        height: 37,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 7,
-        partId: 55,
-        fanRPM: 1550,
-        noiseLevel: 25.6,
-        color: 'Black / Silver',
-        height: 155,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 8,
-        partId: 56,
-        fanRPM: 1500,
-        noiseLevel: 25.6,
-        color: 'Black / Silver',
-        height: 154,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 9,
-        partId: 57,
-        fanRPM: 1800,
-        noiseLevel: 30.6,
-        color: 'White',
-        height: 60,
-        radiatorSize: 360,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 10,
-        partId: 58,
-        fanRPM: 2100,
-        noiseLevel: 34.1,
-        color: 'Black',
-        radiatorSize: 360,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 11,
-        partId: 59,
-        fanRPM: 1500,
-        noiseLevel: 28.0,
-        color: 'Black',
-        radiatorSize: 240,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 12,
-        partId: 60,
-        fanRPM: 1700,
-        noiseLevel: 30.8,
-        color: 'Black',
-        height: 148,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 13,
-        partId: 61,
-        fanRPM: 1850,
-        noiseLevel: 29.0,
-        color: 'Black / Silver',
-        height: 155,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 14,
-        partId: 62,
-        fanRPM: 2435,
-        noiseLevel: 37.7,
-        color: 'Black',
-        radiatorSize: 240,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 15,
-        partId: 63,
-        fanRPM: 2000,
-        noiseLevel: 29.7,
-        color: 'Black',
-        radiatorSize: 360,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        cpuCoolerId: 16,
-        partId: 64,
-        fanRPM: 1700,
-        noiseLevel: 29.7,
-        color: 'Black',
-        radiatorSize: 420,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      }
-    ]);
+  up: async (queryInterface, Sequelize) => {
+    const data = [];
+    const filePath = path.join(__dirname, '../data/CpuCooler.csv');
+
+    await new Promise((resolve, reject) => {
+      fs.createReadStream(filePath)
+        .pipe(csv())
+        .on('data', (row) => {
+          data.push({
+            cpuCoolerId: parseInt(row.cpuCoolerId),
+            partId: parseInt(row.partId),
+            fanRPM: parseInt(row.fanRPM),
+            noiseLevel: parseInt(row.noiseLevel),
+            color: row.color,
+            height: parseInt(row.height) || null,
+            radiatorSize: parseInt(row.radiatorSize) || null,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          });
+        })
+        .on('end', resolve)
+        .on('error', reject);
+    });
+
+    return queryInterface.bulkInsert('CpuCooler', data, {});
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('CpuCooler', null, {});
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.bulkDelete('CpuCooler', null, {});
   }
 };
