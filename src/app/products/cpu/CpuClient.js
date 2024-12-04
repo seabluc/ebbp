@@ -1,38 +1,21 @@
 "use client";
 
 import {
-  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Card,
-  CheckboxGroup, Checkbox, Slider, Spinner
+  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination,
+  Card, CheckboxGroup, Checkbox, Slider
 } from "@nextui-org/react";
-import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { fetchComponents } from '@/utils/fetchUtils';
 import { useSharedData } from "@/context/SharedDataContext";
 
-export default function App() {
-  // Scroll to the top when the page is first loaded or refreshed
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
-  // Handle query params for Load More button 
-  const router = useRouter();
-
-  // CPU States
-  const [components, setComponents] = useState([]);
-  const [error, setError] = useState(null);
+export default function CpuClient({ initialData }) {
+  // Contains all PC parts from sibling serverAction.js file
+  const components = initialData;
+  // Adds PC part to current PC Workshop build
   const { updateSelectedCPU } = useSharedData();
 
-  // Pagination state
-  const [limit, setLimit] = useState(10);
-  const [offset, setOffset] = useState(0);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
   // Filter states
-  const [filteredComponents, setFilteredComponents] = useState([]);
   const [selectedManufacturers, setSelectedManufacturers] = useState([]);
   const [selectedSockets, setSelectedSockets] = useState([]);
   const [coreCountRange, setCoreCountRange] = useState([0, 24]);
@@ -44,87 +27,53 @@ export default function App() {
   const [selectedGraphics, setSelectedGraphics] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 700]);
 
-  // Ref to track the initial fetch
-  const isInitialFetch = useRef(true);
-
-  // Fetch components function
-  const fetchCPUs = async (newOffset = 0) => {
-    setIsLoadingMore(true);
-    try {
-      const url = `/api/cpus?limit=${limit}&offset=${newOffset}`;
-      await fetchComponents(url, (newComponents) => {
-        if (newComponents.length < limit) setHasMore(false);
-        setComponents((prev) => (newOffset === 0 ? newComponents : [...prev, ...newComponents]));
-      }, setError);
-    } catch (err) {
-      console.error("Error fetching CPUs:", err);
-    } finally {
-      setIsLoadingMore(false);
-    }
-  };
-
-  // Initial data fetch
-  useEffect(() => {
-    fetchCPUs(0);
-    isInitialFetch.current = false;
-  }, []);
-
-  // Function to apply filters
-  const applyFilters = () => {
-    const filtered = components.filter((cpu) => {
+  // Filtered components
+  const filteredComponents = useMemo(() => {
+    return components.filter((cpu) => {
       return (
         (selectedManufacturers.length === 0 || selectedManufacturers.includes(cpu.manufacturer.toLowerCase())) &&
+
         (selectedSockets.length === 0 || selectedSockets.includes(cpu.socket.toLowerCase())) &&
-        cpu.coreCount >= coreCountRange[0] && cpu.coreCount <= coreCountRange[1] &&
-        /*cpu.threadCount >= threadCountRange[0] && cpu.threadCount <= threadCountRange[1] && */
-        cpu.performanceCoreClock >= clockSpeedRange[0] && cpu.performanceCoreClock <= clockSpeedRange[1] &&
-        cpu.performanceCoreBoostClock >= boostClockSpeedRange[0] && cpu.performanceCoreBoostClock <= boostClockSpeedRange[1] &&
+
+        cpu.coreCount >= coreCountRange[0] &&
+        cpu.coreCount <= coreCountRange[1] &&
+
+        /*cpu.threadCount >= threadCountRange[0] &&
+        cpu.threadCount <= threadCountRange[1] && */
+
+        cpu.performanceCoreClock >= clockSpeedRange[0] &&
+        cpu.performanceCoreClock <= clockSpeedRange[1] &&
+
+        cpu.performanceCoreBoostClock >= boostClockSpeedRange[0] &&
+        cpu.performanceCoreBoostClock <= boostClockSpeedRange[1] &&
+
         (selectedMicroarchitectures.length === 0 || selectedMicroarchitectures.includes(cpu.microarchitecture.toLowerCase())) &&
-        cpu.tdp >= tdpRange[0] && cpu.tdp <= tdpRange[1] &&
+
+        cpu.tdp >= tdpRange[0] &&
+        cpu.tdp <= tdpRange[1] &&
+
         (selectedGraphics.length === 0 || selectedGraphics.includes(cpu.integrated.toLowerCase())) &&
-        cpu.price >= priceRange[0] && cpu.price <= priceRange[1]
+
+        cpu.price >= priceRange[0] &&
+        cpu.price <= priceRange[1]
       );
     });
-    setFilteredComponents(filtered);
-  };
+  }, [components, selectedManufacturers, selectedSockets, coreCountRange,
+    clockSpeedRange, boostClockSpeedRange, selectedMicroarchitectures, tdpRange,
+    selectedGraphics, priceRange,
+  ]);
 
-  // Apply filters whenever filter states change
-  useEffect(() => {
-    if (!isInitialFetch.current) applyFilters();
-  }, [selectedManufacturers, selectedSockets, coreCountRange, clockSpeedRange,
-    boostClockSpeedRange, selectedMicroarchitectures, tdpRange, selectedGraphics, priceRange]);
+  // Pagination
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 16;
+  const pages = Math.ceil(filteredComponents.length / rowsPerPage);
 
-  // Update offset state to fetch more data when "Load More" button is clicked
-  const handleLoadMore = async () => {
-    const newOffset = offset + limit;
-    setOffset(newOffset);
-    await fetchCPUs(newOffset);
-  };
+  const products = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
 
-  // Apply filters whenever the filter values change
-  useEffect(() => {
-    const filterComponents = () => {
-      const filtered = components.filter((cpu) => {
-        // Apply all filters based on selected criteria
-        return (
-          (selectedManufacturers.length === 0 || selectedManufacturers.includes(cpu.manufacturer.toLowerCase())) &&
-          (selectedSockets.length === 0 || selectedSockets.includes(cpu.socket.toLowerCase())) &&
-          cpu.coreCount >= coreCountRange[0] && cpu.coreCount <= coreCountRange[1] &&
-          /*cpu.threadCount >= threadCountRange[0] && cpu.threadCount <= threadCountRange[1] && */
-          cpu.performanceCoreClock >= clockSpeedRange[0] && cpu.performanceCoreClock <= clockSpeedRange[1] &&
-          cpu.performanceCoreBoostClock >= boostClockSpeedRange[0] && cpu.performanceCoreBoostClock <= boostClockSpeedRange[1] &&
-          (selectedMicroarchitectures.length === 0 || selectedMicroarchitectures.includes(cpu.microarchitecture.toLowerCase())) &&
-          cpu.tdp >= tdpRange[0] && cpu.tdp <= tdpRange[1] &&
-          (selectedGraphics.length === 0 || selectedGraphics.includes(cpu.integrated.toLowerCase())) &&
-          cpu.price >= priceRange[0] && cpu.price <= priceRange[1]
-        );
-      });
-      setFilteredComponents(filtered);
-    };
-
-    filterComponents();
-  }, [components, selectedManufacturers, selectedSockets, coreCountRange, /*threadCountRange*/,
-    clockSpeedRange, boostClockSpeedRange, selectedMicroarchitectures, tdpRange, selectedGraphics, priceRange]);
+    return filteredComponents.slice(start, end);
+  }, [page, filteredComponents]);
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
@@ -288,22 +237,26 @@ export default function App() {
       {/* Container for table */}
       <div className="flex-grow flex items-start justify-center mt-4 gap-4">
         <Table
-          aria-label="CPU Information Table"
+          aria-label="Cpu Information Table"
           className="border-collapse w-full text-[#4D585B] rounded pr-4" // Full width for the table with right padding
           isStriped
           bottomContent={
-            hasMore && (
-              <button
-                className="bg-[#DBAE58] text-black self-center mt-1 px-6 py-2 rounded transition-transform transform active:scale-95 max-h-screen"
-                onClick={handleLoadMore}
-                disabled={isLoadingMore}>
-                {isLoadingMore ? (<Spinner color="default" size="sm" />) : ("Load More")}
-              </button>
-            )}
+            <div className="flex w-full justify-center">
+              <Pagination
+                isCompact
+                showControls
+                showShadow
+                color="warning"
+                page={page}
+                total={pages}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
+          }
           classNames={{
-            base: "max-h-screen",
-            // table: "min-h-screen",
-          }}>
+            wrapper: "min-h-[222px]",
+          }}
+        >
           <TableHeader className="bg-[#488A99] text-[#DBAE58] rounded">
             <TableColumn>Name</TableColumn>
             <TableColumn>Socket</TableColumn>
@@ -317,26 +270,29 @@ export default function App() {
             <TableColumn>Price</TableColumn>
             <TableColumn></TableColumn>
           </TableHeader>
-          <TableBody className="flex-none">
-            {filteredComponents.map((cpu) => (
-              <TableRow key={cpu.cpuId} className="h-[80px]">
-                <TableCell className="align-top">
-                  {cpu.name}
+          <TableBody items={products}>
+            {(cpu) => (
+              <TableRow key={cpu.cpuId}>
+                <TableCell>{cpu.name
+                  .replace(`${cpu.performanceCoreClock} GHz`, "")
+                  .replace(`${cpu.coreCount}-Core Processor`, "")
+                  .replace("Quad-Core Processor", "")
+                  .replace(`(${cpu.partNum})`, "")}
                   <Image src={cpu.image}
                     width="70"
                     height="70"
                     alt="cpu" />
                 </TableCell>
-                <TableCell className="align-top">{cpu.socket}</TableCell>
-                <TableCell className="align-top" >{cpu.tdp + `W`}</TableCell>
-                <TableCell className="align-top">{cpu.microarchitecture}</TableCell>
-                <TableCell className="align-top">{cpu.integrated}</TableCell>
-                <TableCell className="align-top">{cpu.coreCount}</TableCell>
-                {/*<TableCell className="align-top">{cpu.threadCount}</TableCell>*/}
-                <TableCell className="align-top">{cpu.performanceCoreClock + ` GHz`}</TableCell>
-                <TableCell className="align-top">{cpu.performanceCoreBoostClock + ` GHz`}</TableCell>
-                <TableCell className="align-top">{`$` + cpu.price}</TableCell>
-                <TableCell className="align-top">
+                <TableCell>{cpu.socket}</TableCell>
+                <TableCell >{cpu.tdp + `W`}</TableCell>
+                <TableCell>{cpu.microarchitecture}</TableCell>
+                <TableCell>{cpu.integrated}</TableCell>
+                <TableCell>{cpu.coreCount}</TableCell>
+                {/*<TableCell>{cpu.threadCount}</TableCell>*/}
+                <TableCell>{cpu.performanceCoreClock + ` GHz`}</TableCell>
+                <TableCell>{cpu.performanceCoreBoostClock + ` GHz`}</TableCell>
+                <TableCell>{`$` + cpu.price}</TableCell>
+                <TableCell>
                   <Link href="/workshop">
                     <button
                       className="bg-[#DBAE58] text-black px-4 py-2 rounded transition-transform transform active:scale-95"
@@ -345,7 +301,7 @@ export default function App() {
                   </Link>
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </div>

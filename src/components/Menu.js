@@ -34,7 +34,7 @@ export default function Menu() {
   };
 
   return (
-    <Navbar className="bg-pink-50">
+    <Navbar height="56px" className="bg-pink-50" shouldHideOnScroll>
       <NavbarBrand className="">
         {/*<AcmeLogo />*/}
         <Link className="text-xl" color="foreground" href="/">
