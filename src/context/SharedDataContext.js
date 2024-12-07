@@ -21,7 +21,6 @@ export function SharedDataProvider({ children }) {
   const [videoStatus, setVideoStatus] = useState(null);
   const [powerStatus, setPowerStatus] = useState(null);
   const [slotStatus, setSlotStatus] = useState(null);
-  //const [savedBuild, setSavedBuild] = useState([]);
   const [buildName, setBuildName] = useState('');
 
   /* localStorage handling */
@@ -33,7 +32,6 @@ export function SharedDataProvider({ children }) {
     const savedVideoCard = localStorage.getItem('selectedVideoCard');
     const savedCooler = localStorage.getItem('selectedCPUCooler');
     const savedPowerSupply = localStorage.getItem('selectedPowerSupply');
-    //const savedBuild = localStorage.getItem('savedBuild');
     if (savedCPU) {
       setSelectedCPU(JSON.parse(savedCPU));
     }
@@ -55,11 +53,6 @@ export function SharedDataProvider({ children }) {
     if (savedPowerSupply) {
       setSelectedPowerSupply(JSON.parse(savedPowerSupply));
     }
-    /*
-    if (savedBuild) {
-      setSavedBuild(JSON.parse(savedBuild));
-    }
-    */
   }, []);
 
   const showSavedBuild = (cpu, mobo, mem, storage, gpu, psu, cooler) => {
@@ -77,6 +70,19 @@ export function SharedDataProvider({ children }) {
     updateSelectedVideoCard(gpu);
     updateSelectedPowerSupply(psu);
     updateSelectedCPUCooler(cooler);
+  };
+
+  // Removing all selected components in /workshop via Trash icon
+  const clearBuild = () => {
+    clearSelectedCPU();
+    clearSelectedMotherboard();
+    setSelectedMemory([]);
+    localStorage.removeItem('selectedMemory');
+    setSelectedStorage([]);
+    localStorage.removeItem('selectedStorage');
+    clearSelectedCPUCooler();
+    clearSelectedPowerSupply();
+    clearSelectedVideoCard();
   };
 
   {/* Selecting components (/products) and removing components (/workshop) */ }
@@ -202,10 +208,6 @@ export function SharedDataProvider({ children }) {
     localStorage.removeItem('selectedPowerSupply');
   }
 
-  /*
-  const clearSavedBuild = () => {
-  };
-  */
   return (
     <SharedDataContext.Provider
       value={{
@@ -220,7 +222,7 @@ export function SharedDataProvider({ children }) {
         compatibilityStatus, setCompatibilityStatus, socketStatus, setSocketStatus,
         coolerStatus, setCoolerStatus, memoryStatus, setMemoryStatus,
         videoStatus, setVideoStatus, powerStatus, setPowerStatus, slotStatus, setSlotStatus,
-        showSavedBuild, loadedBuildMemory, loadedBuildStorage, buildName, setBuildName
+        showSavedBuild, loadedBuildMemory, loadedBuildStorage, buildName, setBuildName, clearBuild,
       }}>
       {children}
     </SharedDataContext.Provider>

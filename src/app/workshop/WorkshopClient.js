@@ -1,11 +1,10 @@
 'use client';
 import { useState } from "react";
 import {
-  Table, TableHeader, TableColumn, TableBody,
-  TableRow, TableCell, Button, Tooltip /*Image*/
+  Tabs, Tab, Card, CardBody, Table, TableHeader, TableColumn, TableBody,
+  TableRow, TableCell, Button, RadioGroup, Radio, Tooltip /*Image*/
 } from "@nextui-org/react";
-import SaveIcon from '../../../public/save.svg';
-import TrashIcon from '../../../public/trash.svg';
+import MoboDiagram from "../../../public/mobo-diagram-2-mem-slots.png";
 import RedX from "../../../public/x.svg";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,17 +17,17 @@ import { useRouter } from 'next/navigation';
 import { doc, setDoc } from 'firebase/firestore';
 import { fbdb } from '@/lib/firebase/config';
 
-export default function Workshop() {
+const colors = ["default", "primary", "secondary", "success", "warning", "danger"];
+
+export default function Home() {
+  const [selectedBuild, setSelectedBuild] = useState("build1"); // For Tab Builds #1-10
   const { selectedCPU, clearSelectedCPU, selectedMotherboard, clearSelectedMotherboard,
     selectedMemory, clearSelectedMemory, selectedStorage, clearSelectedStorage,
     selectedVideoCard, clearSelectedVideoCard, selectedCPUCooler,
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
-    compatibilityStatus, buildName, setBuildName, clearBuild } = useSharedData();
+    compatibilityStatus, buildName, setBuildName /*savedBuild, setSavedBuild,*/ } = useSharedData();
 
-  const handleClearBuild = () => {
-    clearBuild();
-  }
-
+  const [selectedColor, setSelectedColor] = useState("default"); // Table
   // Firebase
   const { user } = useAuth();
   const router = useRouter();
@@ -52,23 +51,12 @@ export default function Workshop() {
       router.push('/account/login'); // Redirect to login page if user is not logged in
       return;
     }
+
     if (!buildName) {
       setMessage({ text: 'Please enter a name for your build before saving.', type: 'error' });
-      // Clear the message after a few seconds
-      setTimeout(() => {
-        setMessage({ text: '', type: '' });
-      }, 3000);
       return;
     }
-    if (!selectedCPU && !selectedMotherboard && !selectedVideoCard && !selectedCPUCooler
-      && !selectedPowerSupply && selectedMemory.length === 0 && selectedStorage.length === 0) {
-      setMessage({ text: 'Please choose a PC part for your build before saving.', type: 'error' });
-      // Clear the message after a few seconds
-      setTimeout(() => {
-        setMessage({ text: '', type: '' });
-      }, 3000);
-      return;
-    }
+
     try {
       const buildData = {
         name: buildName,
@@ -373,7 +361,7 @@ export default function Workshop() {
         </TableCell>
         <TableCell className="flex flex-row items-center">
           <Tooltip className="whitespace-pre bg-opacity-90"
-            content={`Fan Speed: ${selectedCPUCooler.fanRPM}\nNoise Level: ${selectedCPUCooler.noiseLevel} dB`}>
+            content={`Compatible Sockets: ${selectedCPUCooler.supportedSockets.join(', ')}\nFan Speed: ${selectedCPUCooler.fanRPM}\nNoise Level: ${selectedCPUCooler.noiseLevel} dB`}>
             <Image
               width={70}
               height={70}
@@ -463,61 +451,58 @@ export default function Workshop() {
     <div className="flex flex-col w-full min-h-screen bg-[#4D585B] py-4 px-8 items-center text-workshopTextColor"> {/* Background: Charcoal */}
       <div className="w-full">
         <div className="flex flex-col w-auto justify-center items-center">
-          {/* Flex-col for Title/header & Compatibility Checker */}
-          <h1 className="flex justify-center text-4xl font-bold my-4 text-[#DBAE58]">
+          {/* Flex-col for Title/header, Build Tabs & Compatibility Checker */}
+          <h1 className="flex justify-center text-4xl font-bold my-8 mb-4 text-[#DBAE58]">
             PC Workshop
           </h1>
-          <div className="flex-col overflow-hidden w-2/5 bg-slate-100 rounded-lg">
-            {/* Save builds & Compatibility checker */}
-            <div className="flex rounded-t-lg items-center">
-              <div className="flex flex-grow items-center">
-                <input
-                  type="text"
-                  value={buildName}
-                  onChange={handleBuildNameChange}
-                  placeholder="Enter Build Name"
-                  className="ml-4 pr-4 m-2 p-2 border rounded-lg w-full text-center bg-default-300" />
-              </div>
-              <div className="flex justify-evenly w-auto">
-                <Tooltip content={"Save all PC parts into your named build"} offset={3} className="bg-opacity-85">
-                  <button
-                    onClick={handleSaveBuild}
-                    className="bg-default-300 font-semibold text-sm pl-3 p-2 m-2 rounded-lg transition-all duration-200 hover:outline-2 hover:bg-green-500 focus:ring-2">
-                    <div className="flex justify-center items-center gap-x-1">Save
-                      <Image src={SaveIcon} alt="save" /></div>
-                  </button>
-                </Tooltip>
-                <Tooltip content={"Deselect all PC parts in current build"} offset={3} className="bg-opacity-85">
-                  <button
-                    onClick={handleClearBuild}
-                    className="bg-default-300 font-semibold text-sm pl-3 p-2 m-2 rounded-lg transition-all duration-200 hover:outline-2 hover:bg-red-600 focus:ring-2">
-                    <div className="flex justify-center items-center gap-x-0.5">Clear
-                      <Image src={TrashIcon} alt="trash" /></div>
-                  </button>
-                </Tooltip>
-                <Tooltip content={"Total price of current build"} offset={3} className="bg-opacity-85">
-                  <button disabled className="bg-default-300 font-semibold text-sm p-2 m-2 mr-4 rounded-lg transition-all duration-200 hover:outline-2">
-                    <div className="flex justify-center items-center"><Price /></div>
-                  </button>
-                </Tooltip>
-              </div>
+          <div className="flex flex-col items-center mb-4">
+            <input
+              type="text"
+              value={buildName}
+              onChange={handleBuildNameChange}
+              placeholder="Enter Build Name"
+              className="p-2 border rounded-lg mb-2 w-64 text-center" />
+            <button
+              onClick={handleSaveBuild}
+              className="bg-green-500 text-white px-4 py-2 rounded-lg w-48 transition-all duration-200 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+              Save Build
+            </button>
+          </div>
+          {message.text && (
+            <div className={`text-center mb-4 ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+              {message.text}
             </div>
-            {message.text && (
-              <div className={`text-center mb-4 ${message.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
-                {message.text}
-              </div>
-            )}
+          )}
+          <div className="flex-col bg-slate-100 rounded-lg">
+            {/* Horizontal Tabs for Builds, Centered without Gold Borders */}
+            <Tabs
+              aria-label="Build Options"
+              selectedKey={selectedBuild}
+              onSelectionChange={setSelectedBuild}
+              isVertical={false} // Ensures the tabs remain horizontal
+              className="flex justify-evenly rounded-lg bg-rgb(229, 231, 235)">
+              <Tab key="build1" title="Build 1" />
+              <Tab key="build2" title="Build 2" />
+              <Tab key="build3" title="Build 3" />
+              <Tab key="build4" title="Build 4" />
+              <Tab key="build5" title="Build 5" />
+              <Tab key="build6" title="Build 6" />
+              <Tab key="build7" title="Build 7" />
+              <Tab key="build8" title="Build 8" />
+              <Tab key="build9" title="Build 9" />
+              <Tab key="build10" title="Build 10" />
+            </Tabs>
             {<div className={`flex w-auto rounded-b-lg ${backgroundColor}`}>
               <Compatibility /><Wattage />
             </div>}
           </div>
         </div>
 
-        {/* Flex-row for PC Part Table */}
+        {/* Flex-row for PC Part Table & Compatibility Audit */}
         <div className="flex flex-row items-stretch justify-center py-4 gap-4">
           {/* Table for Selected Components */}
           <div className="flex w-2/5 flex-col gap-3 ml-4 mt-8">
-            <Table aria-label="Selected PC Part Table"
+            <Table color={selectedColor} aria-label="Selected PC Part Table"
               className="">
               <TableHeader>
                 <TableColumn>Component</TableColumn>
@@ -535,7 +520,43 @@ export default function Workshop() {
               </TableBody>
             </Table>
           </div>
+          {/* Mobo diagram */}
+          {/*<div className="flex flex-col items-center">
+              <Image width={400} height={500} src={MoboDiagram} alt="mobo" />
+          </div> */}
+          {/*}
+          <div className="flex w-1/5 flex-col bg-white rounded-xl mr-4 mt-8">
+            <Table aria-label="PC Build Audit">
+              <TableHeader>
+                <TableColumn className="text-center">PC Build Audit</TableColumn>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Socket:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Memory:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>CPU Cooling:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Slots:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Video:</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Power Supply:</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+          */}
         </div>
+      </div>
+      <div className="">
+        <Price />
       </div>
     </div >
   );

@@ -6,7 +6,6 @@ export const Price = () => {
   const { selectedCPU, selectedMotherboard, selectedMemory,
     selectedStorage, selectedVideoCard, selectedCPUCooler,
     selectedPowerSupply, totalPrice, setTotalPrice } = useSharedData();
-
   // Handle Total Price
   useEffect(() => {
     // Calculate total price of all selected memory parts
@@ -48,13 +47,9 @@ export const Price = () => {
   }, [selectedCPU, selectedMotherboard, selectedMemory, selectedStorage,
     selectedVideoCard, selectedCPUCooler, selectedPowerSupply]);
 
-  return (
-    <div className="flex rounded-lg bg-transparent h-10 px-6 pr-7">
-      <p className="flex items-center justify-center font-semibold text-xs">
-        Total Price: ${totalPrice.toFixed(2)}
-      </p>
-    </div>
-  );
+  return <div className="flex justify-center items-center h-6 overflow-hidden">
+    Total Price: ${totalPrice.toFixed(2)}
+  </div>
 }
 
 export default Price;

@@ -15,6 +15,15 @@ export default function CpuCoolerClient({ initialData }) {
   // Adds PC part to current PC Workshop build
   const { updateSelectedCPUCooler } = useSharedData();
 
+  // AIO Coolers handler
+  const [isSelected, setIsSelected] = useState(false);
+  const [liquidCoolers, setLiquidCoolers] = useState(false);
+  useEffect(() => {
+    if (isSelected) {
+      setLiquidCoolers(false);
+    }
+  }, [isSelected])
+
   // Filter states
   const [selectedManufacturers, setSelectedManufacturers] = useState([]);
   const [selectedSockets, setSelectedSockets] = useState([]);
@@ -144,11 +153,11 @@ export default function CpuCoolerClient({ initialData }) {
           <h2 className="text-[#DBAE58]">Liquid Coolers (Radiator Sizes)</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedWaterCooler}>
             <Checkbox value="420">420 mm</Checkbox>
-            <Checkbox value="360">360 mm</Checkbox>
+            <Checkbox value="360" isSelected={liquidCoolers} isDisabled={liquidCoolers}>360 mm</Checkbox>
             <Checkbox value="280">280 mm</Checkbox>
             <Checkbox value="240">240 mm</Checkbox>
-            <Checkbox value="120">120 mm</Checkbox>
-            <Checkbox value="air">None</Checkbox>
+            <Checkbox value="120" isSelected={liquidCoolers} isDisabled={liquidCoolers}>120 mm</Checkbox>
+            <Checkbox value="air" isSelected={isSelected} onValueChange={setIsSelected}>None</Checkbox>
           </CheckboxGroup>
         </Card>
 

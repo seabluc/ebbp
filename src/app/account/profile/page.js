@@ -36,7 +36,6 @@ const Profile = () => {
 
     const fetchUserDetails = async () => {
         if (!user) return;
-
         try {
             const userDoc = await getDoc(doc(fbdb, 'users', user.uid));
             if (userDoc.exists()) {
@@ -70,7 +69,6 @@ const Profile = () => {
 
     const fetchSavedBuilds = async () => {
         if (!user) return;
-
         try {
             const buildsCollection = collection(fbdb, 'users', user.uid, 'builds');
             const buildsSnapshot = await getDocs(buildsCollection);

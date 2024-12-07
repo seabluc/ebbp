@@ -94,8 +94,8 @@ export const Wattage = () => {
   }, [totalWattage]);
 
   return (
-    <div className="flex rounded-br-lg bg-[#DBAE58] items-center h-10 px-6 pr-7">
-      <p className="flex items-center justify-center whitespace-nowrap font-semibold text-xs">
+    <div className="flex rounded-br-lg bg-[#DBAE58] items-center h-12 px-6 pr-7">
+      <p className="flex items-center justify-center whitespace-nowrap font-semibold text-sm">
         <Image className="mr-1" src={wattageIcon} alt="⚡" />{`Total Wattage: ${totalWattage} W`}
       </p>
     </div>

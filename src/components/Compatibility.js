@@ -497,7 +497,7 @@ export const Compatibility = () => {
         </DropdownItem>;
 
   return (
-    <Navbar className="bg-inherit h-10 rounded-bl-lg">
+    <Navbar className="bg-inherit h-12 rounded-bl-lg">
       <NavbarContent>
         <NavbarItem className="flex items-center h-auto">
           <p className="flex font-semibold text-sm">
