@@ -1,12 +1,11 @@
 "use client";
 
 import {
-  Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button,
-  DropdownItem, DropdownTrigger, Dropdown, DropdownMenu
+  Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Link,
+  Navbar, NavbarBrand, NavbarContent, NavbarItem
 } from "@nextui-org/react";
 import { ChevronDown, Cpu, Mobo, Memory, Storage, VideoCard, CpuCooler, PowerSupply } from "./Icons.jsx";
 //import { EBBPLogo } from "./EBBPLogo.jsx";
-//import Link from "next/link";
 import { useAuth } from '@/lib/firebase/authContext'; // Import the useAuth hook from the context
 import { logOutUser } from '@/lib/firebase/authHelpers'; // Import the logout helper function
 
@@ -34,9 +33,9 @@ export default function Menu() {
   };
 
   return (
-    <Navbar height="56px" className="bg-pink-50" /*shouldHideOnScroll*/>
+    <Navbar height="56px" className="bg-pink-50" shouldHideOnScroll>
       <NavbarBrand className="">
-        {/*<AcmeLogo />*/}
+        {/*<EBBPLogo />*/}
         <Link className="text-xl" color="foreground" href="/">
           <p className="font-bold text-inherit">EBBP</p>
         </Link>

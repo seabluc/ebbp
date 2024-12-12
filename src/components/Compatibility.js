@@ -1,18 +1,21 @@
 "use client"
 import { useSharedData } from '@/context/SharedDataContext';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import SmileIcon from '../../public/smile.svg';
 import FrownIcon from '../../public/frown.svg';
 import HelpIcon from "../../public/help-circle.svg";
 import Image from "next/image";
-import { Navbar, NavbarContent, NavbarItem, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Tooltip } from "@nextui-org/react";
+import {
+  Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Navbar,
+  NavbarContent, NavbarItem, Tooltip
+} from "@nextui-org/react";
 
 export const Compatibility = () => {
   const { selectedCPU, selectedMotherboard, selectedMemory, clearSelectedMemory, selectedStorage,
     selectedVideoCard, selectedPowerSupply, selectedCPUCooler, compatibilityStatus,
     setCompatibilityStatus, totalWattage, socketStatus, setSocketStatus, memoryStatus,
     setMemoryStatus, coolerStatus, setCoolerStatus, slotStatus, setSlotStatus,
-    videoStatus, setVideoStatus, powerStatus, setPowerStatus,} = useSharedData();
+    videoStatus, setVideoStatus, powerStatus, setPowerStatus, } = useSharedData();
   //const [totalPrice, setTotalPrice] = useState(0);
 
   // Run all compatibility checks
@@ -31,10 +34,10 @@ export const Compatibility = () => {
       if (!selectedCPUCooler.supportedSockets.includes(selectedCPU.cpuSocket) ||
         (!selectedCPUCooler.supportedSockets.includes(selectedMotherboard.motherboardSocket))) {
         setCompatibilityStatus('Bad');
-        setCoolerStatus('Incompatible'); // cooler socket
+        setCoolerStatus('Incompatible');
       } else {
         setCompatibilityStatus('Good');
-        setCoolerStatus('Compatible'); // cooler socket
+        setCoolerStatus('Compatible');
       }
     };
 
@@ -266,7 +269,7 @@ export const Compatibility = () => {
         <DropdownItem
           key="socket"
           description='CPU and Motherboard sockets are compatible, but a CPU Cooler has not been selected. Consider choosing one that supports your socket type.'>Socket:
-          <span className="text-gray-400"> {selectedCPU?.cpuSocket || ''}</span>
+          <span className="text-orange-500"> {selectedCPU?.cpuSocket || ''}</span>
         </DropdownItem> :
         <DropdownItem
           key="socket"
@@ -308,7 +311,7 @@ export const Compatibility = () => {
             <DropdownItem
               key="memory"
               description="CPU and motherboard are compatible; however, the selected RAM may be downclocked as the motherboard does not support its memory speed.">Memory:
-              <span className="text-gray-400">
+              <span className="text-orange-500">
                 {(() => {
                   for (let i = 0; i < selectedMemory.length; i++) {
                     const memorySpeed = `${selectedMemory[i].memoryType}-${selectedMemory[i].speed}`;
@@ -342,7 +345,7 @@ export const Compatibility = () => {
         <DropdownItem
           key="cooler"
           description='CPU Cooler.'>CPU Cooling:
-          <span className="text-gray-400"> </span>
+          <span className="text-orange-500"> </span>
         </DropdownItem> :
         <DropdownItem
           key="cooler"
@@ -466,7 +469,7 @@ export const Compatibility = () => {
             <DropdownItem
               key="video"
               description="Video card has been selected with no CPU... who picks out the video card before the CPU?">Video:
-              <span className="text-gray-400"> {selectedVideoCard?.chipset || ''}</span>
+              <span className="text-orange-500"> {selectedVideoCard?.chipset || ''}</span>
             </DropdownItem> :
             <DropdownItem
               key="video"
@@ -489,7 +492,7 @@ export const Compatibility = () => {
         <DropdownItem
           key="power_supply"
           description="Although the selected PSU exceeds your build's Total Wattage demands, it does so only marginally, putting it at risk of overloading. Consdier choosing a PSU with a higher wattage for additional headroom and stability.">Power Supply:
-          <span className="text-gray-400"> {selectedPowerSupply?.wattage + 'W' || ''}</span>
+          <span className="text-orange-500"> {selectedPowerSupply?.wattage + 'W' || ''}</span>
         </DropdownItem> :
         <DropdownItem
           key="power_supply"

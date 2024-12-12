@@ -120,7 +120,6 @@ export default function Workshop() {
               <Image width={24} height={24} src={RedX} alt='❌' />
             </button>
           </span>
-
         </TableCell>
         <TableCell className="px-12">{`$${selectedCPU?.price}`}</TableCell>
       </TableRow>
@@ -213,7 +212,6 @@ export default function Workshop() {
         </TableRow>
       );
     }
-
     return selectedMemory.map((memoryItem, index) => (
       <TableRow key={memoryItem.instanceId}>
         <TableCell>
@@ -273,7 +271,6 @@ export default function Workshop() {
         </TableRow>
       );
     }
-
     return selectedStorage.map((storageItem, index) => (
       <TableRow key={storageItem.instanceId}>
         <TableCell>
@@ -284,7 +281,7 @@ export default function Workshop() {
         <TableCell className="flex flex-col">
           <div className="flex flex-row items-center">
             <Tooltip className="whitespace-pre bg-opacity-90"
-              content={`Storage Type: ${storageItem.storageType}\nInterface: ${storageItem.interface}\nCapacity: ${storageItem.capacity} TB`}>
+              content={`Storage Type: ${storageItem.storageType}\nInterface: ${storageItem.interface}\nCapacity: ${storageItem.capacity} GB`}>
               <Image width={60} height={60} src={storageItem.image} alt="Storage" />
             </Tooltip>
             <span className="flex items-center ml-2">
@@ -296,7 +293,7 @@ export default function Workshop() {
               </button>
             </span>
           </div>
-          {/* Conditionally render "Add Additional Memory" button only once at the end */}
+          {/* Conditionally render "Add Additional Storage" button only once at the end */}
           {index === selectedStorage.length - 1 && (
             <div className="mt-2">
               <Link href="products/storage">
@@ -516,7 +513,7 @@ export default function Workshop() {
         {/* Flex-row for PC Part Table */}
         <div className="flex flex-row items-stretch justify-center py-4 gap-4">
           {/* Table for Selected Components */}
-          <div className="flex w-2/5 flex-col gap-3 ml-4 mt-8">
+          <div className="flex w-1/2 flex-col gap-3 ml-4 mt-8">
             <Table aria-label="Selected PC Part Table"
               className="">
               <TableHeader>

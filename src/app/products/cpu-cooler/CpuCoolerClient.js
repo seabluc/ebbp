@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination,
-  Card, CheckboxGroup, Checkbox, Slider
+  Card, CheckboxGroup, Checkbox, Slider, Image, Table, TableHeader, TableBody,
+  TableColumn, TableRow, TableCell, Pagination
 } from "@nextui-org/react";
 import { useState, useMemo, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from "@/context/SharedDataContext";
 
@@ -227,8 +226,8 @@ export default function CpuCoolerClient({ initialData }) {
                     .replace("360", "")
                   }
                   <Image src={cpuCooler.image}
-                    width="70"
-                    height="70"
+                    width={70}
+                    height={70}
                     alt="cpuCooler" />
                 </TableCell>
                 <TableCell>{cpuCooler.fanRPM + ` RPM`}</TableCell>

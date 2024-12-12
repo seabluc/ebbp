@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination,
-  Card, CheckboxGroup, Checkbox, Slider
+  Card, CheckboxGroup, Checkbox, Slider, Image, Table, TableHeader, TableBody,
+  TableColumn, TableRow, TableCell, Pagination
 } from "@nextui-org/react";
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from "@/context/SharedDataContext";
 
@@ -218,8 +217,8 @@ export default function MemoryClient({ initialData }) {
                     .replace(`CL${memory.casLatency}`, "")
                     .replace("Memory", "")}
                   <Image src={memory.image}
-                    width="70"
-                    height="70"
+                    width={70}
+                    height={65}
                     alt="memory" />
                 </TableCell>
                 <TableCell>{memory.memoryType}</TableCell>

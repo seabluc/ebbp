@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination,
-  Card, CheckboxGroup, Checkbox, Slider
+  Card, CheckboxGroup, Checkbox, Slider, Image, Table, TableHeader, TableBody,
+  TableColumn, TableRow, TableCell, Pagination
 } from "@nextui-org/react";
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from "@/context/SharedDataContext";
 
@@ -279,8 +278,8 @@ export default function CpuClient({ initialData }) {
                   .replace("Quad-Core Processor", "")
                   .replace(`(${cpu.partNum})`, "")}
                   <Image src={cpu.image}
-                    width="70"
-                    height="70"
+                    width={70}
+                    height={70}
                     alt="cpu" />
                 </TableCell>
                 <TableCell>{cpu.socket}</TableCell>

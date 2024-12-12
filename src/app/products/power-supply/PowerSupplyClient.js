@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  Table, TableHeader, TableBody, TableColumn, TableRow, TableCell, Pagination,
-  Card, CheckboxGroup, Checkbox, Slider
+  Card, CheckboxGroup, Checkbox, Slider, Image, Table, TableHeader, TableBody,
+  TableColumn, TableRow, TableCell, Pagination
 } from "@nextui-org/react";
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useSharedData } from "@/context/SharedDataContext";
 
@@ -214,7 +213,7 @@ export default function PowerSupplyClient({ initialData }) {
                     .replace("ATX", "")
                     .replace("SFX", "")
                   }
-                  <Image src={powerSupply.image} width="70" height="70" alt="Power Supply" />
+                  <Image src={powerSupply.image} width={70} height={70} alt="Power Supply" />
                 </TableCell>
                 <TableCell>{powerSupply.formFactor}</TableCell>
                 <TableCell>{powerSupply.efficiency}</TableCell>

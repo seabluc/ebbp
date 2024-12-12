@@ -1,6 +1,5 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
 import { Providers } from "@/app/providers";
 import 'firebaseui/dist/firebaseui.css';
 import { SharedDataProvider } from '../context/SharedDataContext';
@@ -29,7 +28,6 @@ export default function RootLayout({ children }) {
         <SharedDataProvider>
           <Providers>
             <AuthProvider>
-              {/*<Navbar />*/}
               {<Menu />}
               <main>{children}</main>
             </AuthProvider>
