@@ -1,9 +1,9 @@
 "use client"
 import { useSharedData } from '@/context/SharedDataContext';
 import { useEffect } from 'react';
-import SmileIcon from '../../public/smile.svg';
-import FrownIcon from '../../public/frown.svg';
-import HelpIcon from "../../public/help-circle.svg";
+import SmileIcon from '@/../public/smile.svg';
+import FrownIcon from '@/../public/frown.svg';
+import HelpIcon from "@/../public/help-circle.svg";
 import Image from "next/image";
 import {
   Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Navbar,

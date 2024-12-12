@@ -59,7 +59,7 @@ export default function StorageClient({ initialData }) {
 
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/6 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for Manufacturers */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">

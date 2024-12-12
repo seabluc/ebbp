@@ -1,8 +1,8 @@
 'use client';
 import { useState } from "react";
 import {
-  Table, TableHeader, TableColumn, TableBody,
-  TableRow, TableCell, Button, Tooltip /*Image*/
+  Button, Table, TableHeader, TableColumn, TableBody,
+  TableRow, TableCell, Tooltip
 } from "@nextui-org/react";
 import SaveIcon from '../../../public/save.svg';
 import TrashIcon from '../../../public/trash.svg';
@@ -25,8 +25,19 @@ export default function Workshop() {
     clearSelectedCPUCooler, selectedPowerSupply, clearSelectedPowerSupply,
     compatibilityStatus, buildName, setBuildName, clearBuild } = useSharedData();
 
+  // Clear Icon handler
   const handleClearBuild = () => {
     clearBuild();
+  }
+
+  // Compatibility Status background color
+  let backgroundColor;
+  if (compatibilityStatus === 'Bad') {
+    backgroundColor = 'bg-red-600';
+  } else if (compatibilityStatus === 'Good' || compatibilityStatus === 'Issue') {
+    backgroundColor = 'bg-green-500';
+  } else if (compatibilityStatus === 'None') {
+    backgroundColor = 'bg-default-400';
   }
 
   // Firebase
@@ -38,21 +49,16 @@ export default function Workshop() {
     setBuildName(e.target.value);
   };
 
-  let backgroundColor;
-  if (compatibilityStatus === 'Bad') {
-    backgroundColor = 'bg-red-600';
-  } else if (compatibilityStatus === 'Good' || compatibilityStatus === 'Issue') {
-    backgroundColor = 'bg-green-500';
-  } else if (compatibilityStatus === 'None') {
-    backgroundColor = 'bg-default-400';
-  }
   // Function to handle saving the build
   const handleSaveBuild = async () => {
+    // Redirect to login page if user is not logged in
     if (!user) {
-      router.push('/account/login'); // Redirect to login page if user is not logged in
-      return;
+      const userConfirmed = confirm("Please log in to save current PC build");
+      if (userConfirmed) {
+        router.push('/account/login')
+      }
     }
-    if (!buildName) {
+    if (user && !buildName) {
       setMessage({ text: 'Please enter a name for your build before saving.', type: 'error' });
       // Clear the message after a few seconds
       setTimeout(() => {
@@ -60,8 +66,8 @@ export default function Workshop() {
       }, 3000);
       return;
     }
-    if (!selectedCPU && !selectedMotherboard && !selectedVideoCard && !selectedCPUCooler
-      && !selectedPowerSupply && selectedMemory.length === 0 && selectedStorage.length === 0) {
+    if (user && (!selectedCPU && !selectedMotherboard && !selectedVideoCard && !selectedCPUCooler
+      && !selectedPowerSupply && selectedMemory.length === 0 && selectedStorage.length === 0)) {
       setMessage({ text: 'Please choose a PC part for your build before saving.', type: 'error' });
       // Clear the message after a few seconds
       setTimeout(() => {
@@ -93,6 +99,7 @@ export default function Workshop() {
     }
   };
 
+  // Table row for CPU
   const cpuRows = () => {
     return selectedCPU ? (
       <TableRow key="1" /*className="border-2"*/ >
@@ -142,6 +149,7 @@ export default function Workshop() {
     );
   };
 
+  // Table row for Motherboard
   const moboRows = () => {
     return selectedMotherboard ? (
       <TableRow key="2">
@@ -191,9 +199,10 @@ export default function Workshop() {
     );
   };
 
+  // Table row for Memory modules (RAM)
   const memoryRows = () => {
     // When no memory component is selected
-    if (!selectedMemory || selectedMemory.length === 0) {
+    if (selectedMemory.length === 0) {
       return (
         <TableRow key="no-memory">
           <TableCell>
@@ -250,9 +259,10 @@ export default function Workshop() {
     ));
   };
 
+  // Table row for Storage devices (HDD, SSD, M.2 SSD NVMe)
   const storageRows = () => {
-    // When no memory component is selected
-    if (!selectedStorage || selectedStorage.length === 0) {
+    // When no storage component is selected
+    if (selectedStorage.length === 0) {
       return (
         <TableRow key="no-storage">
           <TableCell>
@@ -309,6 +319,7 @@ export default function Workshop() {
     ));
   };
 
+  // Table row for Video Card
   const gpuRows = () => {
     return selectedVideoCard ? (
       <TableRow key="5">
@@ -358,6 +369,7 @@ export default function Workshop() {
     );
   };
 
+  // Table row for CPU Cooler (Air & AIO)
   const cpuCoolerRows = () => {
     return selectedCPUCooler ? (
       <TableRow key="6">
@@ -407,6 +419,7 @@ export default function Workshop() {
     );
   };
 
+  // Table row for Power Supply Unit
   const psuRows = () => {
     return selectedPowerSupply ? (
       <TableRow key="7">
@@ -514,7 +527,7 @@ export default function Workshop() {
         <div className="flex flex-row items-stretch justify-center py-4 gap-4">
           {/* Table for Selected Components */}
           <div className="flex w-1/2 flex-col gap-3 ml-4 mt-8">
-            <Table aria-label="Selected PC Part Table"
+            <Table aria-label="Selected PC Part Table" isStriped
               className="">
               <TableHeader>
                 <TableColumn>Component</TableColumn>

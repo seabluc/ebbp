@@ -18,8 +18,9 @@ export default function MotherboardClient({ initialData }) {
   const [selectedManufacturers, setSelectedManufacturers] = useState([]);
   const [selectedSockets, setSelectedSockets] = useState([]);
   const [selectedMemoryType, setSelectedMemoryType] = useState([]);
+  const [selectedChipset, setSelectedChipset] = useState([]);
   const [selectedFormFactor, setSelectedFormFactor] = useState([]);
-  const [memoryCapacityRange, setMemoryCapacityRange] = useState([32, 256]);
+  const [memoryCapacityRange, setMemoryCapacityRange] = useState([0, 256]);
   const [memorySlotRange, setMemorySlotRange] = useState([2, 4]);
   const [priceRange, setPriceRange] = useState([0, 700]);
 
@@ -32,6 +33,8 @@ export default function MotherboardClient({ initialData }) {
         (selectedSockets.length === 0 || selectedSockets.includes(mobo.socket.toLowerCase())) &&
 
         (selectedMemoryType.length === 0 || selectedMemoryType.includes(mobo.motherboardMemoryType.toLowerCase())) &&
+
+        (selectedChipset.length === 0 || selectedChipset.includes(mobo.chipset.toLowerCase())) &&
 
         (selectedFormFactor.length === 0 || selectedFormFactor.includes(mobo.formFactor.toLowerCase())) &&
 
@@ -46,7 +49,7 @@ export default function MotherboardClient({ initialData }) {
       );
     });
   }, [components, selectedManufacturers, selectedSockets, selectedMemoryType,
-    selectedFormFactor, memoryCapacityRange, memorySlotRange, priceRange,]);
+    selectedChipset, selectedFormFactor, memoryCapacityRange, memorySlotRange, priceRange,]);
 
   // Pagination
   const [page, setPage] = useState(1);
@@ -61,7 +64,7 @@ export default function MotherboardClient({ initialData }) {
   }, [page, filteredComponents]);
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/6 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for manufacturers */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
@@ -85,12 +88,42 @@ export default function MotherboardClient({ initialData }) {
           </CheckboxGroup>
         </Card>
 
-        {/* Filter card for Memory Types */}
+        {/* Filter card for memory types */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
           <h2 className="text-[#DBAE58]">Memory Type</h2>
           <CheckboxGroup className="my-2" onChange={setSelectedMemoryType}>
             <Checkbox value="ddr5">DDR5</Checkbox>
             <Checkbox value="ddr4">DDR4</Checkbox>
+          </CheckboxGroup>
+        </Card>
+
+        {/* Filter card for chipsets */}
+        <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">
+          <h2 className="text-[#DBAE58]">Chipset</h2>
+          <CheckboxGroup className="my-2" onChange={setSelectedChipset}>
+            <Checkbox value="amd a320">AMD A320</Checkbox>
+            <Checkbox value="amd a520">AMD A520</Checkbox>
+            <Checkbox value="amd a620">AMD A620</Checkbox>
+            <Checkbox value="amd b350">AMD B350</Checkbox>
+            <Checkbox value="amd b450">AMD B450</Checkbox>
+            <Checkbox value="amd b550">AMD B550</Checkbox>
+            <Checkbox value="amd b650">AMD B650</Checkbox>
+            <Checkbox value="amd b650e">AMD B650E</Checkbox>
+            <Checkbox value="amd x370">AMD X370</Checkbox>
+            <Checkbox value="amd x470">AMD X470</Checkbox>
+            <Checkbox value="amd x570">AMD X570</Checkbox>
+            <Checkbox value="amd x670">AMD X670</Checkbox>
+            <Checkbox value="amd x670e">AMD X670E</Checkbox>
+            <Checkbox value="amd x870">AMD X870</Checkbox>
+            <Checkbox value="amd x870e">AMD X870E</Checkbox>
+            <Checkbox value="intel b660">Intel B660</Checkbox>
+            <Checkbox value="intel b760">Intel B760</Checkbox>
+            <Checkbox value="intel h610">Intel H610</Checkbox>
+            <Checkbox value="intel h670">Intel H670</Checkbox>
+            <Checkbox value="intel h770">Intel H770</Checkbox>
+            <Checkbox value="intel z690">Intel Z690</Checkbox>
+            <Checkbox value="intel z790">Intel Z790</Checkbox>
+            <Checkbox value="intel z890">Intel Z890</Checkbox>
           </CheckboxGroup>
         </Card>
 
@@ -104,7 +137,6 @@ export default function MotherboardClient({ initialData }) {
             <Checkbox value="itx">Mini-ITX</Checkbox>
           </CheckboxGroup>
         </Card>
-
 
         {/* Slider card for Memory range */}
         <Card className="bg-gray-500 py-2 px-4 rounded border-2 border-[#DBAE58]">

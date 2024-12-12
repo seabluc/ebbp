@@ -75,7 +75,7 @@ export default function VideoCardClient({ initialData }) {
   }, [page, filteredComponents]);
   return (
     <div className="min-h-screen bg-[#4D585B] flex gap-4 p-4"> {/* Main background color */}
-      <div className="flex flex-col gap-3 w-1/5 mt-4"> {/* Container for filter cards */}
+      <div className="flex flex-col gap-3 w-1/6 mt-4"> {/* Container for filter cards */}
 
         {/* Filter card for manufacturers */}
         {/*
