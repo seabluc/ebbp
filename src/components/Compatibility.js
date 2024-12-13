@@ -11,12 +11,11 @@ import {
 } from "@nextui-org/react";
 
 export const Compatibility = () => {
-  const { selectedCPU, selectedMotherboard, selectedMemory, clearSelectedMemory, selectedStorage,
+  const { selectedCPU, selectedMotherboard, selectedMemory, selectedStorage,
     selectedVideoCard, selectedPowerSupply, selectedCPUCooler, compatibilityStatus,
     setCompatibilityStatus, totalWattage, socketStatus, setSocketStatus, memoryStatus,
     setMemoryStatus, coolerStatus, setCoolerStatus, slotStatus, setSlotStatus,
     videoStatus, setVideoStatus, powerStatus, setPowerStatus, } = useSharedData();
-  //const [totalPrice, setTotalPrice] = useState(0);
 
   // Run all compatibility checks
   useEffect(() => {
@@ -538,24 +537,3 @@ export const Compatibility = () => {
 }
 
 export default Compatibility;
-{/* add Price related content below everything else (like PcPP)
-  <NavbarItem isActive>
-    Total Price: ${totalPrice}
-  </NavbarItem>
-*/}
-
-{ /* @/components/Compatibility.js in useEffect()
-  Temporarily putting a pause on Price related stuff
-// Calculate total cost of PC components
-const cost =
- (parseFloat(selectedCPU?.price) || 0) +
- (parseFloat(selectedMotherboard?.price) || 0) +
- (parseFloat(selectedMemory?.price) || 0) +
- (parseFloat(selectedStorage?.price) || 0) +
- (parseFloat(selectedVideoCard?.price) || 0) +
- (parseFloat(selectedCPUCooler?.price) || 0) +
- (parseFloat(selectedPowerSupply?.price) || 0);
-
-// Update totalPrice state
-setTotalPrice(cost);
-*/}

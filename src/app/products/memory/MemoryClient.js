@@ -20,7 +20,7 @@ export default function MemoryClient({ initialData }) {
   const [speedRange, setSpeedRange] = useState([2100, 8400]);
   const [latencyRange, setLatencyRange] = useState([13, 40]);
   const [trueLatencyRange, setTrueLatencyRange] = useState([7.3, 15.4]);
-  //const [selectedModules, setSelectedModules] = useState([1, 2]);
+  //const [selectedModules, setSelectedModules] = useState([1, 2]); include once single memory kits are added  
   const [selectedColor, setSelectedColor] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 800]);
 

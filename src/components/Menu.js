@@ -4,7 +4,7 @@ import {
   Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Link,
   Navbar, NavbarBrand, NavbarContent, NavbarItem
 } from "@nextui-org/react";
-import { ChevronDown, Cpu, Mobo, Memory, Storage, VideoCard, CpuCooler, PowerSupply } from "./Icons.jsx";
+import { ChevronDown, Cpu, Mobo, Memory, Storage, VideoCard, CpuCooler, PowerSupply, User } from "./Icons.jsx";
 //import { EBBPLogo } from "./EBBPLogo.jsx";
 import { useAuth } from '@/lib/firebase/authContext'; // Import the useAuth hook from the context
 import { logOutUser } from '@/lib/firebase/authHelpers'; // Import the logout helper function
@@ -23,13 +23,14 @@ export default function Menu() {
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
-    cpu: <Cpu className="" fill="currentColor" size={30} />,
-    mobo: <Mobo className="" fill="currentColor" size={30} />,
-    memory: <Memory className="" fill="currentColor" size={30} />,
-    storage: <Storage className="" fill="currentColor" size={30} />,
-    gpu: <VideoCard className="" fill="currentColor" size={30} />,
-    cooler: <CpuCooler className="" fill="currentColor" size={30} />,
-    psu: <PowerSupply className="" fill="currentColor" size={30} />,
+    cpu: <Cpu fill="currentColor" size={30} />,
+    mobo: <Mobo fill="currentColor" size={30} />,
+    memory: <Memory fill="currentColor" size={30} />,
+    storage: <Storage fill="currentColor" size={30} />,
+    gpu: <VideoCard fill="currentColor" size={30} />,
+    cooler: <CpuCooler fill="currentColor" size={30} />,
+    psu: <PowerSupply fill="currentColor" size={30} />,
+    user: <User fill="currentColor" size={30} />,
   };
 
   return (
@@ -141,16 +142,16 @@ export default function Menu() {
           {!loading && user ? (
             <>
               <Link href="/account/profile" className="mr-2 text-gray-800 hover:underline">
-                {user.displayName || user.username}
+              <span className="mr-1">{icons.user}</span>{user.displayName || user.username}
               </Link>
-              <Button className="mx-2 text-base" color="danger" variant="flat" onPress={handleLogout}>
+              <Button className="mx-2.5 text-base" color="danger" variant="flat" onPress={handleLogout}>
                 Logout
               </Button>
             </>
           ) : (
             <>
               <Link className="text-lg mr-2" href="/account/login">Login</Link>
-              <Button className="mx-2 text-base" color="primary" variant="flat" as={Link} href="/account/register">
+              <Button className="mx-2.5 text-base" color="primary" variant="flat" as={Link} href="/account/register">
                 Sign Up
               </Button>
             </>
