@@ -1,4 +1,5 @@
 'use client';
+
 import { createContext, useContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -120,8 +121,11 @@ export function SharedDataProvider({ children }) {
   const updateSelectedMemory = (memory) => {
     const instanceId = uuidv4();
     const newMemoryItem = { ...memory, instanceId };
-    setSelectedMemory((prevMemory) => [...prevMemory, newMemoryItem]);
-    localStorage.setItem('selectedMemory', JSON.stringify([...selectedMemory, newMemoryItem]));
+    setSelectedMemory((prevMemory) => {
+      const updatedMemory = [...prevMemory, newMemoryItem];
+      localStorage.setItem('selectedMemory', JSON.stringify(updatedMemory));
+      return updatedMemory;
+    });
   };
 
   const loadedBuildMemory = (memory) => {
@@ -147,8 +151,11 @@ export function SharedDataProvider({ children }) {
   const updateSelectedStorage = (storage) => {
     const instanceId = uuidv4();
     const newStorageItem = { ...storage, instanceId };
-    setSelectedStorage((prevStorage) => [...prevStorage, newStorageItem]);
-    localStorage.setItem('selectedStorage', JSON.stringify([...selectedStorage, newStorageItem]));
+    setSelectedStorage((prevStorage) => {
+      const updatedStorage = [...prevStorage, newStorageItem];
+      localStorage.setItem('selectedStorage', JSON.stringify(updatedStorage));
+      return updatedStorage;
+    });
   };
 
   const loadedBuildStorage = (storage) => {
