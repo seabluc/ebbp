@@ -18,6 +18,13 @@ import { useRouter } from 'next/navigation';
 import { doc, setDoc } from 'firebase/firestore';
 import { fbdb } from '@/lib/firebase/config';
 
+// cannot export generateMetadata in client component
+// export function generateMetadata() {
+//   return {
+//     title: 'Workshop - Build your PC',
+//   };
+// }
+
 export default function Workshop() {
   const { selectedCPU, clearSelectedCPU, selectedMotherboard, clearSelectedMotherboard,
     selectedMemory, clearSelectedMemory, selectedStorage, clearSelectedStorage,

@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  webpack: (config) => {
+    config.ignoreWarnings = [
+      {
+        module: /sequelize/, // A RegExp 
+      },
+    ];
+    return config;
+  },
   images: {
     domains: ['cdna.pcpartpicker.com',
       'm.media-amazon.com',

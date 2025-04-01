@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import { Providers } from "@/app/providers";
 import 'firebaseui/dist/firebaseui.css';
@@ -9,30 +10,27 @@ import Menu from "@/components/Menu";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "EBBP",
-  description: "CSS 497 SU & AU '24",
+  title: "PC part compatibility checker. Build a functional PC. - EBBP",
+  description: "EvenBabiesBuildPCs EBBP PC Part compatibility checker PC build help tool",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        {/* Viewport Meta Tag <Meta />
-          * viewport - visiable area of webpage on device 
-          * width=device.width - browser matches width of the viewport to the actual device's screen width
-          * initial-scale=1.0 - page is displayed at 1:1 scale (no zoom), so no unwanted zooming/scaling on smaller screens
-        */}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
       <body className={inter.className}>
-        <SharedDataProvider>
-          <Providers>
-            <AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <header>
               {<Menu />}
-              <main>{children}</main>
-            </AuthProvider>
-          </Providers>
-        </SharedDataProvider>
+            </header>
+            <main>
+              <SharedDataProvider>
+                {children}
+              </SharedDataProvider>
+              <Analytics />
+            </main>
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -1,17 +1,23 @@
 {
   "name": "ebbp",
-  "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "dotenv -- sequelize-cli db:migrate",
+    "migrate:rollback": "dotenv -- sequelize-cli db:migrate:undo",
+    "migrate:rollback:all": "dotenv -- sequelize-cli db:migrate:undo:all",
+    "seed": "dotenv -- sequelize-cli db:seed:all",
+    "seed:rollback": "dotenv -- sequelize-cli db:seed:undo",
+    "seed:rollback:all": "dotenv -- sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
     "@react-stately/data": "^3.11.7",
-    "csv-parser": "^3.0.0",
+    "@vercel/analytics": "^1.5.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.14.0",
     "firebaseui": "^6.1.0",
@@ -22,9 +28,13 @@
     "react-dom": "^18",
     "react-firebase-hooks": "^5.1.1",
     "sequelize": "^6.37.4",
+    "server-only": "^0.0.1",
     "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "@types/react": "18.3.20",
+    "csv-parser": "^3.2.0",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.14",
     "postcss": "^8",

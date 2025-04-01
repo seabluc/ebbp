@@ -1,5 +1,11 @@
 import { Card, CardHeader, CardBody, Divider, Link, Image, Button } from "@nextui-org/react";
 
+export async function generateMetadata() {
+  return {
+    title: 'Products',
+  };
+}
+
 export default function ProductsPage() {
   return (
     <div className="min-h-screen flex flex-col items-center bg-[#4D585B]"> {/* Background: Charcoal */}
@@ -173,6 +179,8 @@ export default function ProductsPage() {
             </Link>
           </CardBody>
         </Card>
+
+        {/* <Link href={`/products/${productId}`}>Product {productId}</Link> */}
 
         {/* Case Card */}
         {/*
