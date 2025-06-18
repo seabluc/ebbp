@@ -5,12 +5,13 @@ import { useAuth } from '@/lib/firebase/authContext';
 import { useRouter } from 'next/navigation';
 import { collection, getDocs, doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { fbdb } from '@/lib/firebase/config';
-import { useSharedData } from '@/context/SharedDataContext';
+// import { useSharedData } from '@/context/SharedDataContext';
 import Image from 'next/image';
 
 const Profile = () => {
+    const showSavedBuild = () => { return 'lol' };
     const { user, loading, updateUser } = useAuth();
-    const { showSavedBuild } = useSharedData();
+    //const { showSavedBuild } = useSharedData();
     const router = useRouter();
     const [displayName, setDisplayName] = useState('');
     const [email, setEmail] = useState('');
@@ -87,15 +88,15 @@ const Profile = () => {
             const buildDoc = await getDoc(doc(fbdb, 'users', user.uid, 'builds', buildId));
             if (buildDoc.exists()) {
                 const buildData = buildDoc.data();
-                showSavedBuild(
-                    buildData.cpu || null,
-                    buildData.motherboard || null,
-                    buildData.memory || [],
-                    buildData.storage || [],
-                    buildData.videoCard || null,
-                    buildData.powerSupply || null,
-                    buildData.cpuCooler || null
-                );
+                // showSavedBuild(
+                //     buildData.cpu || null,
+                //     buildData.motherboard || null,
+                //     buildData.memory || [],
+                //     buildData.storage || [],
+                //     buildData.videoCard || null,
+                //     buildData.powerSupply || null,
+                //     buildData.cpuCooler || null
+                // );
 
                 router.push('/workshop');
             } else {
@@ -109,7 +110,7 @@ const Profile = () => {
     const handleDeleteBuild = async (buildId) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this build? This action cannot be undone.');
         if (!confirmDelete) {
-            return; 
+            return;
         }
 
         try {
