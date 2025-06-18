@@ -22,7 +22,7 @@ export default async function Products({ params }) {
 
   // now that we've got routes to find like products/cpu, products/memory, products/cpu/2... 
   // we want to handle the navigation between all of these routes via built-in Next.js Link component
-  // <Link href="/products/cpu">I already knew about this wtf</Link>
+  // <Link href="/products/cpu">I already knew about this??</Link>
 
   const partId = (await params).productId;
   return (

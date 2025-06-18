@@ -16,7 +16,7 @@ const associations = () => {
 
   Part.hasOne(Motherboard, { foreignKey: 'partId', onDelete: "CASCADE" });
   Motherboard.belongsTo(Part, { foreignKey: 'partId' });
-  Motherboard.hasMany(MotherboardMemorySpeed, { foreignKey: 'motherboardId', onDelete: "CASCADE" });
+  Motherboard.hasMany(MotherboardMemorySpeed, { foreignKey: 'motherboardId', onDelete: "CASCADE", as: 'MotherboardMemorySpeeds' });
   MotherboardMemorySpeed.belongsTo(Motherboard, { foreignKey: 'motherboardId' })
 
   Part.hasOne(Memory, { foreignKey: 'partId', onDelete: "CASCADE" });
@@ -30,7 +30,7 @@ const associations = () => {
 
   Part.hasOne(CpuCooler, { foreignKey: 'partId', onDelete: "CASCADE" });
   CpuCooler.belongsTo(Part, { foreignKey: 'partId' });
-  CpuCooler.hasMany(CpuCoolerSocket, { foreignKey: 'cpuCoolerId', onDelete: "CASCADE" });
+  CpuCooler.hasMany(CpuCoolerSocket, { foreignKey: 'cpuCoolerId', onDelete: "CASCADE", as: 'CpuCoolerSockets' });
   CpuCoolerSocket.belongsTo(CpuCooler, { foreignKey: 'cpuCoolerId' });
 
   Part.hasOne(PowerSupply, { foreignKey: 'partId', onDelete: "CASCADE" });

@@ -3,9 +3,9 @@ import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 import { Providers } from "@/app/providers";
 import 'firebaseui/dist/firebaseui.css';
-import { SharedDataProvider } from '../context/SharedDataContext';
 import { AuthProvider } from '@/lib/firebase/authContext';
-import Menu from "@/components/Menu";
+import NavMenu from "@/components/nav-menu";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,22 +16,29 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Providers>
-          <AuthProvider>
-            <header>
-              {<Menu />}
-            </header>
-            <main>
-              <SharedDataProvider>
-                {children}
-              </SharedDataProvider>
-              <Analytics />
-            </main>
-          </AuthProvider>
-        </Providers>
-      </body>
-    </html>
+    <>
+      <html lang="en">
+        <body className={inter.className}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Providers>
+              <AuthProvider>
+                <header>
+                  <NavMenu />
+                </header>
+                <main>
+                  {children}
+                  <Analytics />
+                </main>
+              </AuthProvider>
+            </Providers>
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
   );
 }

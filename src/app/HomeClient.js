@@ -1,10 +1,13 @@
+// OLLDDD 
 "use client"
 
 import { Button, Card, CardHeader, CardBody, Divider, Link } from "@nextui-org/react";
+//import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+//import Link from "next/link";
 
 export default function HomeClient() {
   return (
-    <div className="min-h-screen flex flex-col items-center bg-[#4D585B]"> {/* Background: Charcoal */}
+    <div className="min-h-screen flex flex-col items-center"> {/* Background: Charcoal */}
       <h1 className="text-4xl font-bold mt-16 mb-4 text-[#DBAE58] text-center">Home Page</h1> {/* Title: Gold */}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-[1650px] mx-auto"> {/* Centering the card grid */}

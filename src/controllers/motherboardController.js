@@ -17,10 +17,10 @@ export const getMotherboard = async (motherboardId) => {
   return await Motherboard.findByPk(motherboardId, {
     include: [
       { model: Part },
-      { model: MotherboardMemorySpeed, /*raw: true, nest: true*/ }
+      { model: MotherboardMemorySpeed, as: 'MotherboardMemorySpeeds' }
     ],
-    raw: true,
-    nest: true
+    //raw: true,
+    //nest: true
   });
 };
 

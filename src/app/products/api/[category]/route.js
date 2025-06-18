@@ -1,3 +1,4 @@
+// route handler for dynamically fetching all records for a particular product 
 import { productControllers } from "@/controllers";
 
 export async function GET(_request, { params }) {
