@@ -5,17 +5,17 @@ import Image from "next/image"
 
 export const cpuColumns = [
   {
-    accessorKey: "Part.name",
-    id: "Part.name",
+    accessorKey: "part.name",
+    id: "part.name",
     header: "Name",
     cell: ({ row }) => {
-      const name = row.original.Part?.name
-        ?.replace(`(${row.original.Part?.partNum})`, '')
-        ?.replace(row.original.Part?.type, '')
+      const name = row.original.part?.name
+        ?.replace(`(${row.original.part?.partNum})`, '')
+        ?.replace(row.original.part?.type, '')
         ?.replace('Processor', '')
         ?.replace(`${row.original.coreCount}-Core`, '')
         ?.replace(`${row.original.performanceCoreClock} GHz`, '')
-      const image = row.original.Part?.image
+      const image = row.original.part?.image
 
       return (
         <div className="flex items-center space-x-2">
@@ -28,7 +28,7 @@ export const cpuColumns = [
               className="p-1 border-2 border-black/25 rounded-xl object-contain"
             />
           )}
-          <span>{name}</span>
+          <span className="">{name}</span>
         </div>
       )
     }
@@ -46,7 +46,7 @@ export const cpuColumns = [
       else if (row.original.integrated === 'None') watts = `${row.original.tdp} W`;
       else watts = `${Math.ceil(row.original.tdp + (row.original.tdp * 0.35))} W`;
       return (
-        <span>{watts}</span>
+        <span className="flex items-center">{watts}</span>
       )
     }
   },

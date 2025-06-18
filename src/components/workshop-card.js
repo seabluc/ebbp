@@ -48,7 +48,7 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
   };
 
   const compatibilityStatus = useMemo(() => {
-    if (!component?.Part) return { background: '', icon: '❔' };
+    if (!component?.part) return { background: '', icon: '❔' };
 
     const tests = compatibilityMap[label]?.tests;
     const results = tests.map((test) => BuildTests[test]());
@@ -73,10 +73,10 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
   const { background, icon/*, ariaLabel*/ } = compatibilityStatus;
 
   // Fix productName later... refer to columns files
-  const productName = component?.Part?.name
+  const productName = component?.part?.name
   //?.replace(/Processor|Solid State Drive|Internal Hard Drive/g, "")
-  // ?.replace(`(${component?.Part?.partNum})`, '')
-  // ?.replace(component?.Part?.type, '')
+  // ?.replace(`(${component?.part?.partNum})`, '')
+  // ?.replace(component?.part?.type, '')
   // ?.replace('Processor', '')
   // ?.replace('Solid State Drive', 'SSD')
   // ?.replace('Internal Hard Drive', "HDD")
@@ -151,9 +151,9 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
         </CardTitle>
       </CardHeader>
       <CardContent className={`${background} border-black/15 border-0.5 pt-2 pl-5`}>
-        {component.Part ? (
+        {component.part ? (
           <div className="flex flex-row items-center gap-4">
-            <img src={component?.Part?.image} alt={label} width="60" height="60" className="border-2 border-black/25 rounded-xl object-contain" />
+            <img src={component?.part?.image} alt={label} width="60" height="60" className="border-2 border-black/25 rounded-xl object-contain" />
             <span className="text-base font-semibold">{productName}</span>
           </div>
         ) : (
@@ -164,7 +164,7 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
           </Link>
         )}
       </CardContent>
-      {component.Part && (
+      {component.part && (
         <CardFooter className="flex items-center justify-evenly py-4">
           <Link href="#audit">
             <Button className="bg-default-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1">

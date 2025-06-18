@@ -7,15 +7,15 @@ export const useCoolingTest = () => {
   const { cpu, motherboard, cpuCooler } = useBuildStore.getState();
 
   // Tests unavailable if build lacks CPU
-  if (!cpu.Part) return STATUS.DEFAULT;
+  if (!cpu.part) return STATUS.DEFAULT;
 
   // CPU exists, check if build has compatible CPU cooler
-  if (cpuCooler.Part) {
+  if (cpuCooler.part) {
     if (!cpuCooler.CpuCoolerSockets.some(val => val.socket === cpu.socket)) {
       return STATUS.INCOMPATIBLE;
     }
     // If build has Motherboard, check socket compatibility w/ CPU Cooler
-    if (motherboard.Part) {
+    if (motherboard.part) {
       if (!cpuCooler.CpuCoolerSockets.some(val => val.socket === motherboard.socket)) {
         return STATUS.INCOMPATIBLE;
       }

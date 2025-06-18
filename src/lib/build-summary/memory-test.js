@@ -7,7 +7,7 @@ export const useMemoryTest = () => {
   const { /*cpu,*/ motherboard, memory } = useBuildStore.getState();
 
   // Tests unavailable if Memory/Motherboard DNE in build
-  if (memory.length <= 0 || !motherboard.Part) return STATUS.DEFAULT;
+  if (memory.length <= 0 || !motherboard.part) return STATUS.DEFAULT;
 
   // Check for memory type compatibility
   const mismatchedMemType = memory.some(mem => mem.memoryType !== motherboard.memoryType);

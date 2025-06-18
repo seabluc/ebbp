@@ -8,7 +8,7 @@ export const usePowerTest = () => {
   const { cpu, motherboard, memory, storage,
     videoCard, cpuCooler, powerSupply } = useBuildStore.getState();
 
-  if (!powerSupply.Part) return STATUS.DEFAULT; // Tests unavailable if PSU DNE in build
+  if (!powerSupply.part) return STATUS.DEFAULT; // Tests unavailable if PSU DNE in build
 
   const totalWattage = calculateTotalWattage(
     { cpu, motherboard, memory, storage, videoCard, cpuCooler }

@@ -8,7 +8,7 @@ export async function generateMetadata() {
 
 export default function ProductsPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center bg-[#4D585B]"> {/* Background: Charcoal */}
+    <div className="min-h-screen flex flex-col items-center">
       <h1 className="text-4xl font-bold mt-16 mb-4 text-[#DBAE58] text-center">PC Component Products</h1> {/* Title: Gold */}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1650px]">

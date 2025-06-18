@@ -5,17 +5,17 @@ import Image from "next/image"
 
 export const memoryColumns = [
   {
-    accessorKey: "Part.name",
-    id: "Part.name",
+    accessorKey: "part.name",
+    id: "part.name",
     header: "Name",
     cell: ({ row }) => {
-      const name = row.original.Part?.name
-        ?.replace(`(${row.original.Part?.partNum})`, '')
-        ?.replace(row.original.Part?.type, '')
+      const name = row.original.part?.name
+        ?.replace(`(${row.original.part?.partNum})`, '')
+        ?.replace(row.original.part?.type, '')
         ?.replace(`${row.original.capacity} GB`, '')
         ?.replace(`${row.original.memoryType}-${row.original.speed}`, '')
         ?.replace(`CL${row.original.casLatency}`, '')
-      const image = row.original.Part?.image
+      const image = row.original.part?.image
 
       return (
         <div className="flex items-center space-x-2">

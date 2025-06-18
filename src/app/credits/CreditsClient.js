@@ -1,9 +1,6 @@
-"use client";
-
 import { Card } from "@nextui-org/react";
 
-export default function CreditsClient({ params }) {
-  //const components = params;
+export default function CreditsClient() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-[#4D585B] p-8"> {/* Background: Charcoal */}
       <h1 className="text-center text-4xl mb-4 font-bold text-[#DBAE58]">Credits</h1> {/* Title: Gold */}
@@ -19,16 +16,6 @@ export default function CreditsClient({ params }) {
           We would like to extend our special thanks to our advisor, Jeff Kim, for his invaluable guidance and support throughout the project, helping us refine our ideas and achieve our goals.
         </p>
       </Card>
-      <div className="">
-        {params.map((model) => (
-          <div key={model.cpuId}>
-            Cpu's primary key: {model.cpuId} Cpu's foreign key: {model.partId} Cpu's microarchitecture: {model.microarchitecture} Part's name: {model.Part?.name}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
-
-{/*<div key={model.testId}>Test's primary key: {model.testId} Test's firstName: {model.firstName}</div>*/ }
-{/*<div key={model.userId}>User's primary key: {model.userId} User's foreign key: {model.testId} User's username: {model.username} Test prop's email: {model.Test?.email}</div>*/ }

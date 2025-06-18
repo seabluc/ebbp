@@ -5,14 +5,14 @@ import Image from "next/image"
 
 export const powerSupplyColumns = [
   {
-    accessorKey: "Part.name",
-    id: "Part.name",
+    accessorKey: "part.name",
+    id: "part.name",
     header: "Name",
     cell: ({ row }) => {
-      const name = row.original.Part?.name
+      const name = row.original.part?.name
         ?.replace('Cooler Master V SFX Gold ATX 3.0 850 W 80+ Gold Certified Fully Modular SFX Power Supply (MPY-8501-SFHAGV-3US)', 'Cooler Master V 3.0')
-        ?.replace(`(${row.original.Part?.partNum})`, '')
-        ?.replace(row.original.Part?.type, '')
+        ?.replace(`(${row.original.part?.partNum})`, '')
+        ?.replace(row.original.part?.type, '')
         ?.replace(row.original.formFactor, '')
         ?.replace(`${row.original.wattage} W`, '')
         ?.replace(`V${row.original.wattage}`, '')
@@ -21,7 +21,7 @@ export const powerSupplyColumns = [
         ?.replace(row.original.modularity, '')
         ?.replace(/Fully Modular|FULL MODULAR|White|Bronze|Silver|Gold|Platinum|WHITE|BRONZE|SILVER|GOLD|PLATINUM/g, "")
         ?.replace(row.original.formFactor, '')
-      const image = row.original.Part?.image
+      const image = row.original.part?.image
 
       return (
         <div className="flex items-center space-x-2">

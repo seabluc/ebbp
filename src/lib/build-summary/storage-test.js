@@ -7,7 +7,7 @@ export const useStorageTest = () => {
   const { motherboard, storage } = useBuildStore.getState();
 
   // Tests unavailable if Storage/Motherboard DNE in build
-  if (storage.length <= 0 || !motherboard.Part) return STATUS.DEFAULT;
+  if (storage.length <= 0 || !motherboard.part) return STATUS.DEFAULT;
 
   // Check for available M.2 storage slots
   const storageM2Count = storage.reduce(

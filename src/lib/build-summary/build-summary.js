@@ -11,12 +11,12 @@ import { ChevronsUpDown, Zap, ZapOff } from "lucide-react";
 
 export function calculateTotalWattage({ cpu, motherboard, memory, storage, videoCard, cpuCooler }) {
   let totalWattage = 0;
-  if (cpu?.Part) {
+  if (cpu?.part) {
     if (cpu.maxTurboPower) totalWattage += cpu.maxTurboPower;
     else if (cpu.integrated === 'None') totalWattage += cpu.tdp;
     else totalWattage += Math.ceil(cpu.tdp + (cpu.tdp * 0.35));
   }
-  if (motherboard?.Part) {
+  if (motherboard?.part) {
     switch (motherboard.formFactor) {
       case 'EATX': totalWattage += 100; break;
       case 'ATX': totalWattage += 70; break;
@@ -32,10 +32,10 @@ export function calculateTotalWattage({ cpu, motherboard, memory, storage, video
   if (storage?.length > 0) {
     totalWattage += storage.length * 15;
   }
-  if (videoCard?.Part) {
+  if (videoCard?.part) {
     totalWattage += videoCard.tdp;
   }
-  if (cpuCooler?.Part) {
+  if (cpuCooler?.part) {
     totalWattage += cpuCooler.radiatorSize ? 15 : 10;
   }
   return totalWattage;
@@ -76,11 +76,11 @@ export const CompatibilityAudit = () => {
   let psuStatus = 'Power (Watts): Select a Power Supply Unit (PSU) with at least 25% more wattage than your Total Wattage to ensure sufficient headroom.'
 
   // ================================== CPU ==================================
-  if (cpu.Part) {
+  if (cpu.part) {
     // check cpu graphics and video card
     // check if cpu is dedicated
     if (cpu.integrated === 'None') {
-      if (videoCard.Part) {
+      if (videoCard.part) {
         cpuGraphics = 'Graphics: COMPATIBLE - dedicated CPU and video card are selected'; // CONSIDER creating a status object to audit all possibilities. like what happens if theres a dedicated cpu paired with an incompatible mobo socket AND no gpu selected. what would status be? See what i mean?
       } else {
         cpuGraphics = 'Graphics: INCOMPATIBLE - no integrated graphics or video card selected'
@@ -88,7 +88,7 @@ export const CompatibilityAudit = () => {
     }
     // check if cpu is integrated
     if (cpu.integrated !== 'None') {
-      if (videoCard.Part) {
+      if (videoCard.part) {
         cpuGraphics = 'Graphics: COMPATIBLE - integrated CPU and Video Card selected'
       } else {
         cpuGraphics = "Graphics: COMPATIBLE - integrated CPU but no Video Card selected. Consider using a Video Card to enhance your build's graphical/visual performance"
@@ -96,7 +96,7 @@ export const CompatibilityAudit = () => {
     }
 
     // check mobo and cpu sockets
-    if (motherboard.Part) {
+    if (motherboard.part) {
       if (motherboard.socket === cpu.socket) {
         cpuSockets = 'Socket: COMPATIBLE - CPU & Motherboard have identical sockets';
       } else {
@@ -107,7 +107,7 @@ export const CompatibilityAudit = () => {
     }
     // check cpu and cpu cooler
     // check if build has a cpuCooler
-    if (!cpuCooler.Part) {
+    if (!cpuCooler.part) {
       // check if cpu comes with a stock cooler
       cpuCooling = (cpu.includedCooler) ?
         'Cooling: COMPATIBLE - CPU comes with stock cooler, ideal for low-end builds. Consider adding a CPU Cooler for more demanding builds'
@@ -115,14 +115,14 @@ export const CompatibilityAudit = () => {
     }
 
     // check cpu and cooler sockets
-    if (cpuCooler.Part) {
+    if (cpuCooler.part) {
       cpuCooling = (cpuCooler.CpuCoolerSockets.some(socket => socket.socket === cpu.socket)) ?
         'Cooling: COMPATIBLE - CPU Cooler and CPU use the same socket' :
         'Cooling: INCOMPATIBLE - CPU Cooler does not support your CPU socket'
 
       // check if cpu, motherboard, and cpu cooler have compatible sockets
       /*
-      if (motherboard.Part && cpu.Part && cpuCooler.Part) {
+      if (motherboard.part && cpu.part && cpuCooler.part) {
         cpuSockets = (cpu.socket === motherboard.socket &&
           (cpuCooler.CpuCoolerSockets.some(socket => socket.socket === motherboard.socket))) ?
           'Socket: COMPATIBLE - cpu, cpu cooler, and motherboard all support the same socket' :
@@ -134,9 +134,9 @@ export const CompatibilityAudit = () => {
 
   // ============================== Motherboard ===============================
   // FIX MotherboardMemorySpeed and Memory/Storage states (can't add Memory/Storage PC parts to build)
-  if (motherboard.Part) {
+  if (motherboard.part) {
     // check Motherboard and CPU Cooler compatibility
-    if (cpuCooler.Part) {
+    if (cpuCooler.part) {
       cpuSockets = (cpuCooler.CpuCoolerSockets.some(socket => socket.socket === motherboard.socket)) ?
         'Socket: COMPATIBLE - Motherboard supports CPU cooler' :
         "Socket: INCOMPATIBLE - Motherboard does not support the CPU Cooler's sockets"
@@ -177,7 +177,7 @@ export const CompatibilityAudit = () => {
   }
 
   // =========================== Power Supply Unit ============================
-  if (powerSupply.Part) {
+  if (powerSupply.part) {
     const requiredHeadroom = totalWattage * 1.25;
     if (totalWattage > powerSupply.wattage) {
       psuStatus = 'Power (Watts): INCOMPATIBLE - PSU does not provide enough wattage for your current build';

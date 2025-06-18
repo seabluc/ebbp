@@ -7,7 +7,7 @@ export async function GET(_request, { params }) {
   // nah query parameters are for searching, sorting/filtering, and pagination.
 
   const product = await productControllers[category].getOne(id);
-  const productString = `\nsrc/app/products/api/[category]/[id]/route.js - PRODUCT SELECTED: ${product.Part.name}\n${JSON.stringify(product)} \n`;
+  const productString = `\nsrc/app/products/api/[category]/[id]/route.js - PRODUCT SELECTED: ${product.part.name}\n${JSON.stringify(product)} \n`;
   console.log(productString);
 
   //const product = await JSON.stringify(productControllers[category].getOne(id));

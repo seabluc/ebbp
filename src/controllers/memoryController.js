@@ -4,7 +4,7 @@ import { Part, Memory } from '@/models';
 
 export const getAllMemory = async () => {
   return await Memory.findAll({
-    include: { model: Part },
+    include: { model: Part, as: 'part' },
     raw: true,
     nest: true
   });
@@ -12,7 +12,7 @@ export const getAllMemory = async () => {
 
 export const getMemory = async (memoryId) => {
   return await Memory.findByPk(memoryId, {
-    include: { model: Part },
+    include: { model: Part, as: 'part' },
     raw: true,
     nest: true
   });

@@ -5,7 +5,7 @@ import { Part, Motherboard, MotherboardMemorySpeed } from '@/models';
 export const getAllMotherboards = async () => {
   return await Motherboard.findAll({
     include: [
-      { model: Part },
+      { model: Part, as: 'part' },
       //{ model: MotherboardMemorySpeed }
     ],
     raw: true,
@@ -16,7 +16,7 @@ export const getAllMotherboards = async () => {
 export const getMotherboard = async (motherboardId) => {
   return await Motherboard.findByPk(motherboardId, {
     include: [
-      { model: Part },
+      { model: Part, as: 'part' },
       { model: MotherboardMemorySpeed, as: 'MotherboardMemorySpeeds' }
     ],
     //raw: true,

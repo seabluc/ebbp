@@ -55,9 +55,9 @@ export function DataTable({ columns, data }) {
           <Input
             className="bg-slate-100 pl-10"
             placeholder="Search for parts..."
-            value={(table.getColumn("Part.name")?.getFilterValue()) ?? ""}
+            value={(table.getColumn("part.name")?.getFilterValue()) ?? ""}
             onChange={(event) =>
-              table.getColumn("Part.name")?.setFilterValue(event.target.value)
+              table.getColumn("part.name")?.setFilterValue(event.target.value)
             } />
         </div>
       </div>

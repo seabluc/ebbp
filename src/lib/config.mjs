@@ -11,7 +11,8 @@ export const options = {
 if (process.env.NODE_ENV === "production") {
   options.dialectOptions = {
     ssl: {
-      rejectUnauthorized: true,
+      require: true,
+      rejectUnauthorized: false,
     },
   };
 }

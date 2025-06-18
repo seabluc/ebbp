@@ -16,7 +16,7 @@ import Image from "next/image";
 const HomeGrid = () => {
   return (
     <section id="/" className="w-full flex flex-col items-center">
-      <header className="max-w-[360px] md:max-w-lg text-center my-5 p-3 md:p-5 text-xl md:text-3xl font-bold">
+      <header className="max-w-[360px] md:max-w-lg text-center my-5 p-3 md:p-5 md:mt-2 text-xl md:text-3xl font-bold">
         <p>Select. Optimize. Build Smarter.</p>
         <p>Start Building with Confidence.</p>
         <p className="pt-0.5 text-sm md:text-base text-muted-foreground">
@@ -60,7 +60,7 @@ const HomeGrid = () => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-2 p-3 md:p-4 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold shadow-md" asChild>
+            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold shadow-md" asChild>
               <Link href="/workshop"><Wrench />Start your Build</Link>
             </Button>
           </CardFooter>
@@ -87,7 +87,7 @@ const HomeGrid = () => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-2 p-3 md:p-4 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <Link href="/products"><PackageSearch />Browse PC Parts</Link>
             </Button>
           </CardFooter>
@@ -102,7 +102,7 @@ const HomeGrid = () => {
             Our beginner-friendly guides break down each component in plain English. We strip away the jargon so you can focus on understanding the essentials. Whether you're new to PC building or brushing up on specifics, these short reads help you build knowledge fast.
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-2 p-3 md:p-4 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <Link href="/guides"><BookOpenText />Learn the Parts</Link>
             </Button>
           </CardFooter>
@@ -117,7 +117,7 @@ const HomeGrid = () => {
             EBBP is the result of dedicated work by developer sand PC enthuiasts who care deeply about empowering others. We draw inspiration from tools like PCPartPicker, but with a learning-first approach. Special thanks to open-source tools, contributors, and the community that made this possible.
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-2 p-3 md:p-4 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <Link href="/credits"><Handshake />View Credits</Link>
             </Button>
           </CardFooter>
@@ -132,11 +132,11 @@ const HomeGrid = () => {
             Got a question, idea, or bug to report? We're always open to feedback. Whether you're a fellow dev, curious builder, or just want to say hi, we'd love to hear from you.
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-2 p-3 md:p-4 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <a href="mailto:seanluc.ghim@gmail.com"
                 target="_blank"
                 aria-label="Email creator">
-                <Mail />Email Me
+                <Mail />Email Us
               </a>
             </Button>
           </CardFooter>
@@ -147,6 +147,7 @@ const HomeGrid = () => {
 };
 
 export default HomeGrid;
+
 {/*gridItems.map((item) => (
           <Card key={item.id} className={`${item.className}`}>
             <CardHeader>

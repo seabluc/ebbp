@@ -14,10 +14,10 @@ const AddButton = ({ category, id }) => {
     try {
       const response = await fetch(`/products/api/${category}/${id}`);
       const product = await response.json();
-      console.log(`\nsrc/components/ui/AddButton.js - PRODUCT RETRIEVED: ${product.Part.name}\n${JSON.stringify(product)}\n`);
+      console.log(`\nsrc/components/ui/AddButton.js - PRODUCT RETRIEVED: ${product.part.name}\n${JSON.stringify(product)}\n`);
 
       if (product) {
-        switch (product.Part.type) {
+        switch (product.part.type) {
           case 'CPU':
             addCpu(product);
             break;

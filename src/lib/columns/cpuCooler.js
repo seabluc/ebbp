@@ -5,16 +5,16 @@ import Image from "next/image"
 
 export const cpuCoolerColumns = [
   {
-    accessorKey: "Part.name",
-    id: "Part.name",
+    accessorKey: "part.name",
+    id: "part.name",
     header: "Name",
     cell: ({ row }) => {
-      const name = row.original.Part?.name
-        ?.replace(`(${row.original.Part?.partNum})`, '')
-        ?.replace(`Liquid ${row.original.Part?.type}`, '')
-        ?.replace(row.original.Part?.type, '')
+      const name = row.original.part?.name
+        ?.replace(`(${row.original.part?.partNum})`, '')
+        ?.replace(`Liquid ${row.original.part?.type}`, '')
+        ?.replace(row.original.part?.type, '')
         ?.replace(row.original.radiatorSize, '')
-      const image = row.original.Part?.image
+      const image = row.original.part?.image
 
       return (
         <div className="flex items-center space-x-2">

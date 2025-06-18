@@ -12,7 +12,7 @@ export const useSocketTest = () => {
   }
 
   // Check if build has a Motherboard, CPU, and CPU Cooler
-  if (motherboard.Part && cpu.Part && cpuCooler.Part) {
+  if (motherboard.part && cpu.part && cpuCooler.part) {
     // Check socket compatibility between Motherboard, CPU, and CPU Cooler 
     return (motherboard.socket !== cpu.socket ||
       !isCompatible(cpuCooler, cpu.socket) ||
@@ -21,21 +21,21 @@ export const useSocketTest = () => {
   }
 
   // Check if build has a Motherboard and CPU (and no CPU Cooler)
-  if (motherboard.Part && cpu.Part) {
+  if (motherboard.part && cpu.part) {
     // Check socket compatibility between Motherboard and CPU
     return (motherboard.socket !== cpu.socket) ?
       STATUS.INCOMPATIBLE : STATUS.COMPATIBLE
   }
 
   // Check if build has a Motherboard and CPU Cooler (and no CPU)
-  if (motherboard.Part && cpuCooler.Part) {
+  if (motherboard.part && cpuCooler.part) {
     // Check socket compatibility between Motherboard and CPU Cooler
     return (!isCompatible(cpuCooler, motherboard.socket)) ?
       STATUS.INCOMPATIBLE : STATUS.COMPATIBLE
   }
 
   // Check if build has a CPU and CPU Cooler (and no Motherboard)
-  if (cpu.Part && cpuCooler.Part) {
+  if (cpu.part && cpuCooler.part) {
     return (!isCompatible(cpuCooler, cpu.socket)) ?
       STATUS.INCOMPATIBLE : STATUS.COMPATIBLE
   }
