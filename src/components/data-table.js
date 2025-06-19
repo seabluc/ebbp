@@ -53,7 +53,7 @@ export function DataTable({ columns, data }) {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2
           min-h-5 min-w-5 h-4 w-4 text-muted-foreground" />
           <Input
-            className="bg-slate-100 pl-10"
+            className="bg-slate-200/50 pl-10"
             placeholder="Search for parts..."
             value={(table.getColumn("part.name")?.getFilterValue()) ?? ""}
             onChange={(event) =>

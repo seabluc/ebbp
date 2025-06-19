@@ -4,11 +4,9 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 export default function GuidesClient() {
   return (
-    <div className="min-h-screen bg-[#4D585B] flex flex-col p-8"> {/* Charcoal background */}
-      {/* Centered title for Guides */}
-      <h1 className="text-center text-4xl mt-8 mb-4 font-bold text-[#DBAE58]">Guides</h1>
-
-      <div className="flex w-full"> {/* Allow tabs to take full width */}
+    <div className="min-h-screen flex flex-col p-8">
+      <h1 className="text-center text-4xl mb-4 font-bold text-[#DBAE58]">Guides</h1>
+      <div className="flex w-full p-1.5 bg-[#4D585B]"> {/* Allow tabs to take full width */}
         {/* Tabs with vertical orientation and charcoal background aligned to the left */}
         <Tabs
           aria-label="Options"

@@ -16,29 +16,27 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <>
-      <html lang="en" /*suppressHydrationWarning*/>
-        <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            enableSystem
-            defaultTheme="system"
-          // disableTransitionOnChange
-          >
-            <Providers>
-              <AuthProvider>
-                <header>
-                  <NavMenu />
-                </header>
-                <main>
-                  {children}
-                  <Analytics />
-                </main>
-              </AuthProvider>
-            </Providers>
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          enableSystem={false}
+          defaultTheme="light"
+          storageKey={null}
+        >
+          <Providers>
+            <AuthProvider>
+              <header>
+                <NavMenu />
+              </header>
+              <main>
+                {children}
+                <Analytics />
+              </main>
+            </AuthProvider>
+          </Providers>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

@@ -5,7 +5,7 @@ import { TooltipProvider, Tooltip, TooltipContent, TooltipTrigger } from '@/comp
 import useBuildStore from '@/lib/useBuildStore'
 import { Wattage } from '@/lib/build-summary/build-summary'
 import { CompatibilityStatus } from './compatibility-status'
-import { Save, Trash2, History } from 'lucide-react'
+import { Save, Trash2, History, PenLine } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 
 const WorkshopDashboard = () => {
@@ -16,10 +16,13 @@ const WorkshopDashboard = () => {
       <div className="border-t-2 border-x-2 md:border-none flex flex-col w-full max-w-7xl bg-slate-50 mx-4 md:mx-0 rounded-lg shadow-xl ring-1 ring-black/5">
         {/* Top: Build name and buttons */}
         <div className="flex flex-col md:flex-row rounded-t-lg items-center gap-2 p-3.5 md:p-4">
-          <Input
-            className="bg-gray-300 w-full text-center border rounded-lg p-2"
-            placeholder="Enter Build Name"
-          />
+          <div className="relative w-full py-2 md:py-1">
+            <PenLine className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 h-4 w-4 text-muted-foreground" />
+            <Input
+              className="pl-10 bg-slate-200/50 w-full rounded-lg"
+              placeholder="Name your PC build"
+            />
+          </div>
           <div className="flex gap-2">
             <Tooltip>
               <TooltipTrigger asChild>

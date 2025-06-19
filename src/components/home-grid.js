@@ -12,7 +12,6 @@ import Link from "next/link";
 import { Wrench, PackageSearch, BookOpenText, Handshake, Mail } from "lucide-react";
 import Image from "next/image";
 
-
 const HomeGrid = () => {
   return (
     <section id="/" className="w-full flex flex-col items-center">

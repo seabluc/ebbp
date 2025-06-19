@@ -9,35 +9,22 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button.jsx";
 import { Logo } from "./Icons.jsx";
 import { navParts, navPartsMobile } from "@/lib/data/nav-items";
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle";
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 import { Wrench, PcCase, BookOpenText, User } from "lucide-react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible.jsx";
 
 export default function NavMenu() {
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] shadow-lg">
       {/*======================= Desktop Navigation =======================*/}
       <div className="hidden md:flex w-full items-center justify-between">
         {/* Left: Home */}
-        <div className="ml-12 flex items-center gap-2">
+        <div className="ml-16 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -54,7 +41,7 @@ export default function NavMenu() {
         </div>
 
         {/* Center: Workshop, Products, Guides, Credits */}
-        <div className="flex items-center gap-2">
+        <div className="ml-32 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -98,7 +85,7 @@ export default function NavMenu() {
         </div>
 
         {/* Right: Login, Register, Dark Mode */}
-        <div className="mr-12 flex items-center gap-2">
+        <div className="mr-16 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
