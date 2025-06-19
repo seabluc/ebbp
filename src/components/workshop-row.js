@@ -140,7 +140,7 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
         </TableCell>
         <TableCell className="p-2">
           <Link href={`/products/${label.toLowerCase().replace(/ /g, '-')}`}>
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base shadow-md">
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base shadow-md">
               <span className="flex items-center gap-2 font-semibold"><CirclePlus /> Add Additional {label}</span>
             </Button>
           </Link>
@@ -161,12 +161,12 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
       <TableCell className="p-2">
         {component.part ? (
           <span className="flex flex-row items-center gap-2">
-            <img src={component?.part?.image} alt={label} width="70" height="70" className="border-2 border-black/25 rounded-xl object-contain" />
+            <img src={component?.part?.image} alt={label} width="70" height="70" className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
             <span className="text-base font-medium">{productName}</span>
           </span>
         ) : (
           <Link href={`/products/${label.toLowerCase().replace(/ /g, '-')}`} className="">
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base shadow-md">
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base shadow-md">
               <span className="flex items-center gap-2 font-semibold"><CirclePlus /> Choose a {label}</span>
             </Button>
           </Link>

@@ -6,26 +6,26 @@ import useBuildStore from '@/lib/useBuildStore'
 import { Wattage } from '@/lib/build-summary/build-summary'
 import { CompatibilityStatus } from './compatibility-status'
 import { Save, Trash2, History } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 
 const WorkshopDashboard = () => {
   const { clearBuild } = useBuildStore()
 
   return (
     <TooltipProvider delayDuration={200} skipDelayDuration={250}>
-      <div className="border-t-2 border-x-2 md:border-none flex flex-col w-full max-w-7xl bg-slate-100 mx-4 md:mx-0 rounded-lg shadow-xl ring-1 ring-black/5">
+      <div className="border-t-2 border-x-2 md:border-none flex flex-col w-full max-w-7xl bg-slate-50 mx-4 md:mx-0 rounded-lg shadow-xl ring-1 ring-black/5">
         {/* Top: Build name and buttons */}
         <div className="flex flex-col md:flex-row rounded-t-lg items-center gap-2 p-3.5 md:p-4">
-          <input
-            type="text"
+          <Input
+            className="bg-gray-300 w-full text-center border rounded-lg p-2"
             placeholder="Enter Build Name"
-            className="w-full text-center bg-default-300 border rounded-lg p-2"
           />
           <div className="flex gap-2">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
                   // onClick={saveBuild}
-                  className="bg-default-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-green-500/90 focus:ring-2 text-black border-black/15 border-1">
+                  className="bg-gray-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-green-500/90 focus:ring-2 text-black border-black/15 border-1">
                   <div className="flex justify-center items-center gap-1 md:gap-1.5">
                     {/* {  <Image src={SaveIcon} alt="save PC build" width={19} height={19} />} */}
                     <Save size={20} className="min-w-5 min-h-5" />
@@ -41,7 +41,7 @@ const WorkshopDashboard = () => {
               <TooltipTrigger asChild>
                 <Button
                   onClick={clearBuild}
-                  className="bg-default-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-red-500/90 focus:ring-2 text-black border-black/15 border-1">
+                  className="bg-gray-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-red-500/90 focus:ring-2 text-black border-black/15 border-1">
                   <div className="flex justify-center items-center gap-1 md:gap-1.5">
                     <Trash2 size={20} className="min-w-5 min-h-5" />
                     Clear
@@ -56,7 +56,7 @@ const WorkshopDashboard = () => {
               <TooltipTrigger asChild>
                 <Button
                   // onClick={history}
-                  className="bg-default-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-default-300/55 focus:ring-2 text-black border-black/15 border-1">
+                  className="bg-gray-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-gray-300/55 focus:ring-2 text-black border-black/15 border-1">
                   <div className="flex justify-center items-center gap-1 md:gap-1.5">
                     <History size={20} className="min-w-5 min-h-5" />
                     History

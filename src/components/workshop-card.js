@@ -110,7 +110,7 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
 
   if (isAdditional) {
     return (
-      <Card className="border-y-2 border-x-1 border-black/25 shadow-lg">
+      <Card className="border-t-1 border-x-0 border-black/25 dark:border-white/50 shadow-lg">
         <CardHeader className="py-1.5 pl-1">
           <CardTitle>
             <div className="flex items-center justify-between">
@@ -136,7 +136,7 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
   }
 
   return (
-    <Card className="border-t-1 border-x-0 border-black/25 shadow-lg">
+    <Card className="border-t-1 border-x-0 border-black/25 dark:border-white/50 shadow-lg">
       <CardHeader className="py-1.5 pl-1">
         <CardTitle>
           <div className="flex items-center justify-between">
@@ -145,7 +145,7 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
               <span className="ml-4 text-xl font-semibold">{label}</span>
             </Link>
             <Link href="#audit">
-              <span className="border-x-1.5 border-y-1 border-black/50 rounded-xl p-1">{icon}</span>
+              <span className="border-x-1.5 border-y-1 border-black/50 dark:border-white/50 rounded-xl p-1">{icon}</span>
             </Link>
           </div>
         </CardTitle>
@@ -167,13 +167,13 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
       {component.part && (
         <CardFooter className="flex items-center justify-evenly py-4">
           <Link href="#audit">
-            <Button className="bg-default-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1">
+            <Button className="bg-gray-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1">
               <div className="flex justify-center items-center gap-2">
                 <ListTodo />Audit
               </div>
             </Button>
           </Link>
-          <Button className="bg-default-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1"
+          <Button className="bg-gray-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1"
             onClick={handleRemove}>
             <div className="flex justify-center items-center gap-2">
               <X />Remove
