@@ -25,7 +25,7 @@ export const cpuColumns = [
               alt={name}
               width={60}
               height={60}
-              className="p-1 border-2 border-black/25 rounded-xl object-contain"
+              className="m-1 border-2 border-black/25 dark:border-white/50 rounded-xl object-contain"
             />
           )}
           <span className="">{name}</span>

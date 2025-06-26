@@ -19,12 +19,12 @@ const WorkshopTable = () => {
     cpuCooler, powerSupply } = useBuildStore();
   //React.useEffect(() => { useBuildStore.persist.rehydrate(); }, []);
   return (
-    <div className="w-full md:max-w-7xl md:py-2 md:border-2">
+    <div className="w-full md:max-w-7xl md:py-2 md:border-2 rounded-md md:border-gray-200 md:dark:border-gray-200/50">
       {/* ===================== Desktop View (Table) ===================== */}
       <div className="hidden md:block">
         <Table>
-          <TableCaption className="border-t-2 md:pt-2 md:pb-1 px-2 text-start text-xs md:text-sm font-medium">* Prices are not displayed as they cannot be directly purchased from EBBP</TableCaption>
-          <TableHeader>
+          <TableCaption className="border-t-2 md:pt-2 md:pb-1 px-2 text-start text-xs md:text-sm font-medium md:border-gray-200 md:dark:border-gray-200/50">* Prices are not displayed as they cannot be directly purchased from EBBP</TableCaption>
+          <TableHeader className="border-b-1.5 md:border-gray-200 md:dark:border-gray-200/50">
             <TableRow>
               <TableHead className="p-1 md:p-2 text-sm border-b">Component</TableHead>
               <TableHead className="p-2 border-b">Selection</TableHead>

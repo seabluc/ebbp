@@ -136,7 +136,7 @@ const Profile = () => {
     }
 
     return (
-        <div className="flex flex-col min-h-screen bg-[#4D585B] p-4 lg:flex-row lg:gap-8 lg:px-16 lg:py-8">
+        <div className="flex flex-col bg-[#4D585B] p-4 lg:flex-row lg:gap-8 lg:px-16 lg:py-8">
             {/* Profile Section */}
             <div className="flex flex-col bg-[#DBAE58] p-8 rounded-lg shadow-lg w-full lg:w-1/3 mb-8 lg:mb-0 space-y-6 lg:self-start">
                 <h1 className="text-2xl font-bold text-gray-800 text-center">Your Profile</h1>

@@ -45,13 +45,13 @@ export function DataTable({ columns, data }) {
 
   return (
     <div className="w-full md:max-w-7xl px-2 md:px-4">
-      <div className="px-1.5 md:px-0 mt-2 flex flex-col md:flex-row items-start md:items-center md:justify-between border-b-1.5">
+      <div className="px-1.5 md:px-0 mt-2 flex flex-col md:flex-row items-start md:items-center md:justify-between border-b-1.5 border-gray-200 dark:border-gray-200/50">
         <p className="px-0.5 md:px-1.5 text-lg font-bold">
           {table.getFilteredRowModel().rows.length} Parts Found
         </p>
         <div className="relative max-w-sm md:max-w-lg w-full py-2 md:py-4">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2
-          min-h-5 min-w-5 h-4 w-4 text-muted-foreground" />
+          min-h-5 min-w-5 size-4 text-muted-foreground" />
           <Input
             className="bg-slate-200/50 pl-10"
             placeholder="Search for parts..."
@@ -62,7 +62,7 @@ export function DataTable({ columns, data }) {
         </div>
       </div>
 
-      <div className="mt-4 rounded-md md:border">
+      <div className="mt-4 rounded-md md:border border-gray-200 dark:border-gray-200/50">
         {/*========================= Desktop View =========================*/}
         <Table className="hidden md:table">
           <TableHeader>
@@ -118,7 +118,7 @@ export function DataTable({ columns, data }) {
                 row.getVisibleCells().length - 1); // AddButton
 
               return (
-                <Card key={row.id} className="border-t-1 border-x-0 border-black/25 shadow-lg">
+                <Card key={row.id} className="h-[390px] border-t-1 border-x-0 border-black/25 dark:border-white/50 shadow-lg">
                   <CardHeader className="">
                     <CardTitle className="text-base font-semibold">
                       {cellName && flexRender(cellName.column.columnDef.cell, cellName.getContext())}

@@ -9,19 +9,19 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Wrench, PackageSearch, BookOpenText, Handshake, Mail } from "lucide-react";
 import Image from "next/image";
+import { Wrench, PackageSearch, BookOpenText, Handshake, Mail } from "lucide-react";
 
 const HomeGrid = () => {
   return (
     <section id="/" className="w-full flex flex-col items-center">
-      <header className="max-w-[360px] md:max-w-lg text-center my-5 p-3 md:p-5 md:mt-2 text-xl md:text-3xl font-bold">
+      <h1 className="max-w-[360px] md:max-w-lg text-center my-5 p-3 md:p-5 md:mt-2 text-xl md:text-3xl font-bold">
         <p>Select. Optimize. Build Smarter.</p>
         <p>Start Building with Confidence.</p>
         <p className="pt-0.5 text-sm md:text-base text-muted-foreground">
           Compatibility checks and guidance for PC builders of all levels.
         </p>
-      </header>
+      </h1>
       <div className="md:max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-4 px-5">
         <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 transition-shadow hover:shadow-lg">
           <CardHeader>
@@ -59,7 +59,7 @@ const HomeGrid = () => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold shadow-md" asChild>
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold shadow-md" asChild>
               <Link href="/workshop"><Wrench />Start your Build</Link>
             </Button>
           </CardFooter>
@@ -86,7 +86,7 @@ const HomeGrid = () => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <Link href="/products"><PackageSearch />Browse PC Parts</Link>
             </Button>
           </CardFooter>
@@ -101,8 +101,8 @@ const HomeGrid = () => {
             Our beginner-friendly guides break down each component in plain English. We strip away the jargon so you can focus on understanding the essentials. Whether you're new to PC building or brushing up on specifics, these short reads help you build knowledge fast.
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
-              <Link href="/guides"><BookOpenText />Learn the Parts</Link>
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+              <Link /*href="/guides"*/ href="/guides/cpu"><BookOpenText />Learn the Parts</Link>
             </Button>
           </CardFooter>
         </Card>
@@ -116,7 +116,7 @@ const HomeGrid = () => {
             EBBP is the result of dedicated work by developer sand PC enthuiasts who care deeply about empowering others. We draw inspiration from tools like PCPartPicker, but with a learning-first approach. Special thanks to open-source tools, contributors, and the community that made this possible.
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <Link href="/credits"><Handshake />View Credits</Link>
             </Button>
           </CardFooter>
@@ -131,7 +131,7 @@ const HomeGrid = () => {
             Got a question, idea, or bug to report? We're always open to feedback. Whether you're a fellow dev, curious builder, or just want to say hi, we'd love to hear from you.
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-1 border-black/25 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <a href="mailto:seanluc.ghim@gmail.com"
                 target="_blank"
                 aria-label="Email creator">

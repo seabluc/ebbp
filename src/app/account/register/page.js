@@ -4,7 +4,19 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { registerUser, checkUsernameExists } from '@/lib/firebase/authHelpers';
 import { useAuth } from '@/lib/firebase/authContext';
-import debounce from 'lodash.debounce';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { LockKeyholeOpen, LockKeyhole, Mail, MailCheck, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const Register = () => {
   const router = useRouter();
@@ -29,6 +41,16 @@ const Register = () => {
       router.push('/');
     }
   }, [user, loading, router]);
+
+  function debounce(func, delay) {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  }
 
   const handlePasswordChange = (value) => {
     setPassword(value);
@@ -115,7 +137,7 @@ const Register = () => {
   // Show a loading state while verifying the user's authentication status
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#4D585B] p-4">
+      <div className="flex items-center justify-center min-h-screen p-4">
         <div className="text-center text-white">Loading...</div>
       </div>
     );
@@ -126,101 +148,126 @@ const Register = () => {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#4D585B] p-4">
-      <div className="bg-[#DBAE58] rounded-lg shadow-md p-8 max-w-lg w-full text-center border border-[#DBAE58] transition-shadow duration-300 hover:shadow-lg space-y-4">
-        <h1 className="text-2xl font-semibold text-gray-800">Create an Account</h1>
+    <div id="" className="flex flex-col items-center gap-6 md:gap-12">
+      <header className="w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md">
+        <h1>Account Registration</h1>
+      </header>
+      <Card className="w-full p-4 md:p-3 max-w-sm md:max-w-2xl text-center rounded-lg transition-shadow duration-300 shadow-md hover:shadow-lg">
+        <CardHeader>
+          <CardTitle>
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">Create an Account</h2>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleRegister} className="flex flex-col items-center gap-y-3 md:gap-y-6">
+            <span className="relative w-full py-2 md:py-1">
+              <User className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 size-4 text-muted-foreground opacity-80" />
+              <Input
+                type="text"
+                value={username}
+                onChange={(e) => handleUsernameChange(e.target.value)}
+                placeholder="Username"
+                required
+                autoComplete="username"
+                className="pl-10 bg-slate-200/50 rounded-lg shadow-md"
+              />
+              {usernameError && <p className="text-red-500 mb-4">{usernameError}</p>}
+            </span>
+            <span className="relative w-full py-2 md:py-1">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 size-4 text-muted-foreground opacity-80" />
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(null); // Clear error message on email change
+                }}
+                placeholder="Email address"
+                required
+                autoComplete="email"
+                className="pl-10 bg-slate-200/50 rounded-lg shadow-md"
+              />
+            </span>
+            <span className="relative w-full py-2 md:py-1">
+              <MailCheck className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 size-4 text-muted-foreground opacity-80" />
+              <Input
+                type="email"
+                value={emailConfirmation}
+                onChange={(e) => {
+                  setEmailConfirmation(e.target.value);
+                  setError(null); // Clear error message on email confirmation change
+                }}
+                placeholder="Confirm your email"
+                required
+                autoComplete="email"
+                className="pl-10 bg-slate-200/50 rounded-lg shadow-md"
+              />
+            </span>
+            <span className="relative w-full py-2 md:py-1">
+              <LockKeyholeOpen className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 size-4 text-muted-foreground opacity-80" />
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => handlePasswordChange(e.target.value)}
+                placeholder="Enter your password"
+                required
+                autoComplete="new-password"
+                className="pl-10 bg-slate-200/50 rounded-lg shadow-md"
+              />
+            </span>
+            <div className="text-left">
+              <p className={`text-sm ${passwordValidations.length ? 'text-green-500' : 'text-red-500'}`}>• Minimum password length of 6 characters</p>
+              <p className={`text-sm ${passwordValidations.uppercase ? 'text-green-500' : 'text-red-500'}`}>• At least one uppercase character</p>
+              <p className={`text-sm ${passwordValidations.numeric ? 'text-green-500' : 'text-red-500'}`}>• At least one numeric character</p>
+            </div>
 
-        <form onSubmit={handleRegister}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => handleUsernameChange(e.target.value)}
-            placeholder="Enter your username"
-            required
-            autoComplete="username"
-            className="p-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-          />
-          {usernameError && <p className="text-red-500 mb-4">{usernameError}</p>}
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setError(null); // Clear error message on email change
-            }}
-            placeholder="Enter your email"
-            required
-            autoComplete="email"
-            className="p-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-          />
-          <input
-            type="email"
-            value={emailConfirmation}
-            onChange={(e) => {
-              setEmailConfirmation(e.target.value);
-              setError(null); // Clear error message on email confirmation change
-            }}
-            placeholder="Confirm your email"
-            required
-            autoComplete="email"
-            className="p-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => handlePasswordChange(e.target.value)}
-            placeholder="Enter your password"
-            required
-            autoComplete="new-password"
-            className="p-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-          />
-          <div className="text-left mb-4">
-            <p className={`text-sm ${passwordValidations.length ? 'text-green-500' : 'text-red-500'}`}>• Minimum password length of 6 characters</p>
-            <p className={`text-sm ${passwordValidations.uppercase ? 'text-green-500' : 'text-red-500'}`}>• At least one uppercase character</p>
-            <p className={`text-sm ${passwordValidations.numeric ? 'text-green-500' : 'text-red-500'}`}>• At least one numeric character</p>
-          </div>
-          <input
-            type="password"
-            value={passwordConfirmation}
-            onChange={(e) => {
-              setPasswordConfirmation(e.target.value);
-              setError(null); // Clear error message on password confirmation change
-            }}
-            placeholder="Confirm your password"
-            required
-            autoComplete="new-password"
-            className="p-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-          />
+            <span className="relative w-full py-2 md:py-1">
+              <LockKeyhole className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 size-4 text-muted-foreground opacity-80" />
+              <Input
+                type="password"
+                value={passwordConfirmation}
+                onChange={(e) => {
+                  setPasswordConfirmation(e.target.value);
+                  setError(null); // Clear error message on password confirmation change
+                }}
+                placeholder="Confirm your password"
+                required
+                autoComplete="new-password"
+                className="pl-10 bg-slate-200/50 rounded-lg shadow-md"
+              />
+            </span>
+            <div className="max-w-48 md:max-w-full flex items-center justify-center gap-x-2 md:gap-x-1.5">
+              <Input
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={(e) => {
+                  setTermsAccepted(e.target.checked);
+                  setError(null); // Clear error message on checkbox change
+                }}
+                required
+                className="min-h-4 min-w-4 size-3 md:size-4"
+              />
+              <Label className="text-sm text-gray-600 dark:text-gray-50">
+                I have read and consent to the <a href="/terms-of-service" className="text-blue-500 hover:underline transition-colors duration-200">terms of service</a>.
+              </Label>
+            </div>
 
-          <div className="flex items-start justify-start mb-4">
-            <input
-              type="checkbox"
-              checked={termsAccepted}
-              onChange={(e) => {
-                setTermsAccepted(e.target.checked);
-                setError(null); // Clear error message on checkbox change
-              }}
-              required
-              className="mr-2 mt-1 w-4 h-4"
-            />
-            <label className="text-gray-800">
-              I have read and consent to the <a href="/terms-of-service" className="text-blue-500 hover:underline transition-colors duration-200">terms of service</a>.
-            </label>
-          </div>
-
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg w-full transition-all duration-200 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Register
-          </button>
-        </form>
-
-        <p className="text-sm text-gray-600">
-          Already have an account? <a href="/account/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</a>.
-        </p>
-      </div>
+            {/* Sign In Button */}
+            {error && <p className="text-red-500">{error}</p>}
+            <Button
+              type="submit"
+              className="mt-2.5 mb-3 bg-[#DBAE58] hover:bg-[#E0BA68] text-gray-800 dark:text-gray-100 border dark:border-gray-200/75 rounded-lg w-full shadow-md font-semibold text-base"
+            >
+              Sign In
+            </Button>
+          </form>
+        </CardContent>
+        <CardFooter className="flex items-center justify-center">
+          <p className="text-sm text-gray-600 dark:text-gray-50">
+            Already have an account? <Link href="/account/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</Link>.
+          </p>
+        </CardFooter>
+      </Card>
     </div>
   );
 };

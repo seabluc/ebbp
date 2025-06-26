@@ -14,17 +14,46 @@ import { navParts, navPartsMobile } from "@/lib/data/nav-items";
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle";
-import { forwardRef } from "react";
+import { useEffect, useState, forwardRef } from "react";
+//import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Wrench, PcCase, BookOpenText, User } from "lucide-react";
 
 export default function NavMenu() {
+  /*
+  const { scrollY } = useScroll();
+  const [visible, setVisible] = useState(false);
+
+  useMotionValueEvent(scrollY, 'change', (currentY) => {
+    if (currentY === "number") {
+      const direction = current - scrollY.getPrevious();
+      if (scrollY.get() < 0.05) {
+        setVisible(false);
+      } else {
+        if (direction < 0) {
+          setVisible(true);
+        } else {
+          setVisible(false);
+        }
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (visible) {
+      const timeout = setTimeout(() => {
+        setVisible(false);
+      }, 2000);
+      return () => clearTimeout(timeout);
+    }
+  }, [visible])
+  */
 
   return (
-    <nav className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] shadow-lg">
+    <div className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] shadow-lg">
       {/*======================= Desktop Navigation =======================*/}
       <div className="hidden md:flex w-full items-center justify-between">
         {/* Left: Home */}
-        <div className="ml-16 flex items-center gap-2">
+        <nav className="ml-16 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -38,10 +67,10 @@ export default function NavMenu() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
+        </nav>
 
         {/* Center: Workshop, Products, Guides, Credits */}
-        <div className="ml-32 flex items-center gap-2">
+        <nav className="ml-32 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -57,17 +86,17 @@ export default function NavMenu() {
                   <ul className="grid grid-cols-1 w-[400px] gap-y-2 p-2 bg-[#4D585B]">
                     {navParts.map((part) => (
                       <ListItem key={part.type} type={part.type} href={part.href} className="bg-[#647072] border-1">
-                        <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-4">
                           {part.icon}
                           {part.description}
-                        </div>
+                        </span>
                       </ListItem>
                     ))}
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/guides" legacyBehavior passHref>
+                <Link /*href="/guides"*/ href="/guides/cpu" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     <p className="md:text-xl text-white">Guides</p>
                   </NavigationMenuLink>
@@ -82,23 +111,23 @@ export default function NavMenu() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
+        </nav>
 
-        {/* Right: Login, Register, Dark Mode */}
-        <div className="mr-16 flex items-center gap-2">
+        {/* Right: Log in, Register, Dark Mode */}
+        <nav className="mr-16 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <Link href="/account/login" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="md:text-xl text-white">Login</p>
+                    <p className="md:text-lg text-white">Log in</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="/account/register" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="md:text-xl text-white">Register</p>
+                    <p className="md:text-lg text-white">Sign up</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -107,7 +136,7 @@ export default function NavMenu() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
+        </nav>
       </div>
 
       {/*======================== Mobile Navigation ========================*/}
@@ -115,12 +144,12 @@ export default function NavMenu() {
         <NavigationMenuList>
           <NavigationMenuItem className="flex items-center">
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link href="/" className="flex items-center pl-1"><Logo />
+              <Link href="/" className="flex items-center pl-0"><Logo />
                 <p className="text-xl font-bold">EBBP</p>
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
-          <NavigationMenuItem className="flex items-center justify-items-center">
+          <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
               <Link href="/workshop"><Wrench /></Link>
             </NavigationMenuLink>
@@ -128,16 +157,16 @@ export default function NavMenu() {
           <NavigationMenuItem>
             <NavigationMenuTrigger><PcCase /></NavigationMenuTrigger>
             <NavigationMenuContent>
-              <ul className="grid grid-cols-1 gap-y-2 p-2 w-[200px] bg-[#4D585B]">
+              <ul className="grid grid-cols-1 gap-y-2.5 p-3 w-[222px] bg-[#4D585B]">
                 <p className="text-lg text-white text-center font-bold">Products</p>
                 {navPartsMobile.map((part) => (
                   <li key={part.type} type={part.type} href={part.href} className="bg-[#647072] border-1">
                     <NavigationMenuLink asChild>
                       <Link href={part.href}>
-                        <div className="m-1 ml-2 py -0.5 flex items-center gap-2 text-white">
+                        <span className="m-1 ml-2 py-[3px] flex items-center gap-2 text-white">
                           {part.icon}
                           {part.type}
-                        </div>
+                        </span>
                       </Link>
                     </NavigationMenuLink>
                   </li>
@@ -147,12 +176,12 @@ export default function NavMenu() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link href="/guides"><BookOpenText /></Link>
+              <Link /*href="/guides"*/ href="/guides/cpu"><BookOpenText /></Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link href="/account/register"><User /></Link>
+              <Link href="/account/login"><User /></Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -160,7 +189,7 @@ export default function NavMenu() {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu >
-    </nav>
+    </div>
   );
 }
 

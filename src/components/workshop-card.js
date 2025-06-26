@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card"
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { CirclePlus, ListTodo, X } from "lucide-react";
 import useBuildStore from "@/lib/useBuildStore";
 import {
@@ -48,7 +49,7 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
   };
 
   const compatibilityStatus = useMemo(() => {
-    if (!component?.part) return { background: '', icon: '❔' };
+    if (!component?.part) return { background: '', /*icon: '❔'*/ };
 
     const tests = compatibilityMap[label]?.tests;
     const results = tests.map((test) => BuildTests[test]());
@@ -58,19 +59,19 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
       results.some((val) => val === STATUS.COMPATIBLE);
 
     if (hasIncompatibility) {
-      return { background: 'bg-red-500/65 md:hover:bg-red-500/30 transform transition-colors duration-300 ease-in-out', icon: '❌' }
+      return { background: 'bg-red-500/65 md:hover:bg-red-500/30 transform transition-colors duration-300 ease-in-out'/*, icon: '❌'*/ }
     };
     if (hasIssue) {
-      return { background: 'bg-yellow-500/55 md:hover:bg-yellow-500/30 transform transition-colors duration-300 ease-in-out', icon: '⚠️' }
+      return { background: 'bg-yellow-500/55 md:hover:bg-yellow-500/30 transform transition-colors duration-300 ease-in-out'/*, icon: '⚠️'*/ }
     };
     if (isCompatible) {
-      return { background: 'bg-green-500/60 md:hover:bg-green-500/35 transform transition-colors duration-300 ease-in-out', icon: '✔️' }
+      return { background: 'bg-green-500/60 md:hover:bg-green-500/35 transform transition-colors duration-300 ease-in-out'/*, icon: '✔️'*/ }
     };
 
-    return { background: '', icon: '❔' };
+    return { background: '', /*icon: '❔'*/ };
   }, [cpu, motherboard, memory, storage, videoCard, cpuCooler, powerSupply]);
 
-  const { background, icon/*, ariaLabel*/ } = compatibilityStatus;
+  const { background, /*icon, ariaLabel*/ } = compatibilityStatus;
 
   // Fix productName later... refer to columns files
   const productName = component?.part?.name
@@ -119,14 +120,14 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
                 <span className="ml-4 text-xl font-semibold">{label}</span>
               </Link>
               <Link href="#audit">
-                <span className="border-x-1.5 border-y-1 border-black/50 rounded-xl p-1">{icon}</span>
+                <span className="border-x-1.5 border-y-1 border-black/50 rounded-xl p-1">{/*icon*/}</span>
               </Link>
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent className={`${background} border-black/15 border-0.5 pt-2 pl-5`}>
+        <CardContent className={`${background} border-black/15 dark:border-white/30 border-0.5 pt-2 pl-5`}>
           <Link href={`/products/${label.toLowerCase().replace(/ /g, '-')}`}>
-            <Button className="px-2 bg-[#DBAE58] md:hover:bg-[#E4C577] shadow-md font-semibold text-base text-black border-black/25 border-1">
+            <Button className="px-2 bg-[#DBAE58] md:hover:bg-[#E4C577] shadow-md font-semibold text-base text-black border-black/25 dark:border-white/50 border-1">
               <div className="flex items-center gap-2"><CirclePlus /> Add Additional {label}</div>
             </Button>
           </Link>
@@ -138,27 +139,25 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
   return (
     <Card className="border-t-1 border-x-0 border-black/25 dark:border-white/50 shadow-lg">
       <CardHeader className="py-1.5 pl-1">
-        <CardTitle>
-          <div className="flex items-center justify-between">
-            <Link href={`/products/${label.toLowerCase().replace(/ /g, '-')}`}
-              className={`${buttonVariants({ variant: "link" })}`}>
-              <span className="ml-4 text-xl font-semibold">{label}</span>
-            </Link>
-            <Link href="#audit">
-              <span className="border-x-1.5 border-y-1 border-black/50 dark:border-white/50 rounded-xl p-1">{icon}</span>
-            </Link>
-          </div>
+        <CardTitle className="flex items-center justify-between pt-1">
+          <Link href={`/products/${label.toLowerCase().replace(/ /g, '-')}`}
+            className={`${buttonVariants({ variant: "link" })}`}>
+            <span className="ml-4 text-xl font-semibold">{label}</span>
+          </Link>
+          <Link href="#audit">
+            <span className="border-x-1.5 border-y-1 border-black/50 dark:border-white/50 rounded-xl p-1">{/*icon*/}</span>
+          </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className={`${background} border-black/15 border-0.5 pt-2 pl-5`}>
+      <CardContent className={`${background} border-black/15 dark:border-white/30 border-0.5 pt-2 pl-5`}>
         {component.part ? (
           <div className="flex flex-row items-center gap-4">
-            <img src={component?.part?.image} alt={label} width="60" height="60" className="border-2 border-black/25 rounded-xl object-contain" />
+            <Image src={component?.part?.image} alt={label} width={60} height={60} className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
             <span className="text-base font-semibold">{productName}</span>
           </div>
         ) : (
           <Link href={`/products/${label.toLowerCase().replace(/ /g, '-')}`} className="">
-            <Button className="px-2 bg-[#DBAE58] md:hover:bg-[#E4C577] shadow-md font-semibold text-base text-black border-black/25 border-1">
+            <Button className="px-2 bg-[#DBAE58] md:hover:bg-[#E4C577] shadow-md font-semibold text-base text-black border-black/25 dark:border-white/50 border-1">
               <div className="flex items-center gap-2"><CirclePlus />Choose a {label}</div>
             </Button>
           </Link>
@@ -167,13 +166,13 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
       {component.part && (
         <CardFooter className="flex items-center justify-evenly py-4">
           <Link href="#audit">
-            <Button className="bg-gray-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1">
+            <Button className="bg-gray-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 dark:border-white/50 border-1">
               <div className="flex justify-center items-center gap-2">
                 <ListTodo />Audit
               </div>
             </Button>
           </Link>
-          <Button className="bg-gray-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 border-1"
+          <Button className="bg-gray-300 font-semibold text-base px-6 py-3 rounded-lg text-black border-black/25 dark:border-white/50 border-1"
             onClick={handleRemove}>
             <div className="flex justify-center items-center gap-2">
               <X />Remove

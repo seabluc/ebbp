@@ -13,11 +13,11 @@ const WorkshopDashboard = () => {
 
   return (
     <TooltipProvider delayDuration={200} skipDelayDuration={250}>
-      <div className="border-t-2 border-x-2 md:border-none flex flex-col w-full max-w-7xl bg-slate-50 mx-4 md:mx-0 rounded-lg shadow-xl ring-1 ring-black/5">
+      <div className="border-t-2 border-x-2 border-gray-200 dark:border-gray-600 md:border-none flex flex-col w-full max-w-7xl bg-slate-50 mx-4 md:mx-0 rounded-lg shadow-xl ring-1 ring-black/5">
         {/* Top: Build name and buttons */}
         <div className="flex flex-col md:flex-row rounded-t-lg items-center gap-2 p-3.5 md:p-4">
           <div className="relative w-full py-2 md:py-1">
-            <PenLine className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 h-4 w-4 text-muted-foreground" />
+            <PenLine className="absolute left-3 top-1/2 -translate-y-1/2 min-h-5 min-w-5 size-4 text-muted-foreground" />
             <Input
               className="pl-10 bg-slate-200/50 w-full rounded-lg"
               placeholder="Name your PC build"
@@ -30,7 +30,6 @@ const WorkshopDashboard = () => {
                   // onClick={saveBuild}
                   className="bg-gray-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-green-500/90 focus:ring-2 text-black border-black/15 border-1">
                   <div className="flex justify-center items-center gap-1 md:gap-1.5">
-                    {/* {  <Image src={SaveIcon} alt="save PC build" width={19} height={19} />} */}
                     <Save size={20} className="min-w-5 min-h-5" />
                     Save
                   </div>

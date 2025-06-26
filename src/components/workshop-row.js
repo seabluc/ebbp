@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { CirclePlus } from "lucide-react";
 import useBuildStore from "@/lib/useBuildStore";
 import {
@@ -130,7 +131,7 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
 
   if (isAdditional) {
     return (
-      <TableRow className={`${background} md:h-20 h-12`}>
+      <TableRow className={`${background} md:h-20 h-12 border-y-1.5 border-black/25 dark:border-white/50`}>
         <TableCell className="p-0">
           <Link
             href={`/products/${label.toLowerCase().replace(/ /g, '-')}`}
@@ -150,7 +151,7 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
   }
 
   return (
-    <TableRow className={`${background} md:h-20 h-12`}>
+    <TableRow className={`${background} md:h-20 h-12 border-y-1.5 border-black/25 dark:border-white/50`}>
       <TableCell className="p-0">
         <Link
           href={`/products/${label.toLowerCase().replace(/ /g, '-')}`}
@@ -161,7 +162,7 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
       <TableCell className="p-2">
         {component.part ? (
           <span className="flex flex-row items-center gap-2">
-            <img src={component?.part?.image} alt={label} width="70" height="70" className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
+            <Image src={component?.part?.image} alt={label} width={70} height={70} className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
             <span className="text-base font-medium">{productName}</span>
           </span>
         ) : (

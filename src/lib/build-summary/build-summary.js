@@ -191,9 +191,9 @@ export const CompatibilityAudit = () => {
   return (
     <Collapsible className="w-full md:max-w-7xl px-4 md:px-0 flex flex-col gap-2" defaultOpen>
       <div className="flex items-center justify-start gap-4">
-        <h4 className="text-lg font-medium">
+        <h2 className="text-lg font-medium">
           Build Audit
-        </h4>
+        </h2>
         <CollapsibleTrigger asChild>
           <Button variant="ghost" size="icon" className="size-8">
             <ChevronsUpDown />
@@ -202,31 +202,31 @@ export const CompatibilityAudit = () => {
         </CollapsibleTrigger>
       </div>
       <CollapsibleContent className="mb-4 md:mb-12 flex flex-col gap-2 text-base">
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {cpuGraphics}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {cpuSockets}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {cpuCooling}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {memoryType}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {memorySpeed}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {memorySlots}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {storageM2Slots}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {storageSATASlots}
         </div>
-        <div className="border-2 p-1 md:px-2 md:py-2">
+        <div className="border md:border-gray-200 md:dark:border-gray-200/50 p-1.5 md:px-2 md:py-2">
           {psuStatus}
         </div>
       </CollapsibleContent>
