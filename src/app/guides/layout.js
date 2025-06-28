@@ -7,7 +7,7 @@ export default function GuidesLayout({ children }) {
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
         <nav className=""><GuidesSidebar /></nav>
-        <div className="flex-1 flex justify-center">
+        <div className="flex-1">
           {children}
         </div>
       </div>

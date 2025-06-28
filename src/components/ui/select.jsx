@@ -23,7 +23,7 @@ const SelectTrigger = React.forwardRef(({ className, children, ...props }, ref) 
     {children}
     <SelectPrimitive.Icon asChild>
       <>
-        <Image src="/git.svg" alt="GitHub Logo" width={32} height={32} />
+        {/* <Image src="/git.svg" alt="GitHub Logo" width={32} height={32} /> */}
         {/* <ChevronUp className="size-4" /> */}
       </>
     </SelectPrimitive.Icon>

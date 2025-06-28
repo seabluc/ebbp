@@ -23,7 +23,7 @@ export async function generateMetadata() { return { title: 'Products' } };
 
 export default function ProductsPage() {
   return (
-    <div className="flex flex-col items-center gap-6 md:gap-12">
+    <div className="flex flex-col items-center gap-6 md:gap-12 mb-6 md:mb-12">
       <h1 className="w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md">
         PC Component Products
       </h1>

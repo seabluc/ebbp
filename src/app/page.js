@@ -4,9 +4,9 @@ import Link from "next/link"
 
 export default function Page() {
   return (
-    <div id="" className="flex flex-col gap-6 md:gap-12">
+    <div id="" className="flex flex-col gap-6 md:gap-12 mb-6 md:mb-12">
       <div className="w-full">
-        <HomeGrid />
+        <HomeGrid /> {/* Rename to Hero maybe? */}
       </div>
       {/* <div role="navigation" aria-label="Scroll to top"
         className="w-full flex justify-center pb-4 md:pb-1 text-muted-foreground">

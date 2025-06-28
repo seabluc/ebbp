@@ -7,7 +7,7 @@ import Link from 'next/link'
 // Toast for when a PC part is added? Or only when an issue or incompatibility occurs?
 export default function Page() {
   return (
-    <div id="" className="flex flex-col gap-6 md:gap-12">
+    <div id="" className="flex flex-col gap-6 md:gap-12 mb-6 md:mb-12">
       <header className="w-full h-14 md:h-16 p-1 md:p-4 bg-[#7A8588] text-white text-center text-base md:text-2xl font-bold shadow-md">
         Select Parts to Determine Your PC Build's Compatibility
       </header>

@@ -1,4 +1,4 @@
-// import { gridItems } from "@/lib/data/grid-items";
+// import { gridItems } from "@/lib/data/grid-items"; ... maybe rename this to Hero?
 import {
   Card,
   CardHeader,
