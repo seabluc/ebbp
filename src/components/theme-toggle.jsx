@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
-  // Implement systemTheme and localStorage soon
+  // Implement systemTheme and localStorage soon. For now default to light mode
   const { theme, setTheme } = useTheme();
   const dark = theme === 'dark'
 

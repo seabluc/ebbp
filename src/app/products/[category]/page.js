@@ -42,9 +42,9 @@ export default async function Page({ params }) {
 
   return (
     <div id="" className="flex flex-col items-center gap-6 md:gap-12 mb-6 md:mb-12">
-      <h1 className="w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md">
-        Select Your PC Build's {partName.get(params.category)}
-      </h1>
+      <header className="page-header">
+        <h1>Select Your PC Build's {partName.get(params.category)}</h1>
+      </header>
 
       <section className="w-full flex justify-center">
         <DataTable columns={columns} data={parts} />

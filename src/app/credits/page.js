@@ -11,9 +11,9 @@ import Link from "next/link";
 export default function Credits() {
   return (
     <div id="" className="flex flex-col items-center gap-6 md:gap-12">
-      <h1 className="w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md">
-        Credits
-      </h1>
+      <header className="page-header">
+        <h1>Project Team & Special Thanks</h1>
+      </header>
       <div className="flex flex-col md:flex-row gap-6 md:gap-60">
         <Card className="size-[350px] bg-gray-500 border-2 border-[#DBAE58] rounded-lg mb-4">
           <CardHeader>

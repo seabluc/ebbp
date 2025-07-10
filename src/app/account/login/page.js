@@ -87,7 +87,7 @@ const Login = () => {
 
   return (
     <div id="" className="flex flex-col items-center gap-6 md:gap-12">
-      <header className="w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md">
+      <header className="page-header">
         <h1>Log Into Your Account</h1>
       </header>
       <Card className="w-full p-4 md:p-3 max-w-sm md:max-w-2xl text-center rounded-lg transition-shadow duration-300 shadow-md hover:shadow-lg">

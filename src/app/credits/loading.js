@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function WorkshopLoading() {
+export default function CreditsLoading() {
   return (
     <div id="" className="flex flex-col gap-6 md:gap-12 mb-6 md:mb-12">
       <header className="page-header">

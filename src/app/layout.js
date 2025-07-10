@@ -26,9 +26,9 @@ export default function RootLayout({ children }) {
         >
           <AuthProvider>
             <div className="flex flex-col min-h-screen">
-              {/* <header> ... maybe include the header that almost every page (does my homepage need one..?) has into here? */}
-              <NavMenu />
-              {/* </header> */}
+              <header>
+                <NavMenu />
+              </header>
               <main className="flex-1">
                 {children}
                 <Analytics />

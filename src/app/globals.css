@@ -139,3 +139,9 @@
     --sidebar-ring: oklch(0.439 0 0);
   }
 }
+
+@layer components {
+  .page-header {
+    @apply w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md;
+  }
+}

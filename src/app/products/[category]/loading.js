@@ -21,9 +21,9 @@ import { Loader2 } from "lucide-react";
 export default function ProductsLoading() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 md:gap-12">
-      <h1 className="w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center md:text-2xl font-bold shadow-md">
-        <Skeleton className="h-7 md:h-8 w-[260px] md:w-80 mx-auto bg-white/30" />
-      </h1>
+      <header className="page-header">
+        <h1><Skeleton className="h-7 md:h-8 w-[260px] md:w-80 mx-auto bg-white/30" /></h1>
+      </header>
 
       <section className="w-full md:max-w-7xl px-2 md:px-4">
         <div className="px-1.5 md:px-0 mt-3 flex flex-col md:flex-row items-start md:items-center md:justify-between border-b-1.5 border-gray-200 dark:border-gray-200/50">
@@ -72,12 +72,12 @@ export default function ProductsLoading() {
               <CardContent className="grid grid-cols-2 gap-x-4 gap-y-2">
                 {Array.from({ length: 4 }).map((_, cIdx) => (
                   <div key={cIdx}>
-                    <p className="text-sm text-muted-foreground font-medium">
+                    <div className="text-sm text-muted-foreground font-medium">
                       <Skeleton className="h-3 w-20" />
-                    </p>
-                    <p className="text-sm">
+                    </div>
+                    <div className="text-sm">
                       <Skeleton className="h-4 w-28" />
-                    </p>
+                    </div>
                   </div>
                 ))}
               </CardContent>

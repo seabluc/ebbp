@@ -52,7 +52,7 @@ export const CompatibilityStatus = () => {
   } else if (isCompatible) {
     statusBlock = content("bg-green-500/85 hover:bg-green-500/60", CircleCheck, "No issues or incompatibilities detected.");
   } else if (isDefault) {
-    statusBlock = content("bg-default-400 hover:bg-default-400/95", HelpCircle, "Select a PC Part to get started");
+    statusBlock = content("bg-gray-400/85 hover:bg-gray-400/70", HelpCircle, "Select a PC Part to get started");
   }
 
   return <>{statusBlock}</>;
