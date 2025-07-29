@@ -1,4 +1,11 @@
-import { Cpu, CircuitBoard, MemoryStick, HardDrive, Gpu, PowerSquare } from "lucide-react";
+import {
+  Cpu,
+  CircuitBoard,
+  MemoryStick,
+  HardDrive,
+  Gpu,
+  PowerSquare
+} from "lucide-react";
 import { CpuCooler } from "@/components/Icons";
 
 export const navParts = [
@@ -91,39 +98,39 @@ export const navPartsMobile = [
   },
 ]
 
-export const contactIcons = [
-  {
-    id: 1,
-    img: "/git.svg",
-    alt: "GitHub Logo",
-    link: "https://www.github.com/seabluc"
-  },
-  {
-    id: 2,
-    img: "/email.svg",
-    alt: "Email creator",
-    link: "mailto:seanluc.ghim@gmail.com",
-  }
-];
+// export const contactIcons = [
+//   {
+//     id: 1,
+//     img: "/git.svg",
+//     alt: "GitHub Logo",
+//     link: "https://www.github.com/seabluc"
+//   },
+//   {
+//     id: 2,
+//     img: "/email.svg",
+//     alt: "Email creator",
+//     link: "mailto:seanluc.ghim@gmail.com",
+//   }
+// ];
 
 export const contributors = [
   {
     id: 1,
-    img: "/git.svg",
+    // img: "/git.svg",
     alt: "GitHub Contributor Link",
     name: "khoadtra",
     link: "https://www.github.com/khoadtra"
   },
   {
     id: 2,
-    img: "/git.svg",
+    // img: "/git.svg",
     alt: "GitHub Contributor Link",
     name: "ReaganVu29",
     link: "https://www.github.com/ReaganVu29"
   },
   {
     id: 3,
-    img: "/git.svg",
+    // img: "/git.svg",
     alt: "GitHub Contributor Link",
     name: "seabluc",
     link: "https://www.github.com/seabluc"

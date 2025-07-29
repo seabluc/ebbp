@@ -47,9 +47,9 @@ export default function NavMenu() {
     }
   }, [visible])
   */
-
+  // FIX NAV. CONTAIN ALL THAT SHIT IN ONE NO? AND ALSO APPLY STICKY SO WHEN U SCROLL IT STAYS??
   return (
-    <div className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] shadow-lg">
+    <div className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] dark:bg-[#2F3333] shadow-lg">
       {/*======================= Desktop Navigation =======================*/}
       <div className="hidden md:flex w-full items-center justify-between">
         {/* Left: Home */}
@@ -118,14 +118,14 @@ export default function NavMenu() {
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/account/login" legacyBehavior passHref>
+                <Link href="/login" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     <p className="md:text-lg text-white">Log in</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link href="/account/register" legacyBehavior passHref>
+                <Link href="/register" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                     <p className="md:text-lg text-white">Sign up</p>
                   </NavigationMenuLink>
@@ -181,7 +181,7 @@ export default function NavMenu() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link href="/account/login"><User /></Link>
+              <Link href="/login"><User /></Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>

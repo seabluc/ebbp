@@ -86,7 +86,7 @@ const Login = () => {
   }
 
   return (
-    <div id="" className="flex flex-col items-center gap-6 md:gap-12">
+    <div id="" className="flex flex-col items-center gap-6 md:gap-12 mb-6 md:mb-12">
       <header className="page-header">
         <h1>Log Into Your Account</h1>
       </header>
@@ -146,7 +146,7 @@ const Login = () => {
                 </Label>
               </span>
               <p className="text-sm text-gray-600 dark:text-gray-50">
-                <Link href="/account/forgot-password" className="text-blue-500 hover:underline">Forgot password?</Link>
+                <Link href="/forgot-password" className="text-blue-500 hover:underline">Forgot password?</Link>
               </p>
             </div>
 
@@ -164,7 +164,7 @@ const Login = () => {
         </CardContent>
         <CardFooter className="flex items-center justify-center">
           <p className="text-sm text-gray-600 dark:text-gray-50">
-            Don't have an account? <Link href="/account/register" className="text-blue-500 hover:underline transition-colors duration-200">Register here</Link>.
+            Don't have an account? <Link href="/register" className="text-blue-500 hover:underline transition-colors duration-200">Register here</Link>.
           </p>
         </CardFooter>
       </Card>

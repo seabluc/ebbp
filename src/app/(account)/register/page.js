@@ -148,7 +148,7 @@ const Register = () => {
   }
 
   return (
-    <div id="" className="flex flex-col items-center gap-6 md:gap-12">
+    <div id="" className="flex flex-col items-center gap-6 md:gap-12 mb-6 md:mb-12">
       <header className="page-header">
         <h1>Account Registration</h1>
       </header>
@@ -264,7 +264,7 @@ const Register = () => {
         </CardContent>
         <CardFooter className="flex items-center justify-center">
           <p className="text-sm text-gray-600 dark:text-gray-50">
-            Already have an account? <Link href="/account/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</Link>.
+            Already have an account? <Link href="/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</Link>.
           </p>
         </CardFooter>
       </Card>

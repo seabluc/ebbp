@@ -23,7 +23,7 @@ const HomeGrid = () => {
         </p>
       </h1>
       <div className="md:max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-4 px-5">
-        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 transition-shadow hover:shadow-lg">
+        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
           <CardHeader>
             <CardTitle>EBBP</CardTitle>
             <CardDescription>A smarter way to build your PC.</CardDescription>
@@ -38,7 +38,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-2 md:col-end-4 md:row-start-1 md:row-end-3 transition-shadow hover:shadow-lg">
+        <Card className="flex flex-col md:col-start-2 md:col-end-4 md:row-start-1 md:row-end-3 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
           <CardHeader>
             <CardTitle>WORKSHOP</CardTitle>
             <CardDescription>Where your build comes together.</CardDescription>
@@ -59,13 +59,13 @@ const HomeGrid = () => {
             </div>
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
-            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold shadow-md" asChild>
+            <Button className="border-1 border-black/25 dark:border-white/50 p-4 mt-1 md:p-5 md:mt-2 bg-[#DBAE58] hover:bg-[#E4C577] text-black text-base font-semibold" asChild>
               <Link href="/workshop"><Wrench />Start your Build</Link>
             </Button>
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-5 transition-shadow hover:shadow-lg">
+        <Card className="flex flex-col md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-5 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
           <CardHeader>
             <CardTitle>PRODUCTS</CardTitle>
             <CardDescription>Browse modern parts, pick what fits.</CardDescription>
@@ -92,7 +92,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-2 md:row-end-3 transition-shadow hover:shadow-lg">
+        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-2 md:row-end-3 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
           <CardHeader>
             <CardTitle>GUIDES</CardTitle>
             <CardDescription>Simple explanations for every part.</CardDescription>
@@ -107,7 +107,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-3 md:row-end-4 transition-shadow hover:shadow-lg">
+        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-3 md:row-end-4 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
           <CardHeader>
             <CardTitle>CREDITS</CardTitle>
             <CardDescription>A project built with passsion and purpose.</CardDescription>
@@ -122,7 +122,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-4 md:row-end-5 transition-shadow hover:shadow-lg">
+        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-4 md:row-end-5 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
           <CardHeader>
             <CardTitle>CONTACT</CardTitle>
             <CardDescription>React out or report an issue.</CardDescription>

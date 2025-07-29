@@ -30,7 +30,7 @@ const Profile = () => {
                 fetchUserDetails();
                 fetchSavedBuilds();
             } else {
-                router.push('/account/login'); // Redirect to login page if user is not logged in
+                router.push('/login'); // Redirect to login page if user is not logged in
             }
         }
     }, [user, loading, router]);

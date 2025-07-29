@@ -1,6 +1,5 @@
 import { Cpu, CircuitBoard, MemoryStick, HardDrive, Gpu, PowerSquare } from "lucide-react";
 import { CpuCooler } from "@/components/Icons";
-import Link from "next/link";
 
 export const guidesItems = [
   {
@@ -8,8 +7,8 @@ export const guidesItems = [
     type: 'CPU',
     description: "Think of the CPU as the brain of your computer. It processes instructions and handles all the tasks that make your system responsive and functional. Nothing works without a brain.",
     img: '/ebbp-cpu.png',
-    link: '/guides/cpu',
-    icon: <Cpu size={29} />,
+    path: '/guides/cpu',
+    icon: <Cpu size={24} />,
     topics: [
       {
         id: 'naming',
@@ -48,8 +47,8 @@ export const guidesItems = [
     type: 'Motherboard',
     description: `Think of the motherboard as the spinal cord of a computer. It connects all your PC parts to the brain (CPU), allowing them to work together. It's just a large circuit board that you plug everything into.`,
     img: '/ebbp-mobo.png',
-    link: '/guides/motherboard',
-    icon: <CircuitBoard size={30} />,
+    path: '/guides/motherboard',
+    icon: <CircuitBoard size={25} />,
     topics: [
       {
         id: 'naming',
@@ -82,8 +81,8 @@ export const guidesItems = [
     type: 'Memory',
     description: "Think of RAM as your PC's short-term memory. It stores recent and temporary data that your brain (CPU) uses for active tasks, helping your system multitask and run applications more smoothly.",
     img: '/ebbp-memory.png',
-    link: '/guides/memory',
-    icon: <MemoryStick size={28} />,
+    path: '/guides/memory',
+    icon: <MemoryStick size={24} />,
     topics: [
       {
         id: 'naming',
@@ -110,8 +109,8 @@ export const guidesItems = [
     type: 'Storage',
     description: "Storage is your PC's long-term memory. It holds everything your system needs to boot and run — from the operating system to your games, files, and software. Storage devices come in different forms, like SSDs and HDDs, but all serve the same purpose: keeping your data safe and accessible even when the PC is powered off.",
     img: '/ebbp-ssd.png',
-    link: '/guides/storage',
-    icon: <HardDrive size={28} />,
+    path: '/guides/storage',
+    icon: <HardDrive size={24} />,
     topics: [
       {
         id: 'naming',
@@ -150,8 +149,8 @@ export const guidesItems = [
     type: 'Video Card',
     description: "The video card (or GPU) lets you see stuff. It's responsible for rendering every pixel on your screen. The better the GPU, the better the graphics, which is why gamers go crazy for them.",
     img: '/ebbp-video-card.png',
-    link: '/guides/video-card',
-    icon: <Gpu size={28} />,
+    path: '/guides/video-card',
+    icon: <Gpu size={24} />,
     topics: [
       {
         id: 'naming',
@@ -178,8 +177,8 @@ export const guidesItems = [
     type: 'CPU Cooler',
     description: "The CPU generates heat, and it can get very hot. To keep your brain (CPU) from frying, a CPU cooler is essential. It's especially important if you plan on overclocking, as it helps maintain stable performance during heavy workloads.",
     img: '/ebbp-air-cooler.png',
-    link: '/guides/cpu-cooler',
-    icon: <CpuCooler size={26} />,
+    path: '/guides/cpu-cooler',
+    icon: <CpuCooler size={22} />,
     topics: [
       {
         id: 'naming',
@@ -212,8 +211,8 @@ export const guidesItems = [
     type: 'Power Supply',
     description: "The power supply unit (PSU) supplies your PC with.. power. No PSU means your computer won't turn on.",
     img: '/ebbp-power-supply.png',
-    link: '/guides/power-supply',
-    icon: <PowerSquare size={30} />,
+    path: '/guides/power-supply',
+    icon: <PowerSquare size={25} />,
     topics: [
       {
         id: 'naming',
@@ -246,7 +245,7 @@ export const guidesItems = [
   //   type: 'Case',
   //   description: 'The frame of your PC. A case houses all your components, offering airflow, protection, and a chance to showcase your style.', 
   //   img: '/ebbp-case.png',
-  //   link: '/guides/case',
+  //   path: '/guides/case',
   //   icon: <PcCase size={28} />,
   //   topics : [
   //     { id: '', label: '', content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", href: '' },

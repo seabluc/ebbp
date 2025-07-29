@@ -5,7 +5,7 @@
 @layer base {
   :root {
 
-    --background: 0 0% 100%;
+    --background: 0 0% 97.6%;
 
     --foreground: 222.2 84% 4.9%;
 
@@ -55,21 +55,23 @@
 
     --radius: 0.5rem;
 
-    --sidebar: oklch(0.985 0 0);
+    --sidebar: 0 0% 97.6%;
 
-    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-foreground: 240 5.3% 26.1%;
 
-    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary: 180 6% 32%;
 
-    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-primary-foreground: 0 0% 98%;
 
-    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent: 240 4.8% 95.9%;
 
-    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-accent-foreground: 240 5.9% 10%;
 
-    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-border: 220 13% 91%;
 
-    --sidebar-ring: oklch(0.708 0 0);
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --sidebar-background: 0 0% 100%;
   }
 
   .dark {
@@ -124,24 +126,36 @@
 
     --sidebar: oklch(0.205 0 0);
 
-    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-foreground: 240 4.8% 95.9%;
 
-    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary: 180 5% 20%;
 
-    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent: 240 3.7% 15.9%;
 
-    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
 
-    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-border: 240 3.7% 15.9%;
 
-    --sidebar-ring: oklch(0.439 0 0);
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --sidebar-background: 222.2 84% 4.9%;
   }
 }
 
 @layer components {
   .page-header {
-    @apply w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] text-white text-center text-xl md:text-2xl font-bold shadow-md;
+    @apply w-full h-14 md:h-16 p-[14px] md:p-4 bg-[#7A8588] dark:bg-[#4C5557] text-white text-center text-xl md:text-2xl font-bold shadow-md;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
   }
 }

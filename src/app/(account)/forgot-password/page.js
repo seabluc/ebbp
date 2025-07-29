@@ -81,7 +81,7 @@ const ForgotPassword = () => {
           Reset Password
         </Button>
         <p className="text-sm text-gray-600">
-          Remember your password? <a href="/account/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</a>.
+          Remember your password? <a href="/login" className="text-blue-500 hover:underline transition-colors duration-200">Login here</a>.
         </p>
       </div>
     </div>
