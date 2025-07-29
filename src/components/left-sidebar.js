@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 export function LeftSidebar({ ...props }) {
   return (
     <Sidebar {...props} collapsible="icon">
-      <SidebarContent className="md:mt-9">
+      <SidebarContent className="bg-background">
 
         <SidebarGroup /*className="group-data-[collapsible=icon]:hidden"*/>
           <SidebarGroupContent>
@@ -57,7 +57,7 @@ export function LeftSidebar({ ...props }) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
+        {/*
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -66,7 +66,7 @@ export function LeftSidebar({ ...props }) {
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton className="font-medium">
                       <Computer />
-                      <span>Core PC Components</span>
+                      <span>Example 2</span>
                       <ChevronDown className="transition-transform duration-200 group-data-[state=closed]/collapsible:rotate-90" />
                     </SidebarMenuButton>
                   </CollapsibleTrigger>
@@ -87,7 +87,7 @@ export function LeftSidebar({ ...props }) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-
+        */}
       </SidebarContent>
       {/* <SidebarRail /> */}
     </Sidebar >

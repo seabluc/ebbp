@@ -40,7 +40,7 @@ export default async function Page({ params }) {
   );
   return (
     <SidebarProvider className="relative">
-      <LeftSidebar className="sticky h-auto" />
+      <LeftSidebar className="sticky pt-9 h-auto bg-background" />
       <SidebarInset>
         <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center bg-[#7A8588] dark:bg-[#4C5557] md:bg-background md:dark:bg-background border-b"> {/* make header a component, containing both breadrumbs and sidebartrigger? */}
           <div className="flex items-center gap-2 px-3">
@@ -81,7 +81,7 @@ export default async function Page({ params }) {
           </div>
         </section>
       </SidebarInset>
-      <RightSidebar topic={guidePart} className="hidden md:block sticky h-auto" />
+      <RightSidebar topic={guidePart} className="hidden md:block sticky pt-9 h-auto bg-background" />
     </SidebarProvider>
   );
 };

@@ -23,10 +23,10 @@ export function RightSidebar({ topic, ...props }) {
     <>
       {!isMobile && (
         <Sidebar {...props}>
-          <SidebarHeader className="mt-9 ml-2 p-0 pl-4 font-medium">
+          <SidebarHeader className="p-0 pl-6 font-medium bg-background">
             On this page
           </SidebarHeader>
-          <SidebarContent>
+          <SidebarContent className="bg-background">
             <SidebarGroup>
               <SidebarMenu className="gap-0">
                 {topics.map((topic) => (
