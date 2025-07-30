@@ -23,7 +23,7 @@ const HomeGrid = () => {
         </p>
       </h1>
       <div className="md:max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-4 px-5">
-        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
+        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 bg-white dark:bg-black transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white] dark:hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_gray]">
           <CardHeader>
             <CardTitle>EBBP</CardTitle>
             <CardDescription>A smarter way to build your PC.</CardDescription>
@@ -38,7 +38,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-2 md:col-end-4 md:row-start-1 md:row-end-3 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
+        <Card className="flex flex-col md:col-start-2 md:col-end-4 md:row-start-1 md:row-end-3 bg-white dark:bg-black transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white] dark:hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_gray]">
           <CardHeader>
             <CardTitle>WORKSHOP</CardTitle>
             <CardDescription>Where your build comes together.</CardDescription>
@@ -65,7 +65,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-5 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
+        <Card className="flex flex-col md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-5 bg-white dark:bg-black transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white] dark:hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_gray]">
           <CardHeader>
             <CardTitle>PRODUCTS</CardTitle>
             <CardDescription>Browse modern parts, pick what fits.</CardDescription>
@@ -92,7 +92,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-2 md:row-end-3 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
+        <Card className="flex flex-col md:col-start-1 md:col-end-2 md:row-start-2 md:row-end-3 bg-white dark:bg-black transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white] dark:hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_gray]">
           <CardHeader>
             <CardTitle>GUIDES</CardTitle>
             <CardDescription>Simple explanations for every part.</CardDescription>
@@ -107,7 +107,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-3 md:row-end-4 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
+        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-3 md:row-end-4 bg-white dark:bg-black transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white] dark:hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_gray]">
           <CardHeader>
             <CardTitle>CREDITS</CardTitle>
             <CardDescription>A project built with passsion and purpose.</CardDescription>
@@ -122,7 +122,7 @@ const HomeGrid = () => {
           </CardFooter>
         </Card>
 
-        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-4 md:row-end-5 bg-white transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white]">
+        <Card className="flex flex-col md:col-start-3 md:col-end-4 md:row-start-4 md:row-end-5 bg-white dark:bg-black transition-all duration-300 hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_white] dark:hover:shadow-[12px_12px_12px_rgba(0,0,0,0.1),_-10px_-10px_10px_gray]">
           <CardHeader>
             <CardTitle>CONTACT</CardTitle>
             <CardDescription>React out or report an issue.</CardDescription>

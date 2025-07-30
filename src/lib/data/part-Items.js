@@ -56,3 +56,15 @@ export const partItems = [
   // link: '/products/case',
   // }
 ]
+
+export const partName = new Map([
+  ['cpu', 'CPU'],
+  ['motherboard', 'Motherboard'],
+  ['memory', 'Memory'],
+  ['storage', 'Storage'],
+  ['video-card', 'Video Card'],
+  ['cpu-cooler', 'CPU Cooler'],
+  ['power-supply', 'Power Supply']
+]);
+
+export const validCategories = Array.from(partName.keys());

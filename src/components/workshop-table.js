@@ -17,7 +17,7 @@ import useBuildStore from "@/lib/useBuildStore";
 const WorkshopTable = () => {
   const { cpu, motherboard, memory, storage, videoCard,
     cpuCooler, powerSupply } = useBuildStore();
-  //React.useEffect(() => { useBuildStore.persist.rehydrate(); }, []);
+
   return (
     <div className="w-full md:max-w-7xl md:py-2 md:border-2 rounded-md md:border-gray-200 md:dark:border-gray-200/50">
       {/* ===================== Desktop View (Table) ===================== */}

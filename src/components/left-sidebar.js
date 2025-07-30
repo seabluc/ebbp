@@ -27,7 +27,6 @@ export function LeftSidebar({ ...props }) {
   return (
     <Sidebar {...props} collapsible="icon">
       <SidebarContent className="bg-background">
-
         <SidebarGroup /*className="group-data-[collapsible=icon]:hidden"*/>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -35,7 +34,7 @@ export function LeftSidebar({ ...props }) {
                 <SidebarMenuItem className="sticky">
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton>
-                      <Computer />
+                      <span className=""><Computer /></span>
                       <span className="font-medium">Core PC Components</span>
                       <ChevronDown className="transition-transform duration-200 group-data-[state=closed]/collapsible:rotate-90" />
                     </SidebarMenuButton>

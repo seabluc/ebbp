@@ -32,7 +32,9 @@ export function RightSidebar({ topic, ...props }) {
                 {topics.map((topic) => (
                   <SidebarMenuItem key={topic.id}>
                     <SidebarMenuButton asChild>
-                      <Link href={topic.href} className="whitespace-nowrap text-sidebar-foreground hover:text-sidebar-accent-foreground text-sm">
+                      <Link
+                        href={topic.href}
+                        className="whitespace-nowrap text-sidebar-foreground hover:text-sidebar-accent-foreground text-sm">
                         {topic.label}
                       </Link>
                     </SidebarMenuButton>

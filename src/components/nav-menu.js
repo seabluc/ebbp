@@ -1,5 +1,4 @@
 'use client';
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,10 +13,10 @@ import { navParts, navPartsMobile } from "@/lib/data/nav-items";
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle";
-import { useEffect, useState, forwardRef } from "react";
+import { forwardRef } from "react";
 //import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { Wrench, PcCase, BookOpenText, User } from "lucide-react";
-
+import { Wrench, PackageSearch, PcCase, BookText, BookOpenText, User, LogIn, UserPlus } from "lucide-react";
+import { Separator } from "@/components/ui/separator.jsx";
 export default function NavMenu() {
   /*
   const { scrollY } = useScroll();
@@ -47,7 +46,7 @@ export default function NavMenu() {
     }
   }, [visible])
   */
-  // FIX NAV. CONTAIN ALL THAT SHIT IN ONE NO? AND ALSO APPLY STICKY SO WHEN U SCROLL IT STAYS??
+  // fix nav - try to contain all links in one nav. perhaps make NavMenu sticky too?
   return (
     <div className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] dark:bg-[#2F3333] shadow-lg">
       {/*======================= Desktop Navigation =======================*/}
@@ -56,11 +55,12 @@ export default function NavMenu() {
         <nav className="ml-16 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="group/logo">
                 <Link href="/" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <span className="flex items-center text-white ">
-                      <Logo /><p className="text-2xl font-bold">EBBP</p>
+                    <span className="font-bold text-2xl text-white flex items-center gap-x-1">
+                      <Logo className="transition-transform duration-300 ease-in-out group-hover/logo:animate-pulse" />
+                      EBBP
                     </span>
                   </NavigationMenuLink>
                 </Link>
@@ -70,18 +70,26 @@ export default function NavMenu() {
         </nav>
 
         {/* Center: Workshop, Products, Guides, Credits */}
-        <nav className="ml-32 flex items-center gap-2">
+        <nav className="ml-6 flex items-center gap-2">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="group/workshop">
                 <Link href="/workshop" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="text-xl text-white">Workshop</p>
+                  <NavigationMenuLink className={`${navigationMenuTriggerStyle()}`}>
+                    <span className="text-xl text-white flex items-center gap-x-1.5">
+                      <Wrench className="size-[22px] transition-transform duration-300 ease-in-out group-hover/workshop:rotate-90" />
+                      Workshop
+                    </span>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger><p className="text-xl text-white">Products</p></NavigationMenuTrigger>
+              <NavigationMenuItem className="group/products">
+                <NavigationMenuTrigger>
+                  <span className="text-xl text-white flex items-center gap-x-1.5">
+                    <PackageSearch className="size-[22px] transition-transform duration-500 group-hover/products:scale-125" />
+                    Products
+                  </span>
+                </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid grid-cols-1 w-[400px] gap-y-2 p-2 bg-[#4D585B]">
                     {navParts.map((part) => (
@@ -95,42 +103,54 @@ export default function NavMenu() {
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link /*href="/guides"*/ href="/guides/cpu" legacyBehavior passHref>
+              <NavigationMenuItem className="group/guides">
+                <Link href="/guides/cpu" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="md:text-xl text-white">Guides</p>
+                    <span className="relative text-xl text-white flex items-center gap-x-1.5">
+                      <BookText className="size-[22px] transition-opacity duration-200 ease-in-out group-hover/guides:opacity-0 group-hover/guides:-rotate-6" />
+                      <BookOpenText className="size-[22px] absolute transition-opacity duration-200 ease-in-out opacity-0 group-hover/guides:opacity-100" />
+                      Guides
+                    </span>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
+              {/* <NavigationMenuItem>
                 <Link href="/credits" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="md:text-xl text-white">Credits</p>
+                    <p className="text-xl text-white">Credits</p>
                   </NavigationMenuLink>
                 </Link>
-              </NavigationMenuItem>
+              </NavigationMenuItem> */}
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
 
         {/* Right: Log in, Register, Dark Mode */}
-        <nav className="mr-16 flex items-center gap-2">
+        <nav className="mr-16 flex items-center">
           <NavigationMenu>
             <NavigationMenuList>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="group/login">
                 <Link href="/login" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="md:text-lg text-white">Log in</p>
+                    <span className="text-lg text-white flex items-center gap-x-1.5">
+                      <LogIn className="size-5 transition-transform duration-300 ease-in-out group-hover/login:translate-x-1" />
+                      Log in
+                    </span>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
+              <NavigationMenuItem className="group/register">
                 <Link href="/register" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <p className="md:text-lg text-white">Sign up</p>
+                    <span className="text-lg text-white flex items-center gap-x-1.5">
+                      <User className="size-5 transition-opacity duration-150 ease-in-out group-hover/register:opacity-0 group-hover/register:-translate-x-0.5" />
+                      <UserPlus className="size-5 absolute transition-opacity duration-150 ease-in-out opacity-0 group-hover/register:opacity-100" />
+                      Sign up
+                    </span>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
+              <Separator orientation="vertical" className="h-8 bg-white/70 dark:bg-white/50" />
               <NavigationMenuItem className={navigationMenuTriggerStyle()}>
                 <ThemeToggle />
               </NavigationMenuItem>

@@ -1,4 +1,5 @@
 // move this page.js to app/products/,and move my route handlers into [category] and [id]?
+import { partName, validCategories } from "@/lib/data/part-Items";
 import { notFound } from "next/navigation";
 import { DataTable } from "@/components/data-table";
 import { productControllers } from "@/controllers";
@@ -9,26 +10,12 @@ import { ArrowUpToLine } from "lucide-react";
 export const dynamic = "force-dynamic"; // look into revalidating or if i want
 // default SSG (static — prerender at build time) as opposed to SSR (dynamic — rendered on request)?
 
-const partName = new Map([
-  ['cpu', 'CPU'],
-  ['motherboard', 'Motherboard'],
-  ['memory', 'Memory'],
-  ['storage', 'Storage Drive'],
-  ['video-card', 'Video Card'],
-  ['cpu-cooler', 'CPU Cooler'],
-  ['power-supply', 'Power Supply Unit']
-]);
-
 export async function generateMetadata({ params }) {
   return { title: `Products—${partName.get(params.category)}` };
 }
 
 export default async function Page({ params }) {
   // check validity of product type
-  const validCategories = [
-    'cpu', 'motherboard', 'memory', 'storage',
-    'video-card', 'cpu-cooler', 'power-supply'
-  ];
   if (!validCategories.includes(params.category)) return notFound();
 
   // Artificial delay for skeleton testing

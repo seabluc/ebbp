@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Page() {
   return (
-    <div id="" className="flex flex-col gap-6 md:gap-12 mb-6 md:mb-12 bg-[#f9f9f9]">
+    <div id="" className="flex flex-col gap-6 md:gap-12 mb-6 md:mb-12">
       <div className="w-full">
         <HomeGrid /> {/* Rename to Hero maybe? */}
       </div>
