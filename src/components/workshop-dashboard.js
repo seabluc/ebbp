@@ -7,6 +7,7 @@ import { Wattage } from '@/lib/build-summary/build-summary'
 import { CompatibilityStatus } from './compatibility-status'
 import { Save, Trash2, History, PenLine } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import { toast } from 'sonner'
 
 const WorkshopDashboard = () => {
   const { clearBuild } = useBuildStore()
@@ -42,7 +43,10 @@ const WorkshopDashboard = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  onClick={clearBuild}
+                  onClick={() => {
+                    clearBuild();
+                    toast("Build cleared", { description: "All selected parts have been removed" })
+                  }}
                   className="bg-gray-300 font-semibold text-base px-3 py-2 md:px-4 md:py-2.5 rounded-lg hover:bg-red-500/90 focus:ring-2 text-black border-black/15 border-1">
                   <div className="flex justify-center items-center gap-1 md:gap-1.5">
                     <Trash2 size={20} className="min-w-5 min-h-5" />

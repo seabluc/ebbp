@@ -12,12 +12,15 @@ export default function Page() {
       <header className="page-header">
         <h1>Select Parts to Check Compatibility</h1>
       </header>
+
       <section className="w-full flex justify-center">
         <WorkshopDashboard />
       </section>
+
       <section className="w-full flex justify-center">
         <WorkshopTable />
       </section>
+
       <section id="audit" className="w-full flex justify-center border-t-3 border-gray-200 dark:border-gray-200/50 md:border-none py-2 md:p-0">
         <CompatibilityAudit />
       </section>

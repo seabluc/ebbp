@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import {
   BuildTests,
   BuildStatus
 } from '@/lib/build-summary'
+import { Skeleton } from "./ui/skeleton";
+import { toast } from "sonner";
 
 export default function WorkshopRow({ label, component, index, isAdditional/*, background = ''*/ }) {
   const { cpu, motherboard, memory, storage,
@@ -93,6 +95,8 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
 
   const { background, icon/*, ariaLabel*/ } = compatibilityStatus;
 
+  const [loading, setLoading] = useState(true);
+
   // Fix productName later... refer to columns files
   const productName = component?.part?.name
   //?.replace(/Processor|Solid State Drive|Internal Hard Drive/g, "")
@@ -129,6 +133,8 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
     }
   };
 
+
+
   if (isAdditional) {
     return (
       <TableRow className={`${background} md:h-20 h-12 border-y-1.5 border-black/25 dark:border-white/50`}>
@@ -162,7 +168,23 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
       <TableCell className="p-2">
         {component.part ? (
           <span className="flex flex-row items-center gap-2">
-            <Image src={component?.part?.image} alt={label} width={70} height={70} className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
+            <span>
+              {/* Maybe wrap Image in a Suspense? */}
+              {loading && <Skeleton className="size-[70px] rounded-xl" />}
+              <Image
+                src={component?.part?.image}
+                alt={label}
+                width={70}
+                height={70}
+                loading="lazy"
+                onLoad={() => setLoading(false)}
+                className={`border-2 border-black/25 dark:border-white/50 rounded-xl object-contain
+                  ${loading ? "opacity-0" : "opacity-100"}`}
+              // className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain"
+              />
+              {/* interesting.. instead of Skeleton appearing the entire row is instead showing the <Link> component below 
+              it does not know that component.part exists... look into this. */}
+            </span>
             <span className="text-base font-medium">{productName}</span>
           </span>
         ) : (
@@ -182,7 +204,10 @@ export default function WorkshopRow({ label, component, index, isAdditional/*, b
       </TableCell>
       <TableCell className="p-2">
         <button className="block text-[20px] transform transition-transform duration-250 ease-in-out hover:scale-110"
-          onClick={handleRemove}>
+          onClick={() => {
+            handleRemove();
+            //toast(`${label} removed from build`);
+          }}>
           🗑️
         </button>
       </TableCell>

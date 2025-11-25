@@ -50,26 +50,26 @@ const Footer = () => {
           href="https://vercel.com/?utm_source=ebbp"
           target="_blank"
           rel="noopener noreferrer"
-          className="">
-          <img
+          className="md:h-14 md:w-56">
+          <Image
             src="/powered-by-vercel.svg"
             alt="Vercel Logo"
-            // width={144}
-            // height={96}
-            className=""
+            width={212}
+            height={44}
+            className="h-11 w-56 md:h-full md:w-auto object-cover md:object-contain rounded-xl"
           />
         </a>
         <a
           href="https://www.digitalocean.com/?refcode=2cffefcdc38a&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"
           target="_blank"
           rel="noopener noreferrer"
-          className="">
-          <img
+          className="md:h-14 md:w-56">
+          <Image
             src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg"
             alt="DigitalOcean Referral Badge"
-            // width={144}
-            // height={96}
-            className="w-[212px] h-12 object-cover rounded-xl"
+            width={200}
+            height={65}
+            className="h-14 w-56 md:h-full object-cover rounded-xl"
           />
         </a>
       </div>

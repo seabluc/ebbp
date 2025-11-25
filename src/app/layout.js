@@ -6,6 +6,7 @@ import 'firebaseui/dist/firebaseui.css';
 import { AuthProvider } from '@/lib/firebase/authContext';
 import NavMenu from "@/components/nav-menu";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
                 {children}
                 <Analytics />
               </main>
+              <Toaster position="bottom-left" />
               <Footer />
             </div>
           </AuthProvider>

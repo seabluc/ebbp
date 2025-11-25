@@ -69,6 +69,6 @@ set function to return all selected PC parts
 somewhere in here we handle removeing, remove, and updating a particular PC part
 and lastly the logic behind determining compatibility status will likely be here too...
 
-persist the Store using zustand/middle ware like 'perist' to let build survive page reload
+persist the Store using zustand/middleware like 'persist' to let build survive page reload
 zustand works in both Client and Server components, but stores are typicall used in client components
 */

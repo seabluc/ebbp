@@ -1,4 +1,3 @@
-// import { gridItems } from "@/lib/data/grid-items"; ... maybe rename this to Hero?
 import {
   Card,
   CardHeader,
@@ -10,6 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import workshopCardImg from "@/../public/workshop-card-img.png";
+import productsCardImg from "@/../public/products-card-img.png"
 import { Wrench, PackageSearch, BookOpenText, Handshake, Mail } from "lucide-react";
 
 const HomeGrid = () => {
@@ -49,11 +50,13 @@ const HomeGrid = () => {
             </p>
             <div className="mt-4 max-w-[400px] md:max-w-[600px] mx-auto">
               <Image
-                src="/workshop-card-img.png"
+                src={workshopCardImg}
                 alt="Workshop Example Image"
                 width={1332}
                 height={1332}
-                quality={100}
+                quality={90}
+                loading="lazy"
+                placeholder="blur"
                 className="rounded-lg w-full h-auto shadow-xl"
               />
             </div>
@@ -76,11 +79,13 @@ const HomeGrid = () => {
             </p>
             <div className="mt-4 max-w-[400px] md:max-w-[600px] mx-auto">
               <Image
-                src="/products-card-img.png"
+                src={productsCardImg}
                 alt="Workshop Example Image"
                 width={1266}
                 height={1266}
-                quality={100}
+                quality={90}
+                loading="lazy"
+                placeholder="blur"
                 className="rounded-lg w-full h-auto shadow-xl"
               />
             </div>
@@ -146,22 +151,3 @@ const HomeGrid = () => {
 };
 
 export default HomeGrid;
-
-{/*gridItems.map((item) => (
-          <Card key={item.id} className={`${item.className}`}>
-            <CardHeader>
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
-            </CardHeader>
-            <Button asChild variant="link">
-              <Link href={item.link}>click me</Link>
-            </Button>
-            <CardContent className="flex-1">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              <span>might move item description here
-                what is going on with the className though?<br />
-                {item.className}</span>
-            </CardContent>
-            <CardFooter className="flex justify-center border-t-1.5 pt-3">footer</CardFooter>
-          </Card>
-        ))*/}

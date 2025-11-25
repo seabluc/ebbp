@@ -14,38 +14,12 @@ import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { ThemeToggle } from "./theme-toggle";
 import { forwardRef } from "react";
-//import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import { Wrench, PackageSearch, PcCase, BookText, BookOpenText, User, LogIn, UserPlus } from "lucide-react";
 import { Separator } from "@/components/ui/separator.jsx";
+import Image from "next/image.js";
+import EBBPLogo from "@/../public/ebbp-logo.png";
 export default function NavMenu() {
-  /*
-  const { scrollY } = useScroll();
-  const [visible, setVisible] = useState(false);
 
-  useMotionValueEvent(scrollY, 'change', (currentY) => {
-    if (currentY === "number") {
-      const direction = current - scrollY.getPrevious();
-      if (scrollY.get() < 0.05) {
-        setVisible(false);
-      } else {
-        if (direction < 0) {
-          setVisible(true);
-        } else {
-          setVisible(false);
-        }
-      }
-    }
-  });
-
-  useEffect(() => {
-    if (visible) {
-      const timeout = setTimeout(() => {
-        setVisible(false);
-      }, 2000);
-      return () => clearTimeout(timeout);
-    }
-  }, [visible])
-  */
   // fix nav - try to contain all links in one nav. perhaps make NavMenu sticky too?
   return (
     <div className="w-full h-14 md:h-16 flex items-center justify-between px-4 bg-[#4D585B] dark:bg-[#2F3333] shadow-lg">
@@ -58,8 +32,15 @@ export default function NavMenu() {
               <NavigationMenuItem className="group/logo">
                 <Link href="/" legacyBehavior passHref>
                   <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    <span className="font-bold text-2xl text-white flex items-center gap-x-1">
-                      <Logo className="transition-transform duration-300 ease-in-out group-hover/logo:animate-pulse" />
+                    <span className="font-bold text-2xl text-white flex items-center gap-x-1.5">
+                      <Image
+                        src={EBBPLogo}
+                        alt="EBBP Logo"
+                        width={32}
+                        height={32}
+                        loading="eager"
+                        className="size-auto transition-transform duration-300 ease-in-out group-hover/logo:animate-pulse"
+                      />
                       EBBP
                     </span>
                   </NavigationMenuLink>
@@ -164,8 +145,18 @@ export default function NavMenu() {
         <NavigationMenuList>
           <NavigationMenuItem className="flex items-center">
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <Link href="/" className="flex items-center pl-0"><Logo />
-                <p className="text-xl font-bold">EBBP</p>
+              <Link href="/" className="flex items-center justify-center">
+                <span className="font-bold text-2xl text-white flex items-center gap-x-1.5">
+                  <Image
+                    src={EBBPLogo}
+                    alt="EBBP Logo"
+                    width={32}
+                    height={32}
+                    loading="eager"
+                    className="size-7 transition-transform duration-300 ease-in-out group-hover/logo:animate-pulse"
+                  />
+                  EBBP
+                </span>
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>

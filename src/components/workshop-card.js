@@ -152,7 +152,13 @@ const WorkshopCard = ({ label, component, index, isAdditional }) => {
       <CardContent className={`${background} border-black/15 dark:border-white/30 border-0.5 pt-2 pl-5`}>
         {component.part ? (
           <div className="flex flex-row items-center gap-4">
-            <Image src={component?.part?.image} alt={label} width={60} height={60} className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
+            <Image
+              src={component?.part?.image}
+              alt={label}
+              width={60}
+              height={60}
+              loading="lazy"
+              className="border-2 border-black/25 dark:border-white/50 rounded-xl object-contain" />
             <span className="text-base font-semibold">{productName}</span>
           </div>
         ) : (

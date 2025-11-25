@@ -12,7 +12,9 @@
     "migrate:rollback:all": "dotenv -- sequelize-cli db:migrate:undo:all",
     "seed": "dotenv -- sequelize-cli db:seed:all",
     "seed:rollback": "dotenv -- sequelize-cli db:seed:undo",
-    "seed:rollback:all": "dotenv -- sequelize-cli db:seed:undo:all"
+    "seed:rollback:all": "dotenv -- sequelize-cli db:seed:undo:all",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.11",
@@ -45,17 +47,26 @@
     "react-firebase-hooks": "^5.1.1",
     "sequelize": "^6.37.4",
     "server-only": "^0.0.1",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.0",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^11.0.3",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "18.3.20",
     "csv-parser": "^3.2.0",
     "dotenv-cli": "^8.0.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "14.2.14",
+    "eslint-plugin-jest-dom": "^5.5.0",
+    "eslint-plugin-testing-library": "^7.13.4",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "jest-localstorage-mock": "^2.4.26",
     "postcss": "^8",
     "sequelize-cli": "^6.6.2",
     "tailwindcss": "^3.4.13"

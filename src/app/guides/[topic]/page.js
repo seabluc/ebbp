@@ -28,8 +28,8 @@ export default async function Page({ params }) {
     <SidebarProvider className="relative">
       <LeftSidebar className="sticky pt-6 h-auto bg-background" />
       <SidebarInset>
-        <header className="flex md:hidden sticky top-0 h-12 shrink-0 items-center bg-[#7A8588]/[96%] dark:bg-[#4C5557]/[96%] md:bg-background md:dark:bg-background border-b">
-          <span className="flex items-center pl-4 gap-x-0.5 text-white text-lg"><SidebarTrigger />Menu</span>
+        <header className="flex md:hidden sticky top-0 h-14 shrink-0 items-center bg-[#7A8588]/[96%] dark:bg-[#4C5557]/[96%] md:bg-background md:dark:bg-background border-b shadow-md">
+          <span className="flex items-center pl-4 gap-x-0.5 text-white text-xl font-bold"><SidebarTrigger />Menu</span>
         </header>
         <div className="flex flex-col md:items-center">
           <section className="md:max-w-2xl mt-7 md:mt-8 mb-10 px-5 flex flex-col gap-8 md:gap-10">

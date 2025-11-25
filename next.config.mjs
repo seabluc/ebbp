@@ -3,7 +3,7 @@ const nextConfig = {
   webpack: (config) => {
     config.ignoreWarnings = [
       {
-        module: /sequelize/, // A RegExp 
+        module: /sequelize/,
       },
     ];
     return config;
