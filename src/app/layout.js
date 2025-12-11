@@ -21,9 +21,9 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className}`}>
         <ThemeProvider
           attribute="class"
-          enableSystem={false}
-          defaultTheme="light"
-          storageKey={null}
+          enableSystem={true}
+          defaultTheme="system"
+          storageKey="theme"
         >
           <AuthProvider>
             <div className="flex flex-col min-h-screen">

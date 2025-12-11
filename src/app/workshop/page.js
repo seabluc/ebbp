@@ -24,6 +24,8 @@ export default function Page() {
       <section id="audit" className="w-full flex justify-center border-t-3 border-gray-200 dark:border-gray-200/50 md:border-none py-2 md:p-0">
         <CompatibilityAudit />
       </section>
+
+
       {/* <div role="navigation" aria-label="Scroll to top"
         className="w-full flex justify-center pb-4 md:pb-1 text-muted-foreground">
         <Link href="#">
@@ -32,6 +34,8 @@ export default function Page() {
           </span>
         </Link>
       </div> */}
+
+
     </div>
   )
 }

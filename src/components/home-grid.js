@@ -31,7 +31,7 @@ const HomeGrid = () => {
           </CardHeader>
           <CardContent className="flex-1">
             <p>
-              EvenBabiesBuildPCs (EBBP) is a modern PC building tool designed to teach and empower. Unlike traditional part pickers, EBBP encourages learning through experimentation—even if it means selecting incompatible parts. With detailed compatibility status checks and clear feedback, EBBP guides PC builders of all levels toward confident decision-making.
+              EvenBabiesBuildPCs (EBBP) is a modern PC building tool designed to teach and empower. Unlike traditional part pickers, EBBP encourages learning through experimentation, even if it means selecting incompatible parts. With detailed compatibility status checks and clear feedback, EBBP guides PC builders of all levels toward confident decision-making.
             </p>
           </CardContent>
           <CardFooter className="flex justify-center border-t-1.5 pt-3">
@@ -46,7 +46,7 @@ const HomeGrid = () => {
           </CardHeader>
           <CardContent className="flex-1">
             <p className="border-b-1.5 pb-2 md:pb-4">
-              The Workshop is where your build takes shape. Here, you can view and manage every part you've selected in one organized space. EBBP provides summaries of your current build’s progress, including what's missing, what’s compatible, and issues that may need a second look. For those who want deeper insights, a detailed compatibility review breaks everything down—helping you catch issues and make informed adjustments before you finalize your setup.
+              The Workshop is where your build takes shape. Here, you can view and manage every part you've selected in one organized space. EBBP provides summaries of your current build’s progress, including what's missing, what’s compatible, and issues that may need a second look. For those who want deeper insights, a detailed compatibility auditer reviews your build, helping you catch issues and make informed adjustments before you finalize your setup.
             </p>
             <div className="mt-4 max-w-[400px] md:max-w-[600px] mx-auto">
               <Image
@@ -75,7 +75,7 @@ const HomeGrid = () => {
           </CardHeader>
           <CardContent className="flex-1">
             <p className="border-b-1.5 pb-2 md:pb-4">
-              Explore essential PC components across all major categories, including CPU, motherboard, memory, storage, GPU, cooling, and power supply units. EBBP emphasizes modern parts (AM4, LGA1700+) to keep you and your build up-to-date. You're free to select any combination of parts—EBBP doesn’t restrict you to only “compatible” options. Compatibility checks come after, not before, to encourage learning through real decision-making.
+              Explore essential PC components across all major categories, including CPU, motherboard, memory, storage, GPU, cooling, and power supply units. EBBP emphasizes modern parts (AM4, LGA1700+) to keep you and your build up-to-date. EBBP doesn’t restrict you to only “compatible” options; therefore, you're free to select any combination of parts. Compatibility checks come after, not before, to encourage learning through real decision-making.
             </p>
             <div className="mt-4 max-w-[400px] md:max-w-[600px] mx-auto">
               <Image
