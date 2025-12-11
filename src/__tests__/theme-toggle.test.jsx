@@ -58,17 +58,17 @@ describe("ThemeToggle", () => {
     const user = userEvent.setup();
     const btn = screen.getByRole("button");
 
-    expect(document.documentElement.classList.contains("light")).toBe(true);
+    expect(document.documentElement).toHaveClass("light");
 
     await user.click(btn);
-    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(document.documentElement).toHaveClass("dark");
   });
 
   it("initializes theme from localStorage on mount", () => {
     localStorage.setItem("theme", "dark");
     renderWithTheme(<ThemeToggle />);
 
-    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    expect(document.documentElement).toHaveClass("dark");
   });
 
   // persists new theme to lcoalStorage when toggled too
